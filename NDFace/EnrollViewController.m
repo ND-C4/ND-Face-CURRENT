@@ -16,6 +16,49 @@
 
 @implementation EnrollViewController
 
+- (void)sendPic:(UIImage *)facePicture //added 3-25-14 to test getting response from web service
+{
+    NSData *facePictureData = UIImagePNGRepresentation(facePicture);
+    
+    NSString *url = @"http://cheepnis.cse.nd.edu:5000/enroll/666/1";
+    // Argument 2 ("666" for testing) is user ID
+    // Argument 3 ("1" for testing) is picture's ID for that user ID
+    
+    NSURL *reqUrl = [[NSURL alloc] initWithString:url];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:reqUrl];
+    NSError *error;
+    NSURLResponse *response;
+    [request setHTTPMethod:@"POST"];
+    NSString *boundary = @"foo";
+    
+    NSMutableData *body = [NSMutableData data];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Disposition: form-data; name=\"image\"; filename=\"Test.png\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[NSData dataWithData:facePictureData]];
+    
+    NSLog(@"%@",[body description]);
+   
+    [request setHTTPBody:body];
+
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    if (error) {
+        // Process any errors
+        NSString *errorStr = [NSString stringWithString:[error description]];
+        NSLog(@"ERROR: Unable to make connection to server; %@", errorStr);
+    }
+    
+    NSStringEncoding responseEncoding = NSUTF8StringEncoding;
+    if ([response textEncodingName]) {
+        CFStringEncoding cfStringEncoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)[response textEncodingName]);
+        if (cfStringEncoding != kCFStringEncodingInvalidId) {
+            responseEncoding = CFStringConvertEncodingToNSStringEncoding(cfStringEncoding);
+        }
+    }
+    NSString *dataString = [[NSString alloc] initWithData:data encoding:responseEncoding];
+    
+    NSLog(@"return data %@", dataString);
+}
 
 -(IBAction)TakePhoto
 {
@@ -84,7 +127,7 @@
 -(void)markFaces:(UIImageView *)facePicture
 {
     // draw a CI image with the previously loaded face detection picture
-    CIImage* image = [CIImage imageWithCGImage:facePicture.image.CGImage];
+    CIImage* lImage = [CIImage imageWithCGImage:facePicture.image.CGImage];
     // create a face detector - since speed is not an issue we'll use a high accuracy
     // detector
     CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeFace
@@ -92,14 +135,14 @@
     
     
     // create an array containing all the detected faces from the detector
-    NSArray* features = [detector featuresInImage:image];
-    NSLog(@"After Array is createe");
+    NSArray* features = [detector featuresInImage:lImage];
+    NSLog(@"After Array is created");
     
     for(CIFaceFeature* faceFeature in features)
     {
         CGRect newBounds = CGRectMake(faceFeature.bounds.origin.x, facePicture.image.size.height - faceFeature.bounds.origin.y, faceFeature.bounds.size.width, -faceFeature.bounds.size.height);
         UIImageWriteToSavedPhotosAlbum([self imageByCropping:facePicture.image toRect:newBounds],nil, nil, nil);
-        
+        [self sendPic:[self imageByCropping:facePicture.image toRect:newBounds]];
     }
     NSLog(@"out of for loop");
 }
