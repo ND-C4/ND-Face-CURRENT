@@ -29,7 +29,7 @@
     NSError *error;
     NSURLResponse *response;
     [request setHTTPMethod:@"POST"];
-    NSString *boundary = @"foo";
+    NSString *boundary = @"foo";  // test data to tease out response from server
     
     NSMutableData *body = [NSMutableData data];
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];

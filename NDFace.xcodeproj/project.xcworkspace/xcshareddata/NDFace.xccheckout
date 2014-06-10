@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>96A651D4-BE35-4E23-AF5F-24636C0EDE64</string>
+	<string>F64C9395-BFE6-4D65-A2D7-1761C33BC45E</string>
 	<key>IDESourceControlProjectName</key>
 	<string>NDFace</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>D97AF70B-DF15-438C-82B0-FF9BBDF86550</key>
-		<string>https://github.com/ND-C4/ND-Face-v2.git</string>
+		<key>4E825B84-5EB8-49C8-A5FA-E19157DD9669</key>
+		<string>https://github.com/ND-C4/ND-Face-CURRENT.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>NDFace.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>D97AF70B-DF15-438C-82B0-FF9BBDF86550</key>
+		<key>4E825B84-5EB8-49C8-A5FA-E19157DD9669</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/ND-C4/ND-Face-v2.git</string>
+	<string>https://github.com/ND-C4/ND-Face-CURRENT.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>D97AF70B-DF15-438C-82B0-FF9BBDF86550</string>
+	<string>4E825B84-5EB8-49C8-A5FA-E19157DD9669</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>D97AF70B-DF15-438C-82B0-FF9BBDF86550</string>
+			<string>4E825B84-5EB8-49C8-A5FA-E19157DD9669</string>
 			<key>IDESourceControlWCCName</key>
-			<string>ND-Face-v2</string>
+			<string>ND-Face-CURRENT</string>
 		</dict>
 	</array>
 </dict>
