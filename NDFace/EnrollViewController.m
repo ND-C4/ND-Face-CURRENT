@@ -9,6 +9,7 @@
 #import "EnrollViewController.h"
 #import <CoreImage/CoreImage.h>
 #import <QuartzCore/QuartzCore.h>
+#import <AFNetworking.h>
 
 @interface EnrollViewController ()
 
@@ -24,53 +25,72 @@
     // Argument 2 ("666" for testing) is user ID
     // Argument 3 ("1" for testing) is picture's ID for that user ID
     
-    NSURL *reqUrl = [[NSURL alloc] initWithString:url];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:reqUrl];
-    NSError *error;
-    NSURLResponse *response;
-    [request setHTTPMethod:@"POST"];
-    NSString *boundary = @"foo";
+    //NSDictionary *parameters = @{@"image": facePictureData};
     
-    NSMutableData *body = [NSMutableData data];
-    [body appendData:[[NSString stringWithFormat:@"Content-Type: multipart/form-data; boundary=%@\r\n\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-
-    // first boundary
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
     
-    // header "Content-Disposition"
-    [body appendData:[@"Content-Disposition: form-data; name=\"image\"; filename=\"Test.png\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-
-    // boundary between header and body
-    //[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-
-    // body (image data)
-    [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[NSData dataWithData:facePictureData]];
-
-    // exit boundary
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestManager POST:url
+              parameters:nil //parameters
+constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
+    [formData appendPartWithFileData:facePictureData name:@"image" fileName:@"test.png" mimeType:@"application/octet-stream"];
+}
+                 success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+                     NSLog(@"success! %@",responseObject );
+                 }
+                 failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+                     NSLog(@"fail! %@", error);
+                 }
+     
+     ];
     
-    NSLog(@"%@",[body description]);
     
-    [request setHTTPBody:body];
-    
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    if (error) {
-        // Process any errors
-        NSString *errorStr = [NSString stringWithString:[error description]];
-        NSLog(@"ERROR: Unable to make connection to server; %@", errorStr);
-    }
-    
-    NSStringEncoding responseEncoding = NSUTF8StringEncoding;
-    if ([response textEncodingName]) {
-        CFStringEncoding cfStringEncoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)[response textEncodingName]);
-        if (cfStringEncoding != kCFStringEncodingInvalidId) {
-            responseEncoding = CFStringConvertEncodingToNSStringEncoding(cfStringEncoding);
-        }
-    }
-    NSString *dataString = [[NSString alloc] initWithData:data encoding:responseEncoding];
-    
-    NSLog(@"return data %@", dataString);
+    //     NSURL *reqUrl = [[NSURL alloc] initWithString:url];
+    //    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:reqUrl];
+    //    NSError *error;
+    //    NSURLResponse *response;
+    //    [request setHTTPMethod:@"POST"];
+    //    NSString *boundary = @"foo";
+    //
+    //    NSMutableData *body = [NSMutableData data];
+    //    [body appendData:[[NSString stringWithFormat:@"Content-Type: multipart/form-data; boundary=%@\r\n\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    //
+    //    // first boundary
+    //    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    //
+    //    // header "Content-Disposition"
+    //    [body appendData:[@"Content-Disposition: form-data; name=\"image\"; filename=\"Test.png\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    //
+    //    // boundary between header and body
+    //    //[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    //
+    //    // body (image data)
+    //    [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    //    [body appendData:[NSData dataWithData:facePictureData]];
+    //
+    //    // exit boundary
+    //    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    //
+    //    NSLog(@"%@",[body description]);
+    //
+    //    [request setHTTPBody:body];
+    //
+    //    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    //    if (error) {
+    //        // Process any errors
+    //        NSString *errorStr = [NSString stringWithString:[error description]];
+    //        NSLog(@"ERROR: Unable to make connection to server; %@", errorStr);
+    //    }
+    //
+    //    NSStringEncoding responseEncoding = NSUTF8StringEncoding;
+    //    if ([response textEncodingName]) {
+    //        CFStringEncoding cfStringEncoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)[response textEncodingName]);
+    //        if (cfStringEncoding != kCFStringEncodingInvalidId) {
+    //            responseEncoding = CFStringConvertEncodingToNSStringEncoding(cfStringEncoding);
+    //        }
+    //    }
+    //    NSString *dataString = [[NSString alloc] initWithData:data encoding:responseEncoding];
+    //    
+    //    NSLog(@"return data %@", dataString);
 }
 
 //- (void)sendPic:(UIImage *)facePicture //added 3-25-14 to test getting response from web service
