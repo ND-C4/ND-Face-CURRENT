@@ -28,6 +28,7 @@
     //NSDictionary *parameters = @{@"image": facePictureData};
     
     AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
+    requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [requestManager POST:url
               parameters:nil //parameters
