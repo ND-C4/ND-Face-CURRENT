@@ -14,7 +14,7 @@
     UIImagePickerController *picker2;
     UIImage *image;
     IBOutlet UIImageView *imageView;
-    
+    BOOL didSetImage;                   // flag to determine if picture has been chosen 
 
     
     

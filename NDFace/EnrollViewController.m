@@ -31,7 +31,7 @@
     requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [requestManager POST:url
-              parameters:nil //parameters
+              parameters:@{@"firstName":firstNameText.text,@"lastName":lastNameText.text,@"emailAddress":eMailText.text,@"NetID":netIDText.text} // added parameters to send metadata; need to confim with Pat that this is received properly
 constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     [formData appendPartWithFileData:facePictureData name:@"image" fileName:@"test.png" mimeType:@"application/octet-stream"];
 }
@@ -152,6 +152,8 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
 
     [self presentViewController:picker animated:YES completion:Nil];
     
+    
+    
 }
 
 -(IBAction)ChooseExisting
@@ -174,13 +176,27 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     eMailText.text = @"";
     netIDText.text = @"";
     imageView.image =[UIImage imageNamed:@"man-silhouette.png"];
+    didSetImage = NO;   // reset flag that indicates image has been selected
     
 }
 
 - (IBAction)submitButton:(id)sender {
-    UIImage* imageToSave = [imageView image];
-    UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
-    [self markFaces:imageView];
+    // ensure all requisite fields have been completed
+    if (![firstNameText.text isEqualToString:@""] &&
+        ![lastNameText.text isEqualToString:@""] &&
+        ![eMailText.text isEqualToString:@""] &&
+        didSetImage)
+    {   UIImage* imageToSave = [imageView image];
+        UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
+        [self markFaces:imageView];
+    } else { // throw an error and make user complete all fields
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:@"You must complete all required fields and supply a photo before continuing."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 -(void)imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -188,6 +204,8 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [imageView setImage: image] ;
     [self dismissViewControllerAnimated:YES completion:Nil];
+    
+    didSetImage = YES;  // flags that we DID select a saved image
     
 }
 
