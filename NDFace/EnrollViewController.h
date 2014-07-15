@@ -31,6 +31,7 @@
 - (IBAction)dismissView:(id)sender;
 - (IBAction)clearAllButton:(id)sender;
 - (IBAction)submitButton:(id)sender;
+- (BOOL) validateEmail: (NSString *) candidate;
 
 
 @end

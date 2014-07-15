@@ -151,9 +151,7 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
 
     [self presentViewController:picker animated:YES completion:Nil];
-    
-    
-    
+
 }
 
 -(IBAction)ChooseExisting
@@ -180,17 +178,80 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     
 }
 
+- (BOOL) validateEmail: (NSString *) candidate {
+    NSString *emailRegex =
+    @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
+    @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
+    @"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
+    @"z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
+    @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
+    @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
+    @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES[c] %@", emailRegex];
+    
+    return [emailTest evaluateWithObject:candidate];
+}
+
 - (IBAction)submitButton:(id)sender {
+    
+    BOOL okToSubmit = YES; // initialize local flag to determine if we can submit the data
+    
+    if (didSetImage) {  // did user submit an image?
+        okToSubmit = YES;
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Picture Missing"
+                                                        message:@"Please provide a picture before continuing."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        okToSubmit = NO; // make sure we are not OK to submit
+
+    }
+
+    if (![firstNameText.text isEqualToString:@""] && okToSubmit == YES) { // did user populate first name?
+        okToSubmit = YES;
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Picture Missing"
+                                                        message:@"Please provide a picture before continuing."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        okToSubmit = NO;
+        
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address"
+                                                        message:@"This does not appear to be a valid email address. Please correct the address before continuing."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+
+    }
+    
     // ensure all requisite fields have been completed
     if (![firstNameText.text isEqualToString:@""] &&
         ![lastNameText.text isEqualToString:@""] &&
-        ![eMailText.text isEqualToString:@""] &&
-        didSetImage)
-    {   UIImage* imageToSave = [imageView image];
-        UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
-        [self markFaces:imageView];
+        ![eMailText.text isEqualToString:@""])
+    {   if ([self validateEmail:eMailText.text]) // check for valid email address
+        {
+            UIImage* imageToSave = [imageView image];
+            UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
+            [self markFaces:imageView];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address"
+                                                            message:@"This does not appear to be a valid email address. Please correct the address before continuing."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+
+        }
+
     } else { // throw an error and make user complete all fields
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Information"
                                                         message:@"You must complete all required fields and supply a photo before continuing."
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
