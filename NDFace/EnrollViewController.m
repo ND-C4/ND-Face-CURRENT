@@ -167,6 +167,8 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
 -(void)imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    NSLog(@"iPC:dFPMWI: info %@",info);
+    NSLog(@"iPC:dFPMWI: image size %@",NSStringFromCGSize(image.size));
     image = [self markFaces:image];
     [imageView setImage: image] ;
     [self dismissViewControllerAnimated:YES completion:Nil];
@@ -194,8 +196,6 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
 {
     NSLog(@"markFaces: facePicture = %@",facePicture);
     
-    // draw a CI image with the previously loaded face detection picture
-//  CIImage* lImage = [CIImage imageWithCGImage:facePicture.image.CGImage];
     // create a face detector - since speed is not an issue we'll use a high accuracy
     // detector
     CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeFace
@@ -204,25 +204,37 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     CIImage* ciimage = [[CIImage alloc] initWithCGImage:facePicture.CGImage];
     
     // create an array containing all the detected faces from the detector
-    NSLog(@"facePicture.CIImage = %@", ciimage);
+    //    NSLog(@"facePicture.CIImage = %@", ciimage);
+    //    NSLog(@"facePicture.CIImage extent: %@",NSStringFromCGRect(ciimage.extent));
     
     NSArray* features = [detector featuresInImage:ciimage];
+    //NSLog(@"feature detector found %d features",features.count);
     
-    NSLog(@"After Array is created");
+    if (features.count != 1) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Face detection failed"
+                                                        message:[NSString stringWithFormat:@"One face was expected, %d were detected.",features.count]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return nil;
+    }
     
-    UIImage* theImage;
-    
-    for(CIFaceFeature* faceFeature in features)
-    {
-        NSLog(@"markFaces: faceFeature = %@",faceFeature);
+    CIFaceFeature *faceFeature = [features objectAtIndex:0];
+    NSLog(@"markFaces: faceFeature bounds %@",NSStringFromCGRect(faceFeature.bounds));
 
-        CGRect newBounds = CGRectMake(faceFeature.bounds.origin.x, ciimage.extent.size.height - faceFeature.bounds.origin.y, faceFeature.bounds.size.width, faceFeature.bounds.size.height);
-        theImage = [self imageByCropping:facePicture toRect:newBounds];
+    CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:[CIImage imageWithCGImage:facePicture.CGImage] fromRect:faceFeature.bounds];
+    NSLog(@"cgImage is %@",cgImage);
+    
+    UIImage *theImage = [UIImage imageWithCGImage:cgImage];
+    NSLog(@"markFaces: theImage = %@ size %@",theImage,NSStringFromCGSize(theImage.size));
+
+//        CGRect newBounds = CGRectMake(faceFeature.bounds.origin.x, ciimage.extent.size.height - faceFeature.bounds.origin.y, faceFeature.bounds.size.width, faceFeature.bounds.size.height);
+//        theImage = [self imageByCropping:facePicture toRect:newBounds];
         UIImageWriteToSavedPhotosAlbum(theImage, nil, nil, nil);
     //    [self sendPic:[self imageByCropping:facePicture toRect:newBounds]];
-    }
     NSLog(@"out of for loop");
-    NSLog(@"markFaces: theImage = %@",theImage);
+
 
     return theImage;
 }
