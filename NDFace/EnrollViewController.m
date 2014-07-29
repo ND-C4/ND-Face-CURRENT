@@ -45,103 +45,7 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
      ];
     
     
-    //     NSURL *reqUrl = [[NSURL alloc] initWithString:url];
-    //    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:reqUrl];
-    //    NSError *error;
-    //    NSURLResponse *response;
-    //    [request setHTTPMethod:@"POST"];
-    //    NSString *boundary = @"foo";
-    //
-    //    NSMutableData *body = [NSMutableData data];
-    //    [body appendData:[[NSString stringWithFormat:@"Content-Type: multipart/form-data; boundary=%@\r\n\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    //
-    //    // first boundary
-    //    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    //
-    //    // header "Content-Disposition"
-    //    [body appendData:[@"Content-Disposition: form-data; name=\"image\"; filename=\"Test.png\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    //
-    //    // boundary between header and body
-    //    //[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    //
-    //    // body (image data)
-    //    [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    //    [body appendData:[NSData dataWithData:facePictureData]];
-    //
-    //    // exit boundary
-    //    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    //
-    //    NSLog(@"%@",[body description]);
-    //
-    //    [request setHTTPBody:body];
-    //
-    //    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    //    if (error) {
-    //        // Process any errors
-    //        NSString *errorStr = [NSString stringWithString:[error description]];
-    //        NSLog(@"ERROR: Unable to make connection to server; %@", errorStr);
-    //    }
-    //
-    //    NSStringEncoding responseEncoding = NSUTF8StringEncoding;
-    //    if ([response textEncodingName]) {
-    //        CFStringEncoding cfStringEncoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)[response textEncodingName]);
-    //        if (cfStringEncoding != kCFStringEncodingInvalidId) {
-    //            responseEncoding = CFStringConvertEncodingToNSStringEncoding(cfStringEncoding);
-    //        }
-    //    }
-    //    NSString *dataString = [[NSString alloc] initWithData:data encoding:responseEncoding];
-    //    
-    //    NSLog(@"return data %@", dataString);
-}
-
-//- (void)sendPic:(UIImage *)facePicture //added 3-25-14 to test getting response from web service
-//{
-//    NSData *facePictureData = UIImagePNGRepresentation(facePicture);
-//    
-//    NSString *url = @"http://cheepnis.cse.nd.edu:5000/enroll/666/1";
-//    // Argument 2 ("666" for testing) is user ID
-//    // Argument 3 ("1" for testing) is picture's ID for that user ID
-//    
-//    NSURL *reqUrl = [[NSURL alloc] initWithString:url];
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:reqUrl];
-//    NSError *error;
-//    NSURLResponse *response;
-//    [request setHTTPMethod:@"POST"];
-//    NSString *boundary = @"foo";  // test data to tease out response from server
-//    
-//
-//    
-//    NSMutableData *body = [NSMutableData data];
-//    [body appendData:[[NSString stringWithFormat:[@"MIME-Version: 1.0\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-//     [body appendData:[[NSString stringWithFormat:@"Content-Type: multipart/form-data; boundary=%@\r\n", boundary] dataUsingEncoding: NSUTF8StringEncoding]];
-//    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-//    [body appendData:[@"Content-Disposition: form-data; name=\"image\"; filename=\"Test.png\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-//    [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-//    [body appendData:[NSData dataWithData:facePictureData]];
-//    [body appendData:[, boundary]];
-//    
-//    NSLog(@"%@",[body description]);
-//   
-//    [request setHTTPBody:body];
-//
-//    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-//    if (error) {
-//        // Process any errors
-//        NSString *errorStr = [NSString stringWithString:[error description]];
-//        NSLog(@"ERROR: Unable to make connection to server; %@", errorStr);
-//    }
-//    
-//    NSStringEncoding responseEncoding = NSUTF8StringEncoding;
-//    if ([response textEncodingName]) {
-//        CFStringEncoding cfStringEncoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)[response textEncodingName]);
-//        if (cfStringEncoding != kCFStringEncodingInvalidId) {
-//            responseEncoding = CFStringConvertEncodingToNSStringEncoding(cfStringEncoding);
-//        }
-//    }
-//    NSString *dataString = [[NSString alloc] initWithData:data encoding:responseEncoding];
-//    
-//    NSLog(@"return data %@", dataString);
-//}
+ }
 
 -(IBAction)TakePhoto
 {
@@ -178,7 +82,7 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     
 }
 
-- (BOOL) validateEmail: (NSString *) candidate {
+- (BOOL) isEmailAddressValid: (NSString *) candidate {
     NSString *emailRegex =
     @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
     @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
@@ -194,79 +98,79 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
 
 - (IBAction)submitButton:(id)sender {
     
-    BOOL okToSubmit = YES; // initialize local flag to determine if we can submit the data
-    
-    if (didSetImage) {  // did user submit an image?
-        okToSubmit = YES;
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Picture Missing"
-                                                        message:@"Please provide a picture before continuing."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        okToSubmit = NO; // make sure we are not OK to submit
-
-    }
-
-    if (![firstNameText.text isEqualToString:@""] && okToSubmit == YES) { // did user populate first name?
-        okToSubmit = YES;
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Picture Missing"
-                                                        message:@"Please provide a picture before continuing."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        okToSubmit = NO;
-        
-    }
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address"
-                                                        message:@"This does not appear to be a valid email address. Please correct the address before continuing."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-
-    }
-    
-    // ensure all requisite fields have been completed
-    if (![firstNameText.text isEqualToString:@""] &&
-        ![lastNameText.text isEqualToString:@""] &&
-        ![eMailText.text isEqualToString:@""])
-    {   if ([self validateEmail:eMailText.text]) // check for valid email address
+    if (!didSetImage) // did user submit an image?
         {
-            UIImage* imageToSave = [imageView image];
-            UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
-            [self markFaces:imageView];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address"
-                                                            message:@"This does not appear to be a valid email address. Please correct the address before continuing."
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Image"
+                                                            message:@"Please supply your picture before continuing."
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
             [alert show];
+            return;
+            
+      
+        } else {
+            
 
+    // ensure all requisite fields have been completed
+    if ([firstNameText.text isEqualToString:@""])
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing First Name"
+                                                            message:@"Please supply your first (given) name before continuing."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+            
+        } else {
+            
+            if ([lastNameText.text isEqualToString:@""])
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Last Name"
+                                                                message:@"Please supply your last (family) name before continuing."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+                return;
+
+                
+            } else {
+                
+                if ([eMailText.text isEqualToString:@""] || ![self isEmailAddressValid:eMailText.text])
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing or Invalid Email Address"
+                                                                    message:@"Please supply a valid email address before continuing."
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                    return;
+
+                } else {
+        
+                        // we are good, go ahead and run everything
+                        UIImage* imageToSave = [imageView image];
+                        UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
+         //             [self markFaces:imageView];
+                        [self sendPic:imageToSave];
+
+            }
         }
 
-    } else { // throw an error and make user complete all fields
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Information"
-                                                        message:@"You must complete all required fields and supply a photo before continuing."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
     }
+
 }
+    }
 
 -(void)imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    image = [self markFaces:image];
     [imageView setImage: image] ;
     [self dismissViewControllerAnimated:YES completion:Nil];
     
-    didSetImage = YES;  // flags that we DID select a saved image
     
 }
 
@@ -286,27 +190,41 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     return cropped;
 }
 
--(void)markFaces:(UIImageView *)facePicture
+-(UIImage *)markFaces:(UIImage *)facePicture
 {
+    NSLog(@"markFaces: facePicture = %@",facePicture);
+    
     // draw a CI image with the previously loaded face detection picture
-    CIImage* lImage = [CIImage imageWithCGImage:facePicture.image.CGImage];
+//  CIImage* lImage = [CIImage imageWithCGImage:facePicture.image.CGImage];
     // create a face detector - since speed is not an issue we'll use a high accuracy
     // detector
     CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeFace
                                               context:nil options:[NSDictionary dictionaryWithObject:CIDetectorAccuracyHigh forKey:CIDetectorAccuracy]];
     
+    CIImage* ciimage = [[CIImage alloc] initWithCGImage:facePicture.CGImage];
     
     // create an array containing all the detected faces from the detector
-    NSArray* features = [detector featuresInImage:lImage];
+    NSLog(@"facePicture.CIImage = %@", ciimage);
+    
+    NSArray* features = [detector featuresInImage:ciimage];
+    
     NSLog(@"After Array is created");
+    
+    UIImage* theImage;
     
     for(CIFaceFeature* faceFeature in features)
     {
-        CGRect newBounds = CGRectMake(faceFeature.bounds.origin.x, facePicture.image.size.height - faceFeature.bounds.origin.y, faceFeature.bounds.size.width, -faceFeature.bounds.size.height);
-        UIImageWriteToSavedPhotosAlbum([self imageByCropping:facePicture.image toRect:newBounds],nil, nil, nil);
-        [self sendPic:[self imageByCropping:facePicture.image toRect:newBounds]];
+        NSLog(@"markFaces: faceFeature = %@",faceFeature);
+
+        CGRect newBounds = CGRectMake(faceFeature.bounds.origin.x, ciimage.extent.size.height - faceFeature.bounds.origin.y, faceFeature.bounds.size.width, faceFeature.bounds.size.height);
+        theImage = [self imageByCropping:facePicture toRect:newBounds];
+        UIImageWriteToSavedPhotosAlbum(theImage, nil, nil, nil);
+    //    [self sendPic:[self imageByCropping:facePicture toRect:newBounds]];
     }
     NSLog(@"out of for loop");
+    NSLog(@"markFaces: theImage = %@",theImage);
+
+    return theImage;
 }
 
 
