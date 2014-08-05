@@ -235,7 +235,8 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     //    [self sendPic:[self imageByCropping:facePicture toRect:newBounds]];
     NSLog(@"out of for loop");
 
-
+    didSetImage = YES;          // set flag that we did successfully set an image
+    
     return theImage;
 }
 
