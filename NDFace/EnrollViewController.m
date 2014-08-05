@@ -152,7 +152,7 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
         
                         // we are good, go ahead and run everything
                         UIImage* imageToSave = [imageView image];
-                        UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
+         //             UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
          //             [self markFaces:imageView];
                         [self sendPic:imageToSave];
 
