@@ -10,6 +10,7 @@
 #import <CoreImage/CoreImage.h>
 #import <QuartzCore/QuartzCore.h>
 #import <AFNetworking.h>
+#import "math.h"
 
 @interface EnrollViewController ()
 
@@ -208,7 +209,7 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     //    NSLog(@"facePicture.CIImage extent: %@",NSStringFromCGRect(ciimage.extent));
     
     NSArray* features = [detector featuresInImage:ciimage];
-    //NSLog(@"feature detector found %d features",features.count);
+    NSLog(@"feature detector found %d features",features.count);
     
     if (features.count != 1) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Face detection failed"
@@ -222,6 +223,38 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     
     CIFaceFeature *faceFeature = [features objectAtIndex:0];
     NSLog(@"markFaces: faceFeature bounds %@",NSStringFromCGRect(faceFeature.bounds));
+
+    CGPoint pLeft = faceFeature.leftEyePosition;
+    CGPoint pRight = faceFeature.rightEyePosition;
+    
+    if (faceFeature.hasLeftEyePosition)
+        NSLog(@"left eye position: %@",NSStringFromCGPoint(pLeft));
+    else
+        NSLog(@"no left eye detected.");
+    
+    if (faceFeature.hasRightEyePosition)
+        NSLog(@"right eye position: %@",NSStringFromCGPoint(pRight));
+    else
+        NSLog(@"no right eye detected.");
+    
+    if (faceFeature.hasFaceAngle)
+        NSLog(@"faceAngle: %f",faceFeature.faceAngle);
+    else
+        NSLog(@"no face angle.");
+    
+    float dy = pRight.y - pLeft.y;
+    float dx = pRight.x - pLeft.x;
+    float angle     = atan2(dy,dx);
+    NSLog(@"hand-calculated face angle: %f (%f degrees)",angle,angle*180.0/M_PI);
+    
+    if (faceFeature.hasMouthPosition)
+        NSLog(@"mouth position: %@",NSStringFromCGPoint(faceFeature.mouthPosition));
+    else
+        NSLog(@"no mouth detected.");
+    
+    NSLog(@"Smile: %@",faceFeature.hasSmile ? @"yes" : @"no");
+    
+    
 
     CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:[CIImage imageWithCGImage:facePicture.CGImage] fromRect:faceFeature.bounds];
     NSLog(@"cgImage is %@",cgImage);
