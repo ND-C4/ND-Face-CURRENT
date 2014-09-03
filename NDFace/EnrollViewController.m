@@ -245,6 +245,7 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     float dy = pRight.y - pLeft.y;
     float dx = pRight.x - pLeft.x;
     float angle     = atan2(dy,dx);
+    float modulus = sqrt(dx*dx+dy*dy);
     NSLog(@"hand-calculated face angle: %f (%f degrees)",angle,angle*180.0/M_PI);
     
     if (faceFeature.hasMouthPosition)
@@ -254,9 +255,58 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     
     NSLog(@"Smile: %@",faceFeature.hasSmile ? @"yes" : @"no");
     
+    // set up the transform. We are going to map the face to a 150 row x 130 column
+    // image, with subject's right eye going to (x=30, y=45) and the subject's left eye
+    // going to (x=100,y=45). This is in keeping with the good old csuPreprocessNormalize
+    // code from the CSUFaceIdEval package.
     
+    // just a side rant. Why the (*#&$ does Apple make you specify transforms
+    // the hard way?
+    
+    // first step: left eye translate to origin
+    CGAffineTransform trx = CGAffineTransformMakeTranslation(-pLeft.x, -pLeft.y);
+    NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
+    CGPoint tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
+    NSLog(@"left after trx: %@",NSStringFromCGPoint(tmpLeft));
+    
+    // second step: rotate right eye to y=0
+    trx = CGAffineTransformConcat(trx,CGAffineTransformMakeRotation(-angle));
+    NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
+    tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
+    NSLog(@"left after trx+rot: %@",NSStringFromCGPoint(tmpLeft));
+    
+    // third step: scale x to place eyes at (0,0) and (70,0)
+    trx = CGAffineTransformConcat(trx,CGAffineTransformMakeScale(70.0/modulus,70.0/modulus));
+    NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
+    tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
+    NSLog(@"left after trx+rot+scale: %@",NSStringFromCGPoint(tmpLeft));
 
-    CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:[CIImage imageWithCGImage:facePicture.CGImage] fromRect:faceFeature.bounds];
+    // fourth step: translate by (30,150-45).
+    // 150-45 arises from the flipped vertical coordinates for one of the two
+    // image coordinate systems.
+    trx = CGAffineTransformConcat(trx,CGAffineTransformMakeTranslation(30,150-45));
+    NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
+    tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
+    NSLog(@"left after trx+rot+scale+trx: %@",NSStringFromCGPoint(tmpLeft));
+
+    CGPoint trxLeft = CGPointApplyAffineTransform(pLeft,trx);
+    CGPoint trxRight = CGPointApplyAffineTransform(pRight,trx);
+    NSLog(@"transformed left: %@  right: %@",NSStringFromCGPoint(trxLeft),NSStringFromCGPoint(trxRight));
+    
+    // woohoo, make a CIAffineTransform from the CGAffineTransform
+    CIFilter *warper = [CIFilter filterWithName:@"CIAffineTransform"];
+    NSLog(@"warper %@",warper);
+//    CIImage *im = facePicture.CIImage;
+//    NSLog(@"im %@",im);
+    //facepicture.C
+    [warper setValue:[CIImage imageWithCGImage:facePicture.CGImage] forKey:@"inputImage"];
+    [warper setValue:[NSValue valueWithBytes:&trx objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
+    CIImage *result = [warper valueForKey:@"outputImage"];
+    NSLog(@"result %@",result);
+
+    CGImageRef cgImage = [[CIContext contextWithOptions:nil]
+                          createCGImage:result
+                          fromRect:CGRectMake(0.0,0.0,130.0,150.0)/*result.extent*/];
     NSLog(@"cgImage is %@",cgImage);
     
     UIImage *theImage = [UIImage imageWithCGImage:cgImage];
