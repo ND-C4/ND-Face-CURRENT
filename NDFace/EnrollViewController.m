@@ -248,10 +248,16 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     float modulus = sqrt(dx*dx+dy*dy);
     NSLog(@"hand-calculated face angle: %f (%f degrees)",angle,angle*180.0/M_PI);
     
-    if (faceFeature.hasMouthPosition)
+    CGPoint pMouth ;
+    if (faceFeature.hasMouthPosition) {
         NSLog(@"mouth position: %@",NSStringFromCGPoint(faceFeature.mouthPosition));
+        pMouth = faceFeature.mouthPosition;
+    }
     else
         NSLog(@"no mouth detected.");
+    
+    // draw nice dots where the features are detected.
+    
     
     NSLog(@"Smile: %@",faceFeature.hasSmile ? @"yes" : @"no");
     
@@ -310,11 +316,43 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     NSLog(@"cgImage is %@",cgImage);
     
     UIImage *theImage = [UIImage imageWithCGImage:cgImage];
-    NSLog(@"markFaces: theImage = %@ size %@",theImage,NSStringFromCGSize(theImage.size));
+    
+    UIGraphicsBeginImageContext(facePicture.size);
+    [facePicture drawAtPoint:CGPointZero];
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    //left eye is white with red border
+    [[UIColor redColor] setStroke];
+    [[UIColor whiteColor] setFill];
+    CGRect circleRect = CGRectMake(pLeft.x-2,facePicture.size.height-pLeft.y-2,5,5);
+    CGContextFillEllipseInRect(ctx,circleRect);
+    CGContextStrokeEllipseInRect(ctx,circleRect);
+
+    //right eye is green with black border
+    [[UIColor blackColor] setStroke];
+    [[UIColor greenColor] setFill];
+    CGRect circleRectRight = CGRectMake(pRight.x-2,facePicture.size.height-pRight.y-2,5,5);
+    CGContextFillEllipseInRect(ctx,circleRectRight);
+    CGContextStrokeEllipseInRect(ctx,circleRectRight);
+
+    if (faceFeature.hasMouthPosition) {
+        // mouth is yellow with blue border
+        [[UIColor blueColor] setStroke];
+        [[UIColor yellowColor] setFill];
+        CGRect circleRectMouth = CGRectMake(pMouth.x-2,facePicture.size.height-pMouth.y-2,5,5);
+        CGContextFillEllipseInRect(ctx,circleRectMouth);
+        CGContextStrokeEllipseInRect(ctx,circleRectMouth);
+    }
+
+    UIImage *theImage2 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSLog(@"markFaces: theImage = %@ size %@",theImage2,NSStringFromCGSize(theImage.size));
 
 //        CGRect newBounds = CGRectMake(faceFeature.bounds.origin.x, ciimage.extent.size.height - faceFeature.bounds.origin.y, faceFeature.bounds.size.width, faceFeature.bounds.size.height);
 //        theImage = [self imageByCropping:facePicture toRect:newBounds];
-        UIImageWriteToSavedPhotosAlbum(theImage, nil, nil, nil);
+    UIImageWriteToSavedPhotosAlbum(theImage2, nil, nil, nil);
+    UIImageWriteToSavedPhotosAlbum(theImage, nil, nil, nil);
     //    [self sendPic:[self imageByCropping:facePicture toRect:newBounds]];
     NSLog(@"out of for loop");
 
