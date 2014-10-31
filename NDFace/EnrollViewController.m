@@ -8,6 +8,7 @@
 
 #import "EnrollViewController.h"
 #import <CoreImage/CoreImage.h>
+#import <ImageIO/ImageIO.h>
 #import <QuartzCore/QuartzCore.h>
 #import <AFNetworking.h>
 #import "math.h"
@@ -18,11 +19,35 @@
 
 @implementation EnrollViewController
 
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (NSString*)generateRandomString:(int)num {
+    NSMutableString* string = [NSMutableString stringWithCapacity:num];
+    for (int i = 0; i < num; i++) {
+        [string appendFormat:@"%C", (unichar)('a' + arc4random_uniform(25))];
+    }
+    return string;
+}
+
 - (void)sendPic:(UIImage *)facePicture //added 3-25-14 to test getting response from web service
 {
     NSData *facePictureData = UIImagePNGRepresentation(facePicture);
+    NSLog(@"facePictureData %@",facePictureData);
+    NSString *netid = [netIDText text];
+    if ([netid length] == 0)
+        netid = [self generateRandomString:10];
+    NSString *url = [NSString stringWithFormat:@"http://cheepnis.cse.nd.edu:5000/enroll/%@/%@",netid,[self generateRandomString:16]];
+    NSLog(@"url: %@",url);
     
-    NSString *url = @"http://cheepnis.cse.nd.edu:5000/enroll/666/1";
+    //NSString *url = @"http://cheepnis.cse.nd.edu:5000/enroll/666/1";
     // Argument 2 ("666" for testing) is user ID
     // Argument 3 ("1" for testing) is picture's ID for that user ID
     
@@ -30,11 +55,15 @@
     
     AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
     requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSLog(@"requestManager: %@",requestManager);
     
     [requestManager POST:url
-              parameters:@{@"firstName":firstNameText.text,@"lastName":lastNameText.text,@"emailAddress":eMailText.text,@"NetID":netIDText.text} // added parameters to send metadata; need to confim with Pat that this is received properly
-constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
-    [formData appendPartWithFileData:facePictureData name:@"image" fileName:@"test.png" mimeType:@"application/octet-stream"];
+              parameters:@{@"firstName":firstNameText.text,
+                           @"lastName":lastNameText.text,
+                           @"emailAddress":eMailText.text,
+                           @"NetID":netIDText.text}
+            constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                [formData appendPartWithFileData:facePictureData name:@"image" fileName:@"test.png" mimeType:@"application/octet-stream"];
 }
                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
                      NSLog(@"success! %@",responseObject );
@@ -99,6 +128,7 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
 
 - (IBAction)submitButton:(id)sender {
     
+    NSLog(@"submitButton.");
     if (!didSetImage) // did user submit an image?
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Image"
@@ -150,7 +180,7 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
                     return;
 
                 } else {
-        
+                    NSLog(@"good!");
                         // we are good, go ahead and run everything
                         UIImage* imageToSave = [imageView image];
          //             UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
@@ -165,10 +195,36 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
 }
     }
 
+// Grr
+NSString *stringWithUIImageOrientation(UIImageOrientation input) {
+    NSArray *arr = @[
+                     @"UIImageOrientationUp",            // default orientation
+                     @"UIImageOrientationDown",          // 180 deg rotation
+                     @"UIImageOrientationLeft",          // 90 deg CCW
+                     @"UIImageOrientationRight",         // 90 deg CW
+                     @"UIImageOrientationUpMirrored",    // as above but image mirrored along other axis. horizontal flip
+                     @"UIImageOrientationDownMirrored",  // horizontal flip
+                     @"UIImageOrientationLeftMirrored",  // vertical flip
+                     @"UIImageOrientationRightMirrored", // vertical flip
+                     ];
+    return (NSString *)[arr objectAtIndex:input];
+}
+
 -(void)imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     image = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+
+    
+//    NSLog(@"orientation: %@",stringWithUIImageOrientation([image imageOrientation]));
+//    if ([image imageOrientation] != UIImageOrientationUp) {
+//        NSLog(@"reorienting image.");
+//        image = [UIImage imageWithCGImage:[image CGImage]
+//                        scale:1.0
+//                  orientation: UIImageOrientationUp];
+//    }
     NSLog(@"iPC:dFPMWI: info %@",info);
+    NSLog(@"iPC:dFPMWI: image %@",image);
     NSLog(@"iPC:dFPMWI: image size %@",NSStringFromCGSize(image.size));
     image = [self markFaces:image];
     [imageView setImage: image] ;
@@ -199,21 +255,38 @@ constructingBodyWithBlock: ^(id<AFMultipartFormData> formData) {
     
     // create a face detector - since speed is not an issue we'll use a high accuracy
     // detector
+    CIImage* ciimage = [[CIImage alloc] initWithImage:facePicture];
+    int exifOrientation = 0;
+    switch ([facePicture imageOrientation]) {
+        case UIImageOrientationUp: exifOrientation = 1; break;
+        case UIImageOrientationDown:exifOrientation = 3; break;
+        case UIImageOrientationLeft: exifOrientation = 8; break;
+        case UIImageOrientationRight: exifOrientation = 6; break;
+        case UIImageOrientationUpMirrored: exifOrientation = 2; break;
+        case UIImageOrientationDownMirrored: exifOrientation = 4; break;
+        case UIImageOrientationLeftMirrored: exifOrientation = 5; break;
+        case UIImageOrientationRightMirrored: exifOrientation = 7; break;
+        default: break;
+    }
+    
+    NSDictionary *fOptions = @{CIDetectorImageOrientation:[NSNumber numberWithInt:exifOrientation]};
+    NSLog(@"fOptions %@",fOptions);
+    
     CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeFace
                                               context:nil options:[NSDictionary dictionaryWithObject:CIDetectorAccuracyHigh forKey:CIDetectorAccuracy]];
     
-    CIImage* ciimage = [[CIImage alloc] initWithCGImage:facePicture.CGImage];
     
     // create an array containing all the detected faces from the detector
-    //    NSLog(@"facePicture.CIImage = %@", ciimage);
-    //    NSLog(@"facePicture.CIImage extent: %@",NSStringFromCGRect(ciimage.extent));
+        NSLog(@"facePicture.CIImage = %@", ciimage);
+        NSLog(@"facePicture.CIImage extent: %@",NSStringFromCGRect(ciimage.extent));
     
-    NSArray* features = [detector featuresInImage:ciimage];
-    NSLog(@"feature detector found %d features",features.count);
+    NSArray* features = [detector featuresInImage:ciimage options:fOptions];
+    
+    NSLog(@"feature detector found %ld features",features.count);
     
     if (features.count != 1) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Face detection failed"
-                                                        message:[NSString stringWithFormat:@"One face was expected, %d were detected.",features.count]
+                                                        message:[NSString stringWithFormat:@"One face was expected, %ld were detected.",features.count]
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
