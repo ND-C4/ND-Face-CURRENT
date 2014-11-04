@@ -28,7 +28,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)loadEnrollView:(id)sender {
+- (IBAction)loadiPhoneEnrollView:(id)sender {
+    // Load iPhone view
+}
+
+- (IBAction)loadiPadEnrollView:(id)sender {
     EnrollViewController *info = [[EnrollViewController alloc] init];
     info.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:info animated:YES completion:Nil];
