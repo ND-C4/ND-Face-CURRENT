@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -29,6 +29,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loadiPhoneEnrollView:" destination="vXZ-lx-hvc" eventType="touchDragInside" id="xBL-sk-ol6"/>
+                                    <segue destination="VT7-9n-ALJ" kind="modal" id="iie-B1-4pX"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ND-FACE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVM-Cj-Jqw">
@@ -58,10 +59,10 @@
             </objects>
             <point key="canvasLocation" x="272" y="98"/>
         </scene>
-        <!--View Controller-->
+        <!--Enroll View Controller-->
         <scene sceneID="3BZ-qL-dLN">
             <objects>
-                <viewController id="VT7-9n-ALJ" sceneMemberID="viewController">
+                <viewController id="VT7-9n-ALJ" customClass="EnrollViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="10R-eB-AzB"/>
                         <viewControllerLayoutGuide type="bottom" id="ePQ-gx-KOl"/>
@@ -72,10 +73,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back.png" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-4e-kiS">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="man-silhouette.png" translatesAutoresizingMaskIntoConstraints="NO" id="nZa-mk-aqa">
-                                <rect key="frame" x="51" y="364" width="49" height="47"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="man-silhouette.png" translatesAutoresizingMaskIntoConstraints="NO" id="V4g-KN-UEH">
                                 <rect key="frame" x="108" y="364" width="49" height="47"/>
@@ -138,22 +135,22 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Required)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2xL-0l-Ccy">
                                 <rect key="frame" x="20" y="68" width="280" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Required)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ptx-Uo-yGy">
                                 <rect key="frame" x="20" y="135" width="280" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(For ND only)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Va-3H-oRS">
                                 <rect key="frame" x="20" y="269" width="280" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Required)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Ky-wo-ZnJ">
                                 <rect key="frame" x="20" y="202" width="280" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gh6-Cm-h9P">
                                 <rect key="frame" x="20" y="106" width="101" height="29"/>
@@ -172,14 +169,29 @@
                                     <action selector="loadEnrollView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Jnr-Bp-E1w"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bnv-hh-phi">
+                                <rect key="frame" x="50" y="364" width="45" height="45"/>
+                                <state key="normal" title="Button" image="man-silhouette.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="TakePhoto" destination="VT7-9n-ALJ" eventType="touchUpInside" id="753-Ze-5ae"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="AfE-Pf-zAa"/>
+                    <connections>
+                        <outlet property="eMailText" destination="9Ky-wo-ZnJ" id="q65-FY-hDb"/>
+                        <outlet property="firstNameText" destination="2xL-0l-Ccy" id="9QP-8h-kvo"/>
+                        <outlet property="lastNameText" destination="Ptx-Uo-yGy" id="G3W-R5-ebs"/>
+                        <outlet property="netIDText" destination="1Va-3H-oRS" id="wBE-Gb-IhU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SVX-4B-AC7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="871" y="20"/>
+            <point key="canvasLocation" x="829" y="98"/>
         </scene>
     </scenes>
     <resources>
