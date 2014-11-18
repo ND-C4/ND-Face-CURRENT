@@ -81,8 +81,8 @@
 {
     picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
-    picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+   // [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
+   // picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
 
     [self presentViewController:picker animated:YES completion:Nil];
 
@@ -92,7 +92,7 @@
 {
     picker2 = [[UIImagePickerController alloc] init];
     picker2.delegate = self;
-    [picker2 setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+ //   [picker2 setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [self presentViewController:picker2 animated:YES completion:Nil];
     
 }
@@ -434,6 +434,10 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     return theImage;
 }
 
-
+// Dismiss the keyboard when we click "Done"
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
 
 @end

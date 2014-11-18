@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EnrollViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface EnrollViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+    UITextFieldDelegate>
 {
     UIImagePickerController *picker;
     UIImagePickerController *picker2;
