@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface EnrollViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
-    UITextFieldDelegate>
+    UITextFieldDelegate,UIGestureRecognizerDelegate>
 {
     UIImagePickerController *picker;
     UIImagePickerController *picker2;

@@ -16,7 +16,7 @@
 
 }
 
-- (IBAction)loadiPhoneEnrollView:(id)sender;
-- (IBAction)loadiPadEnrollView:(id)sender;
+//- (IBAction)loadiPhoneEnrollView:(id)sender;
+//- (IBAction)loadiPadEnrollView:(id)sender;
 
 @end

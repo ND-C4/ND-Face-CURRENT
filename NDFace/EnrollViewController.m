@@ -32,29 +32,32 @@
 // these three methods handle flipping the UIImagePickerController from
 //photo album mode to live camera mode.
 - (void) navigationController: (UINavigationController *) navigationController  willShowViewController: (UIViewController *) viewController animated: (BOOL) animated {
-    if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
-        UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(showCamera:)];
-        viewController.navigationItem.leftBarButtonItems = [NSArray arrayWithObject:button];
+    if ((picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) || (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(chooseCamera:)];
+            viewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObject:button];
+        }
     } else {
-        UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithTitle:@"Library" style:UIBarButtonItemStylePlain target:self action:@selector(showLibrary:)];
+        UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithTitle:@"Library" style:UIBarButtonItemStylePlain target:self action:@selector(chooseLibrary:)];
         UIImage *cameraToggle = [UIImage imageNamed:@"CameraToggle"];
         NSLog(@"cameraToggle image: %@",cameraToggle);
         UIBarButtonItem *flipCamButton = [[UIBarButtonItem alloc]
                 initWithImage:cameraToggle style:UIBarButtonItemStyleBordered target:self action:@selector(flipCamera:)];
         NSLog(@"flipCamButton: %@",flipCamButton);
-        viewController.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:button,flipCamButton,nil];
+        viewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:button,flipCamButton,nil];
         viewController.navigationItem.title = @"Take Photo";
         viewController.navigationController.navigationBarHidden = NO; // important
     }
 }
 
-- (void) showCamera: (id) sender {
+- (void) chooseCamera: (id) sender {
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     picker.cameraDevice=UIImagePickerControllerCameraDeviceFront;
     picker.showsCameraControls = YES;
+
 }
 
-- (void) showLibrary: (id) sender {
+- (void) chooseLibrary: (id) sender {
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 }
 
@@ -119,11 +122,13 @@
     NSLog(@"TakePhoto: sender %@",sender);
     picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-   // [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
-   // picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-
     theButton = sender;
-    
+    // guard logic; should help this guy run correctly on the simulator
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [self chooseCamera:sender];
+    } else {
+        [self chooseLibrary:sender];
+    }   
     [self presentViewController:picker animated:YES completion:Nil];
 
 }
