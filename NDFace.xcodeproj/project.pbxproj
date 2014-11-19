@@ -29,6 +29,7 @@
 		30DE3EE618D5182400F0B82C /* man-silhouette.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DE3EE518D5182400F0B82C /* man-silhouette.png */; };
 		30DE3EE818D518A400F0B82C /* GUIFrame-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DE3EE718D518A400F0B82C /* GUIFrame-2.png */; };
 		30DE3EEA18D51CDE00F0B82C /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DE3EE918D51CDE00F0B82C /* backButton.png */; };
+		52029F871A1D14FD0053604F /* CameraToggle.png in Resources */ = {isa = PBXBuildFile; fileRef = 52029F861A1D14FD0053604F /* CameraToggle.png */; };
 		52DAE62519DD9B310043DE3F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DAE62419DD9B310043DE3F /* ImageIO.framework */; };
 		C846480D199145550024E27E /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = C846480C199145550024E27E /* camera.png */; };
 /* End PBXBuildFile section */
@@ -73,6 +74,7 @@
 		30DE3EE718D518A400F0B82C /* GUIFrame-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GUIFrame-2.png"; sourceTree = "<group>"; };
 		30DE3EE918D51CDE00F0B82C /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButton.png; sourceTree = "<group>"; };
 		436AC37625E001665635494E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		52029F861A1D14FD0053604F /* CameraToggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraToggle.png; sourceTree = "<group>"; };
 		52DAE62419DD9B310043DE3F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C846480C199145550024E27E /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		D90CB52C0BE3485C93CF64C1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +109,7 @@
 		309C904E18CE3DB300862D1A = {
 			isa = PBXGroup;
 			children = (
+				52029F851A1D14E80053604F /* Resources */,
 				309C906018CE3DB400862D1A /* NDFace */,
 				309C908218CE3DB400862D1A /* NDFaceTests */,
 				309C905918CE3DB400862D1A /* Frameworks */,
@@ -196,6 +199,14 @@
 				436AC37625E001665635494E /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		52029F851A1D14E80053604F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				52029F861A1D14FD0053604F /* CameraToggle.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +299,7 @@
 				309C906E18CE3DB400862D1A /* Main_iPhone.storyboard in Resources */,
 				309C906518CE3DB400862D1A /* InfoPlist.strings in Resources */,
 				309C909618CE3E0A00862D1A /* EnrollViewController.xib in Resources */,
+				52029F871A1D14FD0053604F /* CameraToggle.png in Resources */,
 				30DE3EE618D5182400F0B82C /* man-silhouette.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

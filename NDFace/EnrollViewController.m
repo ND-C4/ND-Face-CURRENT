@@ -29,6 +29,43 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+// these three methods handle flipping the UIImagePickerController from
+//photo album mode to live camera mode.
+- (void) navigationController: (UINavigationController *) navigationController  willShowViewController: (UIViewController *) viewController animated: (BOOL) animated {
+    if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+        UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(showCamera:)];
+        viewController.navigationItem.leftBarButtonItems = [NSArray arrayWithObject:button];
+    } else {
+        UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithTitle:@"Library" style:UIBarButtonItemStylePlain target:self action:@selector(showLibrary:)];
+        UIImage *cameraToggle = [UIImage imageNamed:@"CameraToggle"];
+        NSLog(@"cameraToggle image: %@",cameraToggle);
+        UIBarButtonItem *flipCamButton = [[UIBarButtonItem alloc]
+                initWithImage:cameraToggle style:UIBarButtonItemStyleBordered target:self action:@selector(flipCamera:)];
+        NSLog(@"flipCamButton: %@",flipCamButton);
+        viewController.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:button,flipCamButton,nil];
+        viewController.navigationItem.title = @"Take Photo";
+        viewController.navigationController.navigationBarHidden = NO; // important
+    }
+}
+
+- (void) showCamera: (id) sender {
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.cameraDevice=UIImagePickerControllerCameraDeviceFront;
+    picker.showsCameraControls = YES;
+}
+
+- (void) showLibrary: (id) sender {
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+}
+
+- (void) flipCamera: (id) sender {
+    NSLog(@"flipCamera");
+    if (picker.cameraDevice == UIImagePickerControllerCameraDeviceFront) {
+        picker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+    } else {
+        picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+    }
+}
 - (NSString*)generateRandomString:(int)num {
     NSMutableString* string = [NSMutableString stringWithCapacity:num];
     for (int i = 0; i < num; i++) {
@@ -77,23 +114,26 @@
     
  }
 
--(IBAction)TakePhoto
+-(IBAction)TakePhoto:(id)sender
 {
+    NSLog(@"TakePhoto: sender %@",sender);
     picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
    // [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
    // picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
 
+    theButton = sender;
+    
     [self presentViewController:picker animated:YES completion:Nil];
 
 }
 
 -(IBAction)ChooseExisting
 {
-    picker2 = [[UIImagePickerController alloc] init];
-    picker2.delegate = self;
- //   [picker2 setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    [self presentViewController:picker2 animated:YES completion:Nil];
+    picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+ //   [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    [self presentViewController:picker animated:YES completion:Nil];
     
 }
 
@@ -187,6 +227,7 @@
          //             [self markFaces:imageView];
                         [self sendPic:imageToSave];
 
+
             }
         }
 
@@ -228,6 +269,8 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     NSLog(@"iPC:dFPMWI: image size %@",NSStringFromCGSize(image.size));
     image = [self markFaces:image];
     [imageView setImage: image] ;
+    [theButton setImage:image forState:UIControlStateNormal];
+
     [self dismissViewControllerAnimated:YES completion:Nil];
     
     
@@ -282,11 +325,11 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     
     NSArray* features = [detector featuresInImage:ciimage options:fOptions];
     
-    NSLog(@"feature detector found %ld features",features.count);
+    NSLog(@"feature detector found %d features",features.count);
     
     if (features.count != 1) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Face detection failed"
-                                                        message:[NSString stringWithFormat:@"One face was expected, %ld were detected.",features.count]
+                                                        message:[NSString stringWithFormat:@"One face was expected, %d were detected.",features.count]
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
@@ -430,6 +473,7 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     NSLog(@"out of for loop");
 
     didSetImage = YES;          // set flag that we did successfully set an image
+    
     
     return theImage;
 }

@@ -187,7 +187,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="TakePhoto" destination="VT7-9n-ALJ" eventType="touchUpInside" id="753-Ze-5ae"/>
+                                    <action selector="TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="3eB-as-UkF"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -203,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SVX-4B-AC7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="829" y="98"/>
+            <point key="canvasLocation" x="839" y="129"/>
         </scene>
     </scenes>
     <resources>

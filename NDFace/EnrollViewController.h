@@ -17,7 +17,7 @@
     IBOutlet UIImageView *imageView;
     BOOL didSetImage;                   // flag to determine if picture has been chosen 
 
-    
+    UIButton *theButton; // which image button was pressed to take an image?
     
     IBOutlet UITextField *firstNameText;
     IBOutlet UITextField *lastNameText;
@@ -27,7 +27,7 @@
     
 }
 
--(IBAction)TakePhoto;
+-(IBAction)TakePhoto:(id)sender;
 -(IBAction)ChooseExisting;
 - (IBAction)dismissView:(id)sender;
 - (IBAction)clearAllButton:(id)sender;
