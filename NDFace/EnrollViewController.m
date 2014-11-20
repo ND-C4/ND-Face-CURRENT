@@ -11,6 +11,7 @@
 #import <ImageIO/ImageIO.h>
 #import <QuartzCore/QuartzCore.h>
 #import <AFNetworking.h>
+#import <iToast.h>
 #import "math.h"
 
 @interface EnrollViewController ()
@@ -18,6 +19,22 @@
 @end
 
 @implementation EnrollViewController
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    if (DEBUG) NSLog(@"ViewDidAppear");
+    [super viewDidAppear:animated];
+
+}
+
+- (void) viewDidLoad
+{
+    if (DEBUG) NSLog(@"viewDidLoad");
+    [super viewDidLoad];
+    [finishButton setHidden:YES];
+}
+
+#pragma mark - orientation configuration
 
 - (BOOL)shouldAutorotate
 {
@@ -29,22 +46,32 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
-// these three methods handle flipping the UIImagePickerController from
-//photo album mode to live camera mode.
+#pragma mark - camera/album switching, front/back camera switching
+
+// these four methods handle flipping the UIImagePickerController from
+// photo album mode to live camera mode, and choosing the front or back camera
+
 - (void) navigationController: (UINavigationController *) navigationController  willShowViewController: (UIViewController *) viewController animated: (BOOL) animated {
+    // if camera available, show the button to activate it.
     if ((picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) || (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(chooseCamera:)];
             viewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObject:button];
+            viewController.navigationItem.title = @"Choose Photo";
+            viewController.navigationController.navigationBarHidden = NO; // important
         }
     } else {
+        // camera is active; show album button and, if available, front/rear camera button
         UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithTitle:@"Library" style:UIBarButtonItemStylePlain target:self action:@selector(chooseLibrary:)];
-        UIImage *cameraToggle = [UIImage imageNamed:@"CameraToggle"];
-        NSLog(@"cameraToggle image: %@",cameraToggle);
-        UIBarButtonItem *flipCamButton = [[UIBarButtonItem alloc]
+        if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront] &&
+            [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
+            UIImage *cameraToggle = [UIImage imageNamed:@"CameraToggle"];
+            UIBarButtonItem *flipCamButton = [[UIBarButtonItem alloc]
                 initWithImage:cameraToggle style:UIBarButtonItemStyleBordered target:self action:@selector(flipCamera:)];
-        NSLog(@"flipCamButton: %@",flipCamButton);
-        viewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:button,flipCamButton,nil];
+            viewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:button,flipCamButton,nil];
+        } else {
+            viewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:button,nil];
+        }
         viewController.navigationItem.title = @"Take Photo";
         viewController.navigationController.navigationBarHidden = NO; // important
     }
@@ -62,7 +89,7 @@
 }
 
 - (void) flipCamera: (id) sender {
-    NSLog(@"flipCamera");
+    if (DEBUG) NSLog(@"flipCamera");
     if (picker.cameraDevice == UIImagePickerControllerCameraDeviceFront) {
         picker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
     } else {
@@ -80,12 +107,12 @@
 - (void)sendPic:(UIImage *)facePicture //added 3-25-14 to test getting response from web service
 {
     NSData *facePictureData = UIImagePNGRepresentation(facePicture);
-    NSLog(@"facePictureData %@",facePictureData);
+    if (DEBUG) NSLog(@"facePictureData %@",facePictureData);
     NSString *netid = [netIDText text];
     if ([netid length] == 0)
         netid = [self generateRandomString:10];
     NSString *url = [NSString stringWithFormat:@"http://cheepnis.cse.nd.edu:5000/enroll/%@/%@",netid,[self generateRandomString:16]];
-    NSLog(@"url: %@",url);
+    if (DEBUG) NSLog(@"url: %@",url);
     
     //NSString *url = @"http://cheepnis.cse.nd.edu:5000/enroll/666/1";
     // Argument 2 ("666" for testing) is user ID
@@ -95,7 +122,7 @@
     
     AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
     requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"requestManager: %@",requestManager);
+    if (DEBUG) NSLog(@"requestManager: %@",requestManager);
     
     [requestManager POST:url
               parameters:@{@"firstName":firstNameText.text,
@@ -106,10 +133,13 @@
                 [formData appendPartWithFileData:facePictureData name:@"image" fileName:@"test.png" mimeType:@"application/octet-stream"];
 }
                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-                     NSLog(@"success! %@",responseObject );
+                     [[iToast makeText:@"Face image enrolled."] show];
+                     if (DEBUG) NSLog(@"success! %@",responseObject );
                  }
                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-                     NSLog(@"fail! %@", error);
+                     NSString *e = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
+                     [[iToast makeText:e] show];
+                     if (DEBUG) NSLog(@"fail! %@", error);
                  }
      
      ];
@@ -119,7 +149,7 @@
 
 -(IBAction)TakePhoto:(id)sender
 {
-    NSLog(@"TakePhoto: sender %@",sender);
+    if (DEBUG) NSLog(@"TakePhoto: sender %@",sender);
     picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     theButton = sender;
@@ -153,7 +183,7 @@
     eMailText.text = @"";
     netIDText.text = @"";
     imageView.image =[UIImage imageNamed:@"man-silhouette.png"];
-    didSetImage = NO;   // reset flag that indicates image has been selected
+    //didSetImage = NO;   // reset flag that indicates image has been selected
     
 }
 
@@ -172,8 +202,7 @@
 }
 
 - (IBAction)submitButton:(id)sender {
-    
-    NSLog(@"submitButton.");
+    if (DEBUG) NSLog(@"submitButton.");
     if (!didSetImage) // did user submit an image?
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Image"
@@ -225,7 +254,7 @@
                     return;
 
                 } else {
-                    NSLog(@"good!");
+                    if (DEBUG) NSLog(@"good!");
                         // we are good, go ahead and run everything
                         UIImage* imageToSave = [imageView image];
          //             UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
@@ -269,13 +298,14 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
 //                        scale:1.0
 //                  orientation: UIImageOrientationUp];
 //    }
-    NSLog(@"iPC:dFPMWI: info %@",info);
-    NSLog(@"iPC:dFPMWI: image %@",image);
-    NSLog(@"iPC:dFPMWI: image size %@",NSStringFromCGSize(image.size));
+    if (DEBUG) NSLog(@"iPC:dFPMWI: info %@",info);
+    if (DEBUG) NSLog(@"iPC:dFPMWI: image %@",image);
+    if (DEBUG) NSLog(@"iPC:dFPMWI: image size %@",NSStringFromCGSize(image.size));
     image = [self markFaces:image];
-    [imageView setImage: image] ;
-    [theButton setImage:image forState:UIControlStateNormal];
-
+    if (image) {
+        [imageView setImage:image];
+        [theButton setImage:image forState:UIControlStateNormal];
+    }
     [self dismissViewControllerAnimated:YES completion:Nil];
     
     
@@ -299,7 +329,7 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
 
 -(UIImage *)markFaces:(UIImage *)facePicture
 {
-    NSLog(@"markFaces: facePicture = %@",facePicture);
+    if (DEBUG) NSLog(@"markFaces: facePicture = %@",facePicture);
     
     // create a face detector - since speed is not an issue we'll use a high accuracy
     // detector
@@ -318,19 +348,19 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     }
     
     NSDictionary *fOptions = @{CIDetectorImageOrientation:[NSNumber numberWithInt:exifOrientation]};
-    NSLog(@"fOptions %@",fOptions);
+    if (DEBUG) NSLog(@"fOptions %@",fOptions);
     
     CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeFace
                                               context:nil options:[NSDictionary dictionaryWithObject:CIDetectorAccuracyHigh forKey:CIDetectorAccuracy]];
     
     
     // create an array containing all the detected faces from the detector
-        NSLog(@"facePicture.CIImage = %@", ciimage);
-        NSLog(@"facePicture.CIImage extent: %@",NSStringFromCGRect(ciimage.extent));
+        if (DEBUG) NSLog(@"facePicture.CIImage = %@", ciimage);
+        if (DEBUG) NSLog(@"facePicture.CIImage extent: %@",NSStringFromCGRect(ciimage.extent));
     
     NSArray* features = [detector featuresInImage:ciimage options:fOptions];
     
-    NSLog(@"feature detector found %d features",features.count);
+    if (DEBUG) NSLog(@"feature detector found %d features",features.count);
     
     if (features.count != 1) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Face detection failed"
@@ -343,44 +373,44 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     }
     
     CIFaceFeature *faceFeature = [features objectAtIndex:0];
-    NSLog(@"markFaces: faceFeature bounds %@",NSStringFromCGRect(faceFeature.bounds));
+    if (DEBUG) NSLog(@"markFaces: faceFeature bounds %@",NSStringFromCGRect(faceFeature.bounds));
 
     CGPoint pLeft = faceFeature.leftEyePosition;
     CGPoint pRight = faceFeature.rightEyePosition;
     
-    if (faceFeature.hasLeftEyePosition)
-        NSLog(@"left eye position: %@",NSStringFromCGPoint(pLeft));
-    else
-        NSLog(@"no left eye detected.");
-    
-    if (faceFeature.hasRightEyePosition)
-        NSLog(@"right eye position: %@",NSStringFromCGPoint(pRight));
-    else
-        NSLog(@"no right eye detected.");
-    
-    if (faceFeature.hasFaceAngle)
-        NSLog(@"faceAngle: %f",faceFeature.faceAngle);
-    else
-        NSLog(@"no face angle.");
-    
+    if (faceFeature.hasLeftEyePosition) {
+        if (DEBUG) { NSLog(@"left eye position: %@",NSStringFromCGPoint(pLeft)); }
+    } else {
+        if (DEBUG) { NSLog(@"no left eye detected."); }
+    }
+    if (faceFeature.hasRightEyePosition) {
+        if (DEBUG) { NSLog(@"right eye position: %@",NSStringFromCGPoint(pRight)); }
+    } else {
+        if (DEBUG) {NSLog(@"no right eye detected.");}
+    }
+    if (faceFeature.hasFaceAngle) {
+        if (DEBUG) { NSLog(@"faceAngle: %f",faceFeature.faceAngle); }
+    } else {
+        if (DEBUG) { NSLog(@"no face angle.");}
+    }
     float dy = pRight.y - pLeft.y;
     float dx = pRight.x - pLeft.x;
     float angle     = atan2(dy,dx);
     float modulus = sqrt(dx*dx+dy*dy);
-    NSLog(@"hand-calculated face angle: %f (%f degrees)",angle,angle*180.0/M_PI);
+    if (DEBUG) NSLog(@"hand-calculated face angle: %f (%f degrees)",angle,angle*180.0/M_PI);
     
     CGPoint pMouth ;
     if (faceFeature.hasMouthPosition) {
-        NSLog(@"mouth position: %@",NSStringFromCGPoint(faceFeature.mouthPosition));
+        if (DEBUG) NSLog(@"mouth position: %@",NSStringFromCGPoint(faceFeature.mouthPosition));
         pMouth = faceFeature.mouthPosition;
     }
     else
-        NSLog(@"no mouth detected.");
+        if (DEBUG) NSLog(@"no mouth detected.");
     
     // draw nice dots where the features are detected.
     
     
-    NSLog(@"Smile: %@",faceFeature.hasSmile ? @"yes" : @"no");
+    if (DEBUG) NSLog(@"Smile: %@",faceFeature.hasSmile ? @"yes" : @"no");
     
     // set up the transform. We are going to map the face to a 150 row x 130 column
     // image, with subject's right eye going to (x=30, y=45) and the subject's left eye
@@ -392,49 +422,49 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     
     // first step: left eye translate to origin
     CGAffineTransform trx = CGAffineTransformMakeTranslation(-pLeft.x, -pLeft.y);
-    NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
+    if (DEBUG) NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
     CGPoint tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
-    NSLog(@"left after trx: %@",NSStringFromCGPoint(tmpLeft));
+    if (DEBUG) NSLog(@"left after trx: %@",NSStringFromCGPoint(tmpLeft));
     
     // second step: rotate right eye to y=0
     trx = CGAffineTransformConcat(trx,CGAffineTransformMakeRotation(-angle));
-    NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
+    if (DEBUG) NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
     tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
-    NSLog(@"left after trx+rot: %@",NSStringFromCGPoint(tmpLeft));
+    if (DEBUG) NSLog(@"left after trx+rot: %@",NSStringFromCGPoint(tmpLeft));
     
     // third step: scale x to place eyes at (0,0) and (70,0)
     trx = CGAffineTransformConcat(trx,CGAffineTransformMakeScale(70.0/modulus,70.0/modulus));
-    NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
+    if (DEBUG) NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
     tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
-    NSLog(@"left after trx+rot+scale: %@",NSStringFromCGPoint(tmpLeft));
+    if (DEBUG) NSLog(@"left after trx+rot+scale: %@",NSStringFromCGPoint(tmpLeft));
 
     // fourth step: translate by (30,150-45).
     // 150-45 arises from the flipped vertical coordinates for one of the two
     // image coordinate systems.
     trx = CGAffineTransformConcat(trx,CGAffineTransformMakeTranslation(30,150-45));
-    NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
+    if (DEBUG) NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
     tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
-    NSLog(@"left after trx+rot+scale+trx: %@",NSStringFromCGPoint(tmpLeft));
+    if (DEBUG) NSLog(@"left after trx+rot+scale+trx: %@",NSStringFromCGPoint(tmpLeft));
 
     CGPoint trxLeft = CGPointApplyAffineTransform(pLeft,trx);
     CGPoint trxRight = CGPointApplyAffineTransform(pRight,trx);
-    NSLog(@"transformed left: %@  right: %@",NSStringFromCGPoint(trxLeft),NSStringFromCGPoint(trxRight));
+    if (DEBUG) NSLog(@"transformed left: %@  right: %@",NSStringFromCGPoint(trxLeft),NSStringFromCGPoint(trxRight));
     
     // woohoo, make a CIAffineTransform from the CGAffineTransform
     CIFilter *warper = [CIFilter filterWithName:@"CIAffineTransform"];
-    NSLog(@"warper %@",warper);
+    if (DEBUG) NSLog(@"warper %@",warper);
 //    CIImage *im = facePicture.CIImage;
 //    NSLog(@"im %@",im);
     //facepicture.C
     [warper setValue:[CIImage imageWithCGImage:facePicture.CGImage] forKey:@"inputImage"];
     [warper setValue:[NSValue valueWithBytes:&trx objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
     CIImage *result = [warper valueForKey:@"outputImage"];
-    NSLog(@"result %@",result);
+    if (DEBUG) NSLog(@"result %@",result);
 
     CGImageRef cgImage = [[CIContext contextWithOptions:nil]
                           createCGImage:result
                           fromRect:CGRectMake(0.0,0.0,130.0,150.0)/*result.extent*/];
-    NSLog(@"cgImage is %@",cgImage);
+    if (DEBUG) NSLog(@"cgImage is %@",cgImage);
     
     UIImage *theImage = [UIImage imageWithCGImage:cgImage];
     
@@ -468,17 +498,17 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     UIImage *theImage2 = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSLog(@"markFaces: theImage = %@ size %@",theImage2,NSStringFromCGSize(theImage.size));
+    if (DEBUG) NSLog(@"markFaces: theImage = %@ size %@",theImage2,NSStringFromCGSize(theImage.size));
 
 //        CGRect newBounds = CGRectMake(faceFeature.bounds.origin.x, ciimage.extent.size.height - faceFeature.bounds.origin.y, faceFeature.bounds.size.width, faceFeature.bounds.size.height);
 //        theImage = [self imageByCropping:facePicture toRect:newBounds];
     UIImageWriteToSavedPhotosAlbum(theImage2, nil, nil, nil);
     UIImageWriteToSavedPhotosAlbum(theImage, nil, nil, nil);
     //    [self sendPic:[self imageByCropping:facePicture toRect:newBounds]];
-    NSLog(@"out of for loop");
+    if (DEBUG) NSLog(@"out of for loop");
 
-    didSetImage = YES;          // set flag that we did successfully set an image
-    
+    //didSetImage = YES;          // set flag that we did successfully set an image
+    [finishButton setHidden:NO];
     
     return theImage;
 }

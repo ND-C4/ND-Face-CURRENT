@@ -23,6 +23,7 @@
     IBOutlet UITextField *lastNameText;
     IBOutlet UITextField *eMailText;
     IBOutlet UITextField *netIDText;
+    IBOutlet UIButton *finishButton;
     
     
 }
@@ -33,6 +34,7 @@
 - (IBAction)clearAllButton:(id)sender;
 - (IBAction)submitButton:(id)sender;
 - (BOOL) isEmailAddressValid: (NSString *) candidate;
+- (void) viewDidAppear:(BOOL)animated;
 
 
 @end
