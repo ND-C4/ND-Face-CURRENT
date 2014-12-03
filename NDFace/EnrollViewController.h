@@ -24,8 +24,10 @@
     IBOutlet UITextField *eMailText;
     IBOutlet UITextField *netIDText;
     IBOutlet UIButton *finishButton;
+    IBOutlet UIButton *resetButton;
     
     NSMutableDictionary *images;
+    NSMutableSet *buttonSet; // holds buttons we've seen.
     
     
 }
