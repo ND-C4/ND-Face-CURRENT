@@ -14,7 +14,7 @@
     UIImagePickerController *picker;
     UIImagePickerController *picker2;
     UIImage *image;
-    IBOutlet UIImageView *imageView;
+    //IBOutlet UIImageView *imageView;
     BOOL didSetImage;                   // flag to determine if picture has been chosen 
 
     UIButton *theButton; // which image button was pressed to take an image?
@@ -24,6 +24,8 @@
     IBOutlet UITextField *eMailText;
     IBOutlet UITextField *netIDText;
     IBOutlet UIButton *finishButton;
+    
+    NSMutableDictionary *images;
     
     
 }

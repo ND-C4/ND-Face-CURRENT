@@ -24,6 +24,13 @@
 {
     if (DEBUG) NSLog(@"ViewDidAppear");
     [super viewDidAppear:animated];
+    if (images) {
+        [images removeAllObjects];
+        // if necessary, add code to clear out the previously
+        // stored face images in the buttons.
+    } else {
+        images = [[NSMutableDictionary alloc] init];
+    }
 
 }
 
@@ -96,6 +103,7 @@
         picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
     }
 }
+
 - (NSString*)generateRandomString:(int)num {
     NSMutableString* string = [NSMutableString stringWithCapacity:num];
     for (int i = 0; i < num; i++) {
@@ -182,7 +190,7 @@
     lastNameText.text = @"";
     eMailText.text = @"";
     netIDText.text = @"";
-    imageView.image =[UIImage imageNamed:@"man-silhouette.png"];
+    //imageView.image =[UIImage imageNamed:@"man-silhouette.png"];
     //didSetImage = NO;   // reset flag that indicates image has been selected
     
 }
@@ -288,6 +296,11 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
 -(void)imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    ///
+    
+    [images setValue:image forKey:[NSNumber numberWithUnsignedInt:theButton.hash]];
+    NSLog(@"images dictionary now has %d entries",[images count]);
 
 
     
@@ -303,7 +316,7 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     if (DEBUG) NSLog(@"iPC:dFPMWI: image size %@",NSStringFromCGSize(image.size));
     image = [self markFaces:image];
     if (image) {
-        [imageView setImage:image];
+        //[imageView setImage:image];
         [theButton setImage:image forState:UIControlStateNormal];
     }
     [self dismissViewControllerAnimated:YES completion:Nil];
