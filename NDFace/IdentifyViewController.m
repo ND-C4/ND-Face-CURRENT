@@ -1,64 +1,80 @@
 //
-//  EnrollViewController.m
+//  IdentifyViewController.m
 //  NDFace
 //
-//  Created by Abe on 3/10/14.
+//  Created by Patrick J. Flynn on 12/3/14.
 //  Copyright (c) 2014 Architecture Information Technology Team. All rights reserved.
 //
 
-#import "EnrollViewController.h"
-#import <CoreImage/CoreImage.h>
-#import <ImageIO/ImageIO.h>
-#import <QuartzCore/QuartzCore.h>
+#import "IdentifyViewController.h"
 #import <AFNetworking.h>
 #import <iToast.h>
-#import "math.h"
-#import <libkern/OSAtomic.h>   //   Ride 'em, cowboy!
 
-@interface EnrollViewController ()
+
+@interface IdentifyViewController ()
 
 @end
 
-@implementation EnrollViewController
+@implementation IdentifyViewController
 
-- (void) viewDidAppear:(BOOL)animated
-{
-    if (DEBUG) NSLog(@"ViewDidAppear");
-    [super viewDidAppear:animated];
-    if (images == nil) {
-        images = [[NSMutableDictionary alloc] init];
+
+
+- (void)viewDidLoad {
+    if (DEBUG) NSLog(@"IVC:vDL");
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+#pragma mark - actions
+
+- (IBAction)startButton:(id)sender {
+    if (DEBUG) NSLog(@"IVC:start");
+    if (DEBUG) NSLog(@"TakePhoto: sender %@",sender);
+    picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    // guard logic; should help this guy run correctly on the simulator
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [self chooseCamera:sender];
+    } else {
+        [self chooseLibrary:sender];
     }
-    if (buttonSet == nil) {
-        buttonSet = [[NSMutableSet alloc] init];
-    }
+    [self presentViewController:picker animated:YES completion:Nil];
+
+}
+
+
+- (void)sendPic:(UIImage *)facePicture {
+    NSData *facePictureData = UIImagePNGRepresentation(facePicture);
+    NSString *url = [NSString stringWithFormat:@"http://cheepnis.cse.nd.edu:5000/match"];
+    if (DEBUG) NSLog(@"url: %@",url);
+    
+    AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
+    requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    if (DEBUG) NSLog(@"requestManager: %@",requestManager);
+    
+    [requestManager POST:url
+              parameters:@{}
+constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [formData appendPartWithFileData:facePictureData name:@"image" fileName:@"test.png" mimeType:@"application/octet-stream"];
+}
+                 success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+                     [[iToast makeText:@"Success!"] show];
+                     if (DEBUG) NSLog(@"success! %@",responseObject );
+                 }
+                 failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+                     NSString *e = [NSString stringWithFormat:@"Face image not transmitted: %@",error];
+                     [[iToast makeText:e] show];
+                     if (DEBUG) NSLog(@"fail! %@", error);
+                 }
+     
+     ];
+    
     
 }
 
-- (void) viewDidLoad
-{
-    if (DEBUG) NSLog(@"viewDidLoad");
-    [super viewDidLoad];
-    [finishButton setHidden:YES];
-    [resetButton setHidden:YES];
-    if (indicator == nil) {
-        indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        if (DEBUG) NSLog(@"allocated indicator");
-    }
-}
 
-#pragma mark - orientation configuration
 
-- (BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-#pragma mark - camera/album switching, front/back camera switching
+#pragma mark - UIImgePickerController custom control handlers
 
 // these four methods handle flipping the UIImagePickerController from
 // photo album mode to live camera mode, and choosing the front or back camera
@@ -109,136 +125,16 @@
     }
 }
 
-- (NSString*)generateRandomString:(int)num {
-    NSMutableString* string = [NSMutableString stringWithCapacity:num];
-    for (int i = 0; i < num; i++) {
-        [string appendFormat:@"%C", (unichar)('a' + arc4random_uniform(25))];
-    }
-    return string;
-}
-
-- (IBAction) train:(id)sender {
-    NSString *url = @"http://cheepnis.cse.nd.edu:5000/train";
-    AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
-    requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    if (DEBUG) NSLog(@"requestManager: %@",requestManager);
-    
-    indicator.center = [self view].center;
-    [[self view] addSubview:indicator];
-    [indicator startAnimating];
-    
-    [requestManager POST:url
-              parameters:@{}
-constructingBodyWithBlock:nil
-                 success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-                     [[iToast makeText:@"Training completed."] show];
-                     [indicator stopAnimating];
-                     [indicator removeFromSuperview];
-                     if (DEBUG) NSLog(@"training success! %@",responseObject );
-                 }
-                 failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-                     NSString *e = [NSString stringWithFormat:@"training request failed: %@",error];
-                     [indicator stopAnimating];
-                     [indicator removeFromSuperview];
-                     [[iToast makeText:e] show];
-                     if (DEBUG) NSLog(@"training fail! %@", error);
-                 }
-     
-     ];
-
-}
-
-- (void)sendPic:(UIImage *)facePicture {
-    NSData *facePictureData = UIImagePNGRepresentation(facePicture);
-    // very verbose.
-    //if (DEBUG) NSLog(@"facePictureData %@",facePictureData);
-    NSString *netid = [netIDText text];
-    if ([netid length] == 0)
-        netid = [self generateRandomString:10];
-    NSString *url = [NSString stringWithFormat:@"http://cheepnis.cse.nd.edu:5000/enroll/%@/%@",netid,[self generateRandomString:16]];
-    if (DEBUG) NSLog(@"url: %@",url);
-    
-    //NSString *url = @"http://cheepnis.cse.nd.edu:5000/enroll/666/1";
-    // Argument 2 ("666" for testing) is user ID
-    // Argument 3 ("1" for testing) is picture's ID for that user ID
-    
-    //NSDictionary *parameters = @{@"image": facePictureData};
-    
-    AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
-    requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    if (DEBUG) NSLog(@"requestManager: %@",requestManager);
-
-    [indicator startAnimating];
-    OSAtomicIncrement32(&pendingrequests);
-    [requestManager POST:url
-              parameters:@{@"firstName":firstNameText.text,
-                           @"lastName":lastNameText.text,
-                           @"emailAddress":eMailText.text,
-                           @"NetID":netIDText.text}
-constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    [formData appendPartWithFileData:facePictureData name:@"image" fileName:@"test.png" mimeType:@"application/octet-stream"];
-}
-                 success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-                     [[iToast makeText:@"Face image enrolled."] show];
-                     if (DEBUG) NSLog(@"success! %@",responseObject );
-                     OSAtomicDecrement32(&pendingrequests);
-                     if (pendingrequests == 0) {
-                         [indicator stopAnimating];
-                         [indicator removeFromSuperview];
-                     }
-                 }
-                 failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-                     NSString *e = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
-                     [[iToast makeText:e] show];
-                     if (DEBUG) NSLog(@"fail! %@", error);
-                     OSAtomicDecrement32(&pendingrequests);
-                     if (pendingrequests == 0) {
-                         [indicator stopAnimating];
-                         [indicator removeFromSuperview];
-                     }
-                 }
-     
-     ];
-    
-    
-}
-
--(IBAction)TakePhoto:(id)sender
-{
-    if (DEBUG) NSLog(@"TakePhoto: sender %@",sender);
-    picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    theButton = sender;
-    [buttonSet addObject:sender];
-    // guard logic; should help this guy run correctly on the simulator
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [self chooseCamera:sender];
-    } else {
-        [self chooseLibrary:sender];
-    }
-    [self presentViewController:picker animated:YES completion:Nil];
-    
-}
-
-- (IBAction)dismissView:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:Nil];
-}
+#pragma mark - image capture handler methods
 
 -(void)imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    if (DEBUG) NSLog(@"iPC:dFPMWI: info %@",[[info description] substringWithRange:NSMakeRange(0,40)]);
+    if (DEBUG) NSLog(@"iPC:dFPMWI: info %@",info);
     if (DEBUG) NSLog(@"iPC:dFPMWI: image %@",image);
     if (DEBUG) NSLog(@"iPC:dFPMWI: image size %@",NSStringFromCGSize(image.size));
     image = [self markFaces:image];
-    if (image == nil) {
-        NSLog(@"Error: failed to get face in image.");
-    } else {
-        [theButton setImage:image forState:UIControlStateNormal];
-        [images setValue:image forKey:[theButton description]];
-        [finishButton setHidden:NO];
-        [resetButton setHidden:NO];
-    }
+    [self sendPic:image];
     [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
@@ -248,127 +144,14 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     
 }
 
-- (IBAction)clearAllButton:(id)sender {
+- (UIImage *)imageByCropping:(UIImage *)imageToCrop toRect:(CGRect)rect
+{
+    CGImageRef imageRef = CGImageCreateWithImageInRect(imageToCrop.CGImage, rect);
     
-    firstNameText.text = @"";
-    lastNameText.text = @"";
-    eMailText.text = @"";
-    netIDText.text = @"";
-    [images removeAllObjects];
-    for (UIButton *b in [buttonSet allObjects]) {
-        [b setImage:[UIImage imageNamed:@"man-silhouette.png"]
-           forState:UIControlStateNormal];
-    }
-    [buttonSet removeAllObjects];
-    [resetButton setHidden:YES];
-    [finishButton setHidden:YES];
-    //imageView.image =[UIImage imageNamed:@"man-silhouette.png"];
-    //didSetImage = NO;   // reset flag that indicates image has been selected
+    UIImage *cropped = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
     
-}
-
-- (BOOL) isEmailAddressValid: (NSString *) candidate {
-    NSString *emailRegex =
-    @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
-    @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
-    @"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
-    @"z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
-    @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
-    @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
-    @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES[c] %@", emailRegex];
-    
-    return [emailTest evaluateWithObject:candidate];
-}
-
-- (IBAction)submitButton:(id)sender {
-    if (DEBUG) NSLog(@"submitButton.");
-    if ([images count] == 0) // did user submit an image?
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Image"
-                                                        message:@"Please supply your picture(s) before continuing."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-        
-        
-    } else {
-        
-        
-        // ensure all requisite fields have been completed
-        if ([firstNameText.text isEqualToString:@""])
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing First Name"
-                                                            message:@"Please supply your first (given) name before continuing."
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-            return;
-            
-        } else {
-            
-            if ([lastNameText.text isEqualToString:@""])
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Last Name"
-                                                                message:@"Please supply your last (family) name before continuing."
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
-                return;
-                
-                
-            } else {
-                
-                if ([eMailText.text isEqualToString:@""] || ![self isEmailAddressValid:eMailText.text])
-                {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing or Invalid Email Address"
-                                                                    message:@"Please supply a valid email address before continuing."
-                                                                   delegate:nil
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil];
-                    [alert show];
-                    return;
-                    
-                } else {
-                    if (DEBUG) NSLog(@"good! %d images to send",[images count]);
-                    // we are good, go ahead and run everything
-                    pendingrequests=0;
-                    indicator.center = [self view].center;
-                    [[self view] addSubview:indicator];
-                    for (NSString *key in [images allKeys]) {
-                        UIImage* imageToEnroll = [images objectForKey:key];
-                        NSLog(@"iterating: key %@",key);
-                        [self sendPic:imageToEnroll];
-                        //[images removeObjectForKey:key];
-                    };
-                    [self clearAllButton:self];
-                }
-                
-            }
-        }
-        
-    }
-    
-}
-
-
-// Grr
-NSString *stringWithUIImageOrientation(UIImageOrientation input) {
-    NSArray *arr = @[
-                     @"UIImageOrientationUp",            // default orientation
-                     @"UIImageOrientationDown",          // 180 deg rotation
-                     @"UIImageOrientationLeft",          // 90 deg CCW
-                     @"UIImageOrientationRight",         // 90 deg CW
-                     @"UIImageOrientationUpMirrored",    // as above but image mirrored along other axis. horizontal flip
-                     @"UIImageOrientationDownMirrored",  // horizontal flip
-                     @"UIImageOrientationLeftMirrored",  // vertical flip
-                     @"UIImageOrientationRightMirrored", // vertical flip
-                     ];
-    return (NSString *)[arr objectAtIndex:input];
+    return cropped;
 }
 
 -(UIImage *)markFaces:(UIImage *)facePicture
@@ -560,10 +343,34 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
 }
 
 
-// Dismiss the keyboard when we click "Done"
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
+
+#pragma mark - orientation configuration
+
+- (BOOL)shouldAutorotate
+{
     return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+#pragma mark - error handlers
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end

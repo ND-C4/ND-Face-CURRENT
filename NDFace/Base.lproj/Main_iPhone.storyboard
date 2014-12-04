@@ -56,16 +56,20 @@
                                     <color key="titleColor" red="0.51564561490000005" green="1" blue="0.1178868121" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="EXd-qv-KtJ" kind="custom" id="JSe-i1-g16"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="3Yg-P8-Yeg"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="272" y="98"/>
+            <point key="canvasLocation" x="352" y="78"/>
         </scene>
         <!--Enroller-->
         <scene sceneID="3BZ-qL-dLN">
@@ -234,14 +238,25 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOn-Uz-yJg">
-                                <rect key="frame" x="67" y="435" width="186" height="55"/>
+                                <rect key="frame" x="32" y="435" width="77" height="55"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="30"/>
-                                <state key="normal" title="Enroll Images">
+                                <state key="normal" title="Enroll">
                                     <color key="titleColor" red="0.51564561490000005" green="1" blue="0.1178868121" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="submitButton:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="Jp2-UO-sKz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYl-8l-G5s">
+                                <rect key="frame" x="208" y="435" width="65" height="55"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="30"/>
+                                <state key="normal" title="Train">
+                                    <color key="titleColor" red="1" green="0.23319494507192728" blue="0.82968058527668964" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="train:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="eof-LE-3ny"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aY6-1F-epc">
@@ -256,7 +271,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcd-ua-aMy">
-                                <rect key="frame" x="34" y="474" width="77" height="55"/>
+                                <rect key="frame" x="32" y="474" width="77" height="55"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="30"/>
                                 <state key="normal" title="Reset">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -269,6 +284,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="f2c-GK-b1l"/>
                     <connections>
                         <outlet property="eMailText" destination="9Ky-wo-ZnJ" id="q65-FY-hDb"/>
                         <outlet property="finishButton" destination="YOn-Uz-yJg" id="3GG-2o-Y1n"/>
@@ -282,6 +298,51 @@
             </objects>
             <point key="canvasLocation" x="839" y="129"/>
         </scene>
+        <!--Identify View Controller-->
+        <scene sceneID="Ebh-Kq-4qI">
+            <objects>
+                <viewController id="EXd-qv-KtJ" customClass="IdentifyViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Pnk-HB-dNy"/>
+                        <viewControllerLayoutGuide type="bottom" id="wwT-wr-cVo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nFF-D5-EBH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back.png" translatesAutoresizingMaskIntoConstraints="NO" id="knl-tv-UGT">
+                                <rect key="frame" x="0.0" y="0.0" width="326" height="568"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVx-76-6iQ">
+                                <rect key="frame" x="204" y="470" width="109" height="55"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="30"/>
+                                <state key="normal" title="Go Back">
+                                    <color key="titleColor" red="1" green="0.91352094780000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="vXZ-lx-hvc" kind="custom" id="vet-5W-2bU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9P-tn-cZc">
+                                <rect key="frame" x="16" y="470" width="72" height="55"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="30"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleColor" red="0.027592065879999999" green="1" blue="0.3476973176" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startButton:" destination="EXd-qv-KtJ" eventType="touchUpInside" id="AUl-5T-qts"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rs1-Im-N52" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="559" y="793"/>
+        </scene>
     </scenes>
     <resources>
         <image name="back.png" width="768" height="1004"/>
@@ -292,4 +353,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="IrT-m3-rqs"/>
+    </inferredMetricsTieBreakers>
 </document>

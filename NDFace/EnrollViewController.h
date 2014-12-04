@@ -12,7 +12,7 @@
     UITextFieldDelegate,UIGestureRecognizerDelegate>
 {
     UIImagePickerController *picker;
-    UIImagePickerController *picker2;
+    //UIImagePickerController *picker2;
     UIImage *image;
     //IBOutlet UIImageView *imageView;
     BOOL didSetImage;                   // flag to determine if picture has been chosen 
@@ -29,7 +29,9 @@
     NSMutableDictionary *images;
     NSMutableSet *buttonSet; // holds buttons we've seen.
     
+    UIActivityIndicatorView *indicator;
     
+    int32_t pendingrequests;
 }
 
 -(IBAction)TakePhoto:(id)sender;

@@ -30,6 +30,7 @@
 		30DE3EE818D518A400F0B82C /* GUIFrame-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DE3EE718D518A400F0B82C /* GUIFrame-2.png */; };
 		30DE3EEA18D51CDE00F0B82C /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DE3EE918D51CDE00F0B82C /* backButton.png */; };
 		52029F871A1D14FD0053604F /* CameraToggle.png in Resources */ = {isa = PBXBuildFile; fileRef = 52029F861A1D14FD0053604F /* CameraToggle.png */; };
+		526687BC1A2FD06600C0A115 /* IdentifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526687BB1A2FD06600C0A115 /* IdentifyViewController.m */; };
 		52DAE62519DD9B310043DE3F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DAE62419DD9B310043DE3F /* ImageIO.framework */; };
 		C846480D199145550024E27E /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = C846480C199145550024E27E /* camera.png */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,8 @@
 		30DE3EE918D51CDE00F0B82C /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButton.png; sourceTree = "<group>"; };
 		436AC37625E001665635494E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		52029F861A1D14FD0053604F /* CameraToggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraToggle.png; sourceTree = "<group>"; };
+		526687BA1A2FD06600C0A115 /* IdentifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentifyViewController.h; sourceTree = "<group>"; };
+		526687BB1A2FD06600C0A115 /* IdentifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentifyViewController.m; sourceTree = "<group>"; };
 		52DAE62419DD9B310043DE3F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C846480C199145550024E27E /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		D90CB52C0BE3485C93CF64C1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +154,8 @@
 				309C907318CE3DB400862D1A /* ViewController.m */,
 				309C909218CE3E0A00862D1A /* EnrollViewController.h */,
 				309C909318CE3E0A00862D1A /* EnrollViewController.m */,
+				526687BA1A2FD06600C0A115 /* IdentifyViewController.h */,
+				526687BB1A2FD06600C0A115 /* IdentifyViewController.m */,
 				309C909418CE3E0A00862D1A /* EnrollViewController.xib */,
 				30DE3EE518D5182400F0B82C /* man-silhouette.png */,
 				C846480C199145550024E27E /* camera.png */,
@@ -352,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				526687BC1A2FD06600C0A115 /* IdentifyViewController.m in Sources */,
 				309C909518CE3E0A00862D1A /* EnrollViewController.m in Sources */,
 				309C907418CE3DB400862D1A /* ViewController.m in Sources */,
 				309C906B18CE3DB400862D1A /* AppDelegate.m in Sources */,
