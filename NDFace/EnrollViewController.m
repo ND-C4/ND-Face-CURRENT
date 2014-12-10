@@ -152,7 +152,7 @@ constructingBodyWithBlock:nil
     NSData *facePictureData = UIImagePNGRepresentation(facePicture);
     // very verbose.
     //if (DEBUG) NSLog(@"facePictureData %@",facePictureData);
-    NSString *netid = [netIDText text];
+    NSString *netid = [eMailText text];
     if ([netid length] == 0)
         netid = [self generateRandomString:10];
     NSString *url = [NSString stringWithFormat:@"http://cheepnis.cse.nd.edu:5000/enroll/%@/%@",netid,[self generateRandomString:16]];

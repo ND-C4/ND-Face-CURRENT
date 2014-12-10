@@ -49,7 +49,7 @@
     if (DEBUG) NSLog(@"url: %@",url);
     
     AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
-    requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    requestManager.responseSerializer = [AFJSONResponseSerializer serializer];
     if (DEBUG) NSLog(@"requestManager: %@",requestManager);
     
     [requestManager POST:url
@@ -58,7 +58,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     [formData appendPartWithFileData:facePictureData name:@"image" fileName:@"test.png" mimeType:@"application/octet-stream"];
 }
                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-                     [[iToast makeText:@"Success!"] show];
+                     [[iToast makeText:
+                       [NSString stringWithFormat:@"THe person in this picture is %@",[responseObject objectForKey:@"id"]]] show];
                      if (DEBUG) NSLog(@"success! %@",responseObject );
                  }
                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
