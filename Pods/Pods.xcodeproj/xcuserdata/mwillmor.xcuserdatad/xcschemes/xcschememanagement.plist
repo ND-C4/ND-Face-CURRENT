@@ -8,21 +8,45 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Pods-iToast.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>95FB1DBC3393A2DC60D48D20</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>97C545025108379176348799</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>AF7C14DCF675610B831D7BF0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB042784E127D42859447A35</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC3FB3BD6978204F8168376F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

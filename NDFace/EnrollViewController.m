@@ -283,10 +283,10 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 
 - (IBAction)submitButton:(id)sender {
     if (DEBUG) NSLog(@"submitButton.");
-    if ([images count] == 0) // did user submit an image?
+    if ([images count] <= 3) // did user submit an image?
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Image"
-                                                        message:@"Please supply your picture(s) before continuing."
+                                                        message:@"Please supply at least four pictures before continuing."
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
@@ -334,7 +334,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                     return;
                     
                 } else {
-                    if (DEBUG) NSLog(@"good! %d images to send",[images count]);
+                    if (DEBUG) NSLog(@"good! %ld images to send",[images count]);
                     // we are good, go ahead and run everything
                     pendingrequests=0;
                     indicator.center = [self view].center;
