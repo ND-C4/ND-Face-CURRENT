@@ -118,7 +118,7 @@
 }
 
 - (IBAction) train:(id)sender {
-    NSString *url = @"http://cheepnis.cse.nd.edu:5000/train";
+    NSString *url = @"http://flynnuc.cse.nd.edu:5000/train";
     AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
     requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
     if (DEBUG) NSLog(@"requestManager: %@",requestManager);
@@ -155,10 +155,10 @@ constructingBodyWithBlock:nil
     NSString *netid = [eMailText text];
     if ([netid length] == 0)
         netid = [self generateRandomString:10];
-    NSString *url = [NSString stringWithFormat:@"http://cheepnis.cse.nd.edu:5000/enroll/%@/%@",netid,[self generateRandomString:16]];
+    NSString *url = [NSString stringWithFormat:@"http://flynnuc.cse.nd.edu:5000/enroll/%@/%@",netid,[self generateRandomString:16]];
     if (DEBUG) NSLog(@"url: %@",url);
     
-    //NSString *url = @"http://cheepnis.cse.nd.edu:5000/enroll/666/1";
+    //NSString *url = @"http://flynnuc.cse.nd.edu:5000/enroll/666/1";
     // Argument 2 ("666" for testing) is user ID
     // Argument 3 ("1" for testing) is picture's ID for that user ID
     
@@ -227,7 +227,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 -(void)imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    if (DEBUG) NSLog(@"iPC:dFPMWI: info %@",[[info description] substringWithRange:NSMakeRange(0,40)]);
+    if (DEBUG) NSLog(@"iPC:dFPMWI: info %@",[info description]);
     if (DEBUG) NSLog(@"iPC:dFPMWI: image %@",image);
     if (DEBUG) NSLog(@"iPC:dFPMWI: image size %@",NSStringFromCGSize(image.size));
     image = [self markFaces:image];

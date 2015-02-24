@@ -45,7 +45,7 @@
 
 - (void)sendPic:(UIImage *)facePicture {
     NSData *facePictureData = UIImagePNGRepresentation(facePicture);
-    NSString *url = [NSString stringWithFormat:@"http://cheepnis.cse.nd.edu:5000/match"];
+    NSString *url = [NSString stringWithFormat:@"http://flynnuc.cse.nd.edu:5000/match"];
     if (DEBUG) NSLog(@"url: %@",url);
     
     AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
@@ -59,13 +59,16 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 }
                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
                      [[iToast makeText:
-                       [NSString stringWithFormat:@"THe person in this picture is %@",[responseObject objectForKey:@"id"]]] show];
+                       [NSString stringWithFormat:@"The person in this picture is %@",[responseObject objectForKey:@"id"]]] show];
                      if (DEBUG) NSLog(@"success! %@",responseObject );
                  }
+     
+     // inspect return value. something isn't working.
+     
                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
                      NSString *e = [NSString stringWithFormat:@"Face image not transmitted: %@",error];
                      [[iToast makeText:e] show];
-                     if (DEBUG) NSLog(@"fail! %@", error);
+                     if (DEBUG) NSLog(@"fail! operation\n%@\n %@", operation, error);
                  }
      
      ];
