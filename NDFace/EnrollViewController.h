@@ -19,6 +19,8 @@
 
     UIButton *theButton; // which image button was pressed to take an image?
     
+    IBOutlet UIButton *submitButton;
+    
     IBOutlet UITextField *firstNameText;
     IBOutlet UITextField *lastNameText;
     IBOutlet UITextField *eMailText;

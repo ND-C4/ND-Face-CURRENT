@@ -292,6 +292,7 @@
                         <outlet property="lastNameText" destination="Ptx-Uo-yGy" id="G3W-R5-ebs"/>
                         <outlet property="netIDText" destination="1Va-3H-oRS" id="wBE-Gb-IhU"/>
                         <outlet property="resetButton" destination="hcd-ua-aMy" id="eXw-vW-h6Y"/>
+                        <outlet property="submitButton" destination="YOn-Uz-yJg" id="b36-lI-8sT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SVX-4B-AC7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -354,6 +355,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vet-5W-2bU"/>
+        <segue reference="IrT-m3-rqs"/>
     </inferredMetricsTieBreakers>
 </document>

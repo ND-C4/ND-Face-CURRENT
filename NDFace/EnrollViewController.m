@@ -44,6 +44,7 @@
         indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         if (DEBUG) NSLog(@"allocated indicator");
     }
+    [submitButton setSelected:NO];
 }
 
 #pragma mark - orientation configuration
@@ -285,6 +286,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     if (DEBUG) NSLog(@"submitButton.");
     if ([images count] <= 3) // did user submit an image?
     {
+
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Image"
                                                         message:@"Please supply at least four pictures before continuing."
                                                        delegate:nil
@@ -296,7 +298,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
     } else {
         
-        
+        // TODO: move this elsewhere so it executes when it should
+        [submitButton setSelected:YES]; // enable the Enroll button once we have enough images
         // ensure all requisite fields have been completed
         if ([firstNameText.text isEqualToString:@""])
         {
@@ -344,6 +347,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                         NSLog(@"iterating: key %@",key);
                         [self sendPic:imageToEnroll];
                         //[images removeObjectForKey:key];
+                        
+                        [submitButton setSelected:NO]; // hide Enroll button again
+
                     };
                     [self clearAllButton:self];
                 }
@@ -353,8 +359,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
     }
     
-}
-
+} // end of the method
 
 // Grr
 NSString *stringWithUIImageOrientation(UIImageOrientation input) {
