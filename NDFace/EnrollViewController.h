@@ -19,13 +19,11 @@
 
     UIButton *theButton; // which image button was pressed to take an image?
     
-    IBOutlet UIButton *submitButton;
-    
     IBOutlet UITextField *firstNameText;
     IBOutlet UITextField *lastNameText;
     IBOutlet UITextField *eMailText;
     IBOutlet UITextField *netIDText;
-    IBOutlet UIButton *finishButton;
+    IBOutlet UIButton *submitButton;
     IBOutlet UIButton *resetButton;
     
     NSMutableDictionary *images;

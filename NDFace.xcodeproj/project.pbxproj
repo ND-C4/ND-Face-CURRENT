@@ -67,7 +67,7 @@
 		309C908418CE3DB400862D1A /* NDFaceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NDFaceTests-Info.plist"; sourceTree = "<group>"; };
 		309C908618CE3DB400862D1A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		309C908818CE3DB400862D1A /* NDFaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NDFaceTests.m; sourceTree = "<group>"; };
-		309C909218CE3E0A00862D1A /* EnrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollViewController.h; sourceTree = "<group>"; };
+		309C909218CE3E0A00862D1A /* EnrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollViewController.h; sourceTree = "<group>"; usesTabs = 0; };
 		309C909318CE3E0A00862D1A /* EnrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollViewController.m; sourceTree = "<group>"; };
 		309C909418CE3E0A00862D1A /* EnrollViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnrollViewController.xib; sourceTree = "<group>"; };
 		309C909718CE597200862D1A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };

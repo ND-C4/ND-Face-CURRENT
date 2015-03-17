@@ -241,8 +241,11 @@
                                 <rect key="frame" x="31" y="465" width="77" height="55"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                 <state key="normal" title="Enroll">
-                                    <color key="titleColor" red="0.51564561490000005" green="1" blue="0.1178868121" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="submitButton:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="Jp2-UO-sKz"/>
@@ -252,7 +255,7 @@
                                 <rect key="frame" x="207" y="465" width="65" height="55"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                 <state key="normal" title="Train">
-                                    <color key="titleColor" red="1" green="0.23319494507192728" blue="0.82968058527668964" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -263,7 +266,7 @@
                                 <rect key="frame" x="191" y="504" width="109" height="55"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                 <state key="normal" title="Go Back">
-                                    <color key="titleColor" red="1" green="0.9135209477999342" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -274,7 +277,7 @@
                                 <rect key="frame" x="31" y="504" width="77" height="55"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                 <state key="normal" title="Reset">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -287,7 +290,6 @@
                     <navigationItem key="navigationItem" id="f2c-GK-b1l"/>
                     <connections>
                         <outlet property="eMailText" destination="9Ky-wo-ZnJ" id="q65-FY-hDb"/>
-                        <outlet property="finishButton" destination="YOn-Uz-yJg" id="3GG-2o-Y1n"/>
                         <outlet property="firstNameText" destination="2xL-0l-Ccy" id="9QP-8h-kvo"/>
                         <outlet property="lastNameText" destination="Ptx-Uo-yGy" id="G3W-R5-ebs"/>
                         <outlet property="netIDText" destination="1Va-3H-oRS" id="wBE-Gb-IhU"/>

@@ -38,13 +38,13 @@
 {
     if (DEBUG) NSLog(@"viewDidLoad");
     [super viewDidLoad];
-    [finishButton setHidden:YES];
+//  [submitButton setHidden:YES];
     [resetButton setHidden:YES];
     if (indicator == nil) {
         indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         if (DEBUG) NSLog(@"allocated indicator");
     }
-    [submitButton setSelected:NO];
+    [submitButton setEnabled:NO];
 }
 
 #pragma mark - orientation configuration
@@ -237,7 +237,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     } else {
         [theButton setImage:image forState:UIControlStateNormal];
         [images setValue:image forKey:[theButton description]];
-        [finishButton setHidden:NO];
+        [submitButton setHidden:NO];
         [resetButton setHidden:NO];
     }
     [self dismissViewControllerAnimated:YES completion:Nil];
@@ -262,7 +262,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     }
     [buttonSet removeAllObjects];
     [resetButton setHidden:YES];
-    [finishButton setHidden:YES];
+//  [submitButton setHidden:YES];
     //imageView.image =[UIImage imageNamed:@"man-silhouette.png"];
     //didSetImage = NO;   // reset flag that indicates image has been selected
     
@@ -299,7 +299,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     } else {
         
         // TODO: move this elsewhere so it executes when it should
-        [submitButton setSelected:YES]; // enable the Enroll button once we have enough images
+        [submitButton setEnabled:YES]; // enable the Enroll button once we have enough images
         // ensure all requisite fields have been completed
         if ([firstNameText.text isEqualToString:@""])
         {
@@ -348,7 +348,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                         [self sendPic:imageToEnroll];
                         //[images removeObjectForKey:key];
                         
-                        [submitButton setSelected:NO]; // hide Enroll button again
+                       // [submitButton setSelected:NO]; // hide Enroll button again
 
                     };
                     [self clearAllButton:self];
