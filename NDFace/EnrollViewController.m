@@ -45,6 +45,11 @@
         if (DEBUG) NSLog(@"allocated indicator");
     }
     [submitButton setEnabled:NO];
+
+    // Setting delegates to determine if fields are populated
+    [firstNameText setDelegate:self];
+    [lastNameText setDelegate:self];
+    [eMailText setDelegate:self];
 }
 
 #pragma mark - orientation configuration
@@ -283,85 +288,83 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 }
 
 - (IBAction)submitButton:(id)sender {
+    aFlag_CanContinue = NO;  // setting flag to NO, meaning do not enable Enroll button
+    
     if (DEBUG) NSLog(@"submitButton.");
+    
     if ([images count] <= 3) // did user submit an image?
     {
-
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Image"
                                                         message:@"Please supply at least four pictures before continuing."
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-        return;
         
-        
-    } else {
-        
-        // TODO: move this elsewhere so it executes when it should
-        [submitButton setEnabled:YES]; // enable the Enroll button once we have enough images
-        // ensure all requisite fields have been completed
-        if ([firstNameText.text isEqualToString:@""])
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing First Name"
-                                                            message:@"Please supply your first (given) name before continuing."
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-            return;
-            
-        } else {
-            
-            if ([lastNameText.text isEqualToString:@""])
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Last Name"
-                                                                message:@"Please supply your last (family) name before continuing."
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
-                return;
-                
-                
-            } else {
-                
-                if ([eMailText.text isEqualToString:@""] || ![self isEmailAddressValid:eMailText.text])
-                {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing or Invalid Email Address"
-                                                                    message:@"Please supply a valid email address before continuing."
-                                                                   delegate:nil
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil];
-                    [alert show];
-                    return;
-                    
-                } else {
-                    if (DEBUG) NSLog(@"good! %ld images to send",[images count]);
-                    // we are good, go ahead and run everything
-                    pendingrequests=0;
-                    indicator.center = [self view].center;
-                    [[self view] addSubview:indicator];
-                    for (NSString *key in [images allKeys]) {
-                        UIImage* imageToEnroll = [images objectForKey:key];
-                        NSLog(@"iterating: key %@",key);
-                        [self sendPic:imageToEnroll];
-                        //[images removeObjectForKey:key];
-                        
-                       // [submitButton setSelected:NO]; // hide Enroll button again
+        aFlag_CanContinue = NO; // not enough images, so Enroll button should not be enabled
 
-                    };
-                    [self clearAllButton:self];
-                }
-                
-            }
-        }
+    }
+ 
+    if ([firstNameText.text isEqualToString:@""] && aFlag_CanContinue == YES)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing First Name"
+                                                        message:@"Please supply your first (given) name before continuing."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
         
+        aFlag_CanContinue = NO; // missing first name, so Enroll button should not be enabled
+    }
+
+    if ([lastNameText.text isEqualToString:@""] && aFlag_CanContinue == YES)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Last Name"
+                                                        message:@"Please supply your last (family) name before continuing."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        aFlag_CanContinue = NO; // missing last name, so Enroll button should not be enabled
+
     }
     
+    if (([eMailText.text isEqualToString:@""] || ![self isEmailAddressValid:eMailText.text]) && aFlag_CanContinue == YES)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing or Invalid Email Address"
+                                                        message:@"Please supply a valid email address before continuing."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        aFlag_CanContinue = NO; // invalid email addres, so Enroll button should not be enabled
+    }
+    
+    if (aFlag_CanContinue)
+    {
+        if (DEBUG) NSLog(@"good! %ld images to send",[images count]);
+        
+        // We are good, go ahead and run everything
+        pendingrequests=0;
+        indicator.center = [self view].center;
+        [[self view] addSubview:indicator];
+        for (NSString *key in [images allKeys])
+        {
+            UIImage* imageToEnroll = [images objectForKey:key];
+            NSLog(@"iterating: key %@",key);
+            [self sendPic:imageToEnroll];
+            //[images removeObjectForKey:key];
+        }
+    }
+    else
+    {
+        [self clearAllButton:self];
+    }
 } // end of the method
 
-// Grr
 NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     NSArray *arr = @[
                      @"UIImageOrientationUp",            // default orientation
@@ -569,6 +572,11 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return NO;
+}
+
+- (void)controlTextDidChange:(NSNotification *)notification {
+    // there was a text change in some control
+    NSLog(@"boo");
 }
 
 @end

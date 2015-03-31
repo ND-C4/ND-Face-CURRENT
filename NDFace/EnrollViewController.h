@@ -15,7 +15,8 @@
     //UIImagePickerController *picker2;
     UIImage *image;
     //IBOutlet UIImageView *imageView;
-    BOOL didSetImage;                   // flag to determine if picture has been chosen 
+    BOOL didSetImage;                   // flag to determine if picture has been chosen
+    BOOL aFlag_CanContinue;     // flag to determine if 
 
     UIButton *theButton; // which image button was pressed to take an image?
     
@@ -41,6 +42,6 @@
 - (IBAction)submitButton:(id)sender;
 - (BOOL) isEmailAddressValid: (NSString *) candidate;
 - (void) viewDidAppear:(BOOL)animated;
-
+- (void)controlTextDidChange:(NSNotification *)notification;
 
 @end
