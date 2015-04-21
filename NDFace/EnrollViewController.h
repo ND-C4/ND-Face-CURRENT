@@ -19,6 +19,8 @@
     BOOL aFlag_CanContinue;     // flag to determine if 
 
     UIButton *theButton; // which image button was pressed to take an image?
+
+    // User Edit Fields
     
     IBOutlet UITextField *firstNameText;
     IBOutlet UITextField *lastNameText;
