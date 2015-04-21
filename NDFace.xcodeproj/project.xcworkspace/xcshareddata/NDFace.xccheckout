@@ -14,7 +14,7 @@
 		<string>https://github.com/ND-C4/ND-Face-CURRENT.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>NDFace.xcodeproj/project.xcworkspace</string>
+	<string>NDFace.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>893B97D94F2FF43FC98E6D4E4DBF1EF9F3668162</key>

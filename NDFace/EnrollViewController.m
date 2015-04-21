@@ -34,23 +34,32 @@
     
 }
 
-- (void) viewDidLoad
-{
-    if (DEBUG) NSLog(@"viewDidLoad");
-    [super viewDidLoad];
-//  [submitButton setHidden:YES];
-    [resetButton setHidden:YES];
-    if (indicator == nil) {
-        indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        if (DEBUG) NSLog(@"allocated indicator");
-    }
-    [submitButton setEnabled:NO];
+- (void) viewDidLoad		// Override
+	{
+		if (DEBUG) NSLog (@"viewDidLoad");
+		[super viewDidLoad];
 
-    // Setting delegates to determine if fields are populated
-    [firstNameText setDelegate:self];
-    [lastNameText setDelegate:self];
-    [eMailText setDelegate:self];
-}
+	//  [submitButton setHidden: YES];
+		[resetButton setHidden: YES];
+		if (indicator == nil)
+			{
+				indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+				if (DEBUG) NSLog (@"allocated indicator");
+			}
+		[submitButton setEnabled: NO];
+
+		// Setting delegates to determine if fields are populated
+		[firstNameText setDelegate: self];
+		[lastNameText setDelegate: self];
+		[eMailText setDelegate: self];
+
+		// Clear text entry flags
+		self.fFlag_FirstNameExists = NO;		// Clear the flag
+		self.fFlag_LastNameExists = NO;			// Clear the flag
+		self.fFlag_eMailNameExists = NO;		// Clear the flag
+		self.fFlag_NetIDNameExists = NO;		// Clear the flag
+		self.fFlag_EnableEnrollButton = NO;		// Clear the flag
+	}
 
 #pragma mark - orientation configuration
 
@@ -209,175 +218,214 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     
 }
 
--(IBAction)TakePhoto:(id)sender
-{
-    if (DEBUG) NSLog(@"TakePhoto: sender %@",sender);
-    picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    theButton = sender;
-    [buttonSet addObject:sender];
-    // guard logic; should help this guy run correctly on the simulator
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [self chooseCamera:sender];
-    } else {
-        [self chooseLibrary:sender];
-    }
-    [self presentViewController:picker animated:YES completion:Nil];
-    
-}
 
-- (IBAction)dismissView:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:Nil];
-}
 
--(void)imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    if (DEBUG) NSLog(@"iPC:dFPMWI: info %@",[info description]);
-    if (DEBUG) NSLog(@"iPC:dFPMWI: image %@",image);
-    if (DEBUG) NSLog(@"iPC:dFPMWI: image size %@",NSStringFromCGSize(image.size));
-    image = [self markFaces:image];
-    if (image == nil) {
-        NSLog(@"Error: failed to get face in image.");
-    } else {
-        [theButton setImage:image forState:UIControlStateNormal];
-        [images setValue:image forKey:[theButton description]];
-        [submitButton setHidden:NO];
-        [resetButton setHidden:NO];
-    }
-    [self dismissViewControllerAnimated:YES completion:Nil];
-}
+-(IBAction) TakePhoto: (id) sender
+	{
+		if (DEBUG) NSLog (@"TakePhoto: sender %@", sender);
 
--(void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:Nil];
-    
-}
+		picker = [[UIImagePickerController alloc] init];
+		picker.delegate = self;
+		theButton = sender;
+		[buttonSet addObject: sender];
 
-- (IBAction)clearAllButton:(id)sender {
-    
-    firstNameText.text = @"";
-    lastNameText.text = @"";
-    eMailText.text = @"";
-    netIDText.text = @"";
-    [images removeAllObjects];
-    for (UIButton *b in [buttonSet allObjects]) {
-        [b setImage:[UIImage imageNamed:@"man-silhouette.png"]
-           forState:UIControlStateNormal];
-    }
-    [buttonSet removeAllObjects];
-    [resetButton setHidden:YES];
-//  [submitButton setHidden:YES];
-    //imageView.image =[UIImage imageNamed:@"man-silhouette.png"];
-    //didSetImage = NO;   // reset flag that indicates image has been selected
-    
-}
+		// Guard logic; should help this guy run correctly on the simulator
+		if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
+			{
+				[self chooseCamera: sender];
+			}
+		else
+			{
+				[self chooseLibrary: sender];
+			}
 
-- (BOOL) isEmailAddressValid: (NSString *) candidate {
-    NSString *emailRegex =
-    @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
-    @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
-    @"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
-    @"z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
-    @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
-    @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
-    @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES[c] %@", emailRegex];
-    
-    return [emailTest evaluateWithObject:candidate];
-}
+		[self presentViewController: picker animated: YES completion: Nil];
+		
+	}
 
-- (IBAction)submitButton:(id)sender {
-    aFlag_CanContinue = NO;  // setting flag to NO, meaning do not enable Enroll button
-    
-    if (DEBUG) NSLog(@"submitButton.");
-    
-    if ([images count] <= 3) // did user submit an image?
-    {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Image"
-                                                        message:@"Please supply at least four pictures before continuing."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
-        aFlag_CanContinue = NO; // not enough images, so Enroll button should not be enabled
 
-    }
- 
-    if ([firstNameText.text isEqualToString:@""] && aFlag_CanContinue == YES)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing First Name"
-                                                        message:@"Please supply your first (given) name before continuing."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
-        aFlag_CanContinue = NO; // missing first name, so Enroll button should not be enabled
-    }
 
-    if ([lastNameText.text isEqualToString:@""] && aFlag_CanContinue == YES)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Last Name"
-                                                        message:@"Please supply your last (family) name before continuing."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
-        aFlag_CanContinue = NO; // missing last name, so Enroll button should not be enabled
+- (IBAction) dismissView: (id) sender
+	{
+		[self dismissViewControllerAnimated: YES completion: Nil];
+	}
 
-    }
-    
-    if (([eMailText.text isEqualToString:@""] || ![self isEmailAddressValid:eMailText.text]) && aFlag_CanContinue == YES)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing or Invalid Email Address"
-                                                        message:@"Please supply a valid email address before continuing."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
-        aFlag_CanContinue = NO; // invalid email addres, so Enroll button should not be enabled
-    }
-    
-    if (aFlag_CanContinue)
-    {
-        if (DEBUG) NSLog(@"good! %ld images to send",[images count]);
-        
-        // We are good, go ahead and run everything
-        pendingrequests=0;
-        indicator.center = [self view].center;
-        [[self view] addSubview:indicator];
-        for (NSString *key in [images allKeys])
-        {
-            UIImage* imageToEnroll = [images objectForKey:key];
-            NSLog(@"iterating: key %@",key);
-            [self sendPic:imageToEnroll];
-            //[images removeObjectForKey:key];
-        }
-    }
-    else
-    {
-        [self clearAllButton:self];
-    }
-} // end of the method
 
-NSString *stringWithUIImageOrientation(UIImageOrientation input) {
-    NSArray *arr = @[
-                     @"UIImageOrientationUp",            // default orientation
-                     @"UIImageOrientationDown",          // 180 deg rotation
-                     @"UIImageOrientationLeft",          // 90 deg CCW
-                     @"UIImageOrientationRight",         // 90 deg CW
-                     @"UIImageOrientationUpMirrored",    // as above but image mirrored along other axis. horizontal flip
-                     @"UIImageOrientationDownMirrored",  // horizontal flip
-                     @"UIImageOrientationLeftMirrored",  // vertical flip
-                     @"UIImageOrientationRightMirrored", // vertical flip
-                     ];
-    return (NSString *)[arr objectAtIndex:input];
-}
+
+-(void) imagePickerController: (UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *) info
+	{
+		image = [info objectForKey: UIImagePickerControllerOriginalImage];
+		if (DEBUG) NSLog(@"iPC:dFPMWI: info %@", [info description]);
+		if (DEBUG) NSLog(@"iPC:dFPMWI: image %@", image);
+		if (DEBUG) NSLog(@"iPC:dFPMWI: image size %@", NSStringFromCGSize (image.size));
+		image = [self markFaces: image];
+		if (image == nil)
+			{
+				NSLog (@"Error: failed to get face in image.");
+			}
+		else
+			{
+				[theButton setImage:image forState: UIControlStateNormal];
+				[images setValue:image forKey:[theButton description]];
+				[submitButton setHidden: NO];
+				[resetButton setHidden: NO];
+			}
+
+		[self dismissViewControllerAnimated: YES completion: Nil];
+	}
+
+
+
+-(void) imagePickerControllerDidCancel: (UIImagePickerController *) picker
+	{
+		[self dismissViewControllerAnimated: YES completion: Nil];
+		
+	}
+
+
+
+- (IBAction) clearAllButton: (id) sender
+	{
+		firstNameText.text = @"";
+		lastNameText.text = @"";
+		eMailText.text = @"";
+		netIDText.text = @"";
+		[images removeAllObjects];
+		for (UIButton *b in [buttonSet allObjects])
+			{
+				[b setImage: [UIImage imageNamed: @"man-silhouette.png"]
+					forState: UIControlStateNormal];
+			}
+		[buttonSet removeAllObjects];
+		[resetButton setHidden: YES];
+	//  [submitButton setHidden: YES];
+		//imageView.image =[UIImage imageNamed: @"man-silhouette.png"];
+		//didSetImage = NO;   // reset flag that indicates image has been selected
+	}
+
+
+
+- (BOOL) isEmailAddressValid: (NSString *) candidate
+	{
+		NSString *emailRegex =
+		@"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
+		@"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
+		@"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
+		@"z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
+		@"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
+		@"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
+		@"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+		NSPredicate *emailTest = [NSPredicate predicateWithFormat: @"SELF MATCHES[c] %@", emailRegex];
+		
+		return [emailTest evaluateWithObject: candidate];
+	}
+
+
+
+- (IBAction) submitButton: (id) sender
+	{
+		aFlag_CanContinue = NO;  // setting flag to NO, meaning do not enable Enroll button
+		
+		if (DEBUG) NSLog(@"submitButton.");
+		
+		if ([images count] <= 3) // did user submit an image?
+			{
+				
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Image"
+																message:@"Please supply at least four pictures before continuing."
+															   delegate:nil
+													  cancelButtonTitle:@"OK"
+													  otherButtonTitles:nil];
+				[alert show];
+				
+				aFlag_CanContinue = NO; // not enough images, so Enroll button should not be enabled
+
+			}
+
+
+
+		if ([firstNameText.text isEqualToString:@""] && aFlag_CanContinue == YES)
+			{
+
+
+
+
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing First Name"
+																message:@"Please supply your first (given) name before continuing."
+															   delegate:nil
+													  cancelButtonTitle:@"OK"
+													  otherButtonTitles:nil];
+				[alert show];
+				
+				aFlag_CanContinue = NO; // missing first name, so Enroll button should not be enabled
+			}
+
+		if ([lastNameText.text isEqualToString:@""] && aFlag_CanContinue == YES)
+			{
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Last Name"
+																message:@"Please supply your last (family) name before continuing."
+															   delegate:nil
+													  cancelButtonTitle:@"OK"
+													  otherButtonTitles:nil];
+				[alert show];
+				
+				aFlag_CanContinue = NO; // missing last name, so Enroll button should not be enabled
+
+			}
+		
+		if (([eMailText.text isEqualToString:@""] || ![self isEmailAddressValid:eMailText.text]) && aFlag_CanContinue == YES)
+			{
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing or Invalid Email Address"
+																message:@"Please supply a valid email address before continuing."
+															   delegate:nil
+													  cancelButtonTitle:@"OK"
+													  otherButtonTitles:nil];
+				[alert show];
+				
+				aFlag_CanContinue = NO; // invalid email address, so Enroll button should not be enabled
+			}
+		
+		if (aFlag_CanContinue)
+			{
+				if (DEBUG) NSLog (@"good! %ld images to send",[images count]);
+				
+				// We are good, go ahead and run everything
+				pendingrequests = 0;
+				indicator.center = [self view].center;
+				[[self view] addSubview: indicator];
+				for (NSString *key in [images allKeys])
+					{
+						UIImage* imageToEnroll = [images objectForKey: key];
+						NSLog(@"iterating: key %@",key);
+						[self sendPic: imageToEnroll];
+						//[images removeObjectForKey: key];
+					}
+			}
+		else
+			{
+				[self clearAllButton: self];
+			}
+
+	} // End:  submitButton
+
+
+
+NSString *stringWithUIImageOrientation (UIImageOrientation input)
+	{
+		NSArray *arr = @[
+						 @"UIImageOrientationUp",            // default orientation
+						 @"UIImageOrientationDown",          // 180 deg rotation
+						 @"UIImageOrientationLeft",          // 90 deg CCW
+						 @"UIImageOrientationRight",         // 90 deg CW
+						 @"UIImageOrientationUpMirrored",    // as above but image mirrored along other axis. horizontal flip
+						 @"UIImageOrientationDownMirrored",  // horizontal flip
+						 @"UIImageOrientationLeftMirrored",  // vertical flip
+						 @"UIImageOrientationRightMirrored", // vertical flip
+						 ];
+		return (NSString *) [arr objectAtIndex: input];
+	}
+
+
 
 -(UIImage *)markFaces:(UIImage *)facePicture
 {
@@ -578,5 +626,178 @@ NSString *stringWithUIImageOrientation(UIImageOrientation input) {
     // there was a text change in some control
     NSLog(@"boo");
 }
+
+
+- (void) textFieldDidEndEditing: (UITextField *) theTextField		// Overriden
+	// Check for text entered in a UITextField
+	{
+		// How this method works:
+		//
+		// As text is finished being entered into a UITextField, this method
+		// is automatically called.
+		//
+		// We set a flag associated with the UITextField being entered so that we
+		// know what text field has data and can issue missing data errors
+		// to the user.
+		//
+		// We check for entered text in this manner because there is no button
+		// that gets pressed to perform the checks.  We rely on flags set in
+		// real time.
+		//
+		// Data checks can be made using the individual flags or the result
+		// flag that is set.
+
+		// **************************************
+		// * Initializations					*
+		// **************************************
+
+		if (firstNameText.hasText)
+			{
+				// Do something.
+				NSLog (@"First Name - Has Text.");
+
+			}
+		else
+			{
+				// Do something.
+				NSLog (@"First Name - Has No Text.");
+
+			}
+
+
+		// **************************************
+		// * Check First Name text				*
+		// **************************************
+
+		if (theTextField == firstNameText)
+			{
+				NSLog (@"JJH Test Code - firstNameText has text");			// Debug Assist Code
+
+				if ([self string_IsTheStringEmpty: firstNameText.text])		// Check for an empty string
+					self.fFlag_FirstNameExists = NO;						// There is no text present
+				else
+					self.fFlag_FirstNameExists = YES;						// There is text present
+			}
+
+		// **************************************
+		// * Check Last Name text				*
+		// **************************************
+
+		if (theTextField == lastNameText)
+			{
+				NSLog (@"JJH Test Code - lastNameText has text");			// Debug Assist Code
+
+				if ([self string_IsTheStringEmpty: lastNameText.text])		// Check for an empty string
+					self.fFlag_LastNameExists = NO;							// There is no text present
+				else
+					self.fFlag_LastNameExists = YES;						// There is text present
+			}
+
+		// **************************************
+		// * Check E-Mail text					*
+		// **************************************
+
+		if (theTextField == eMailText)
+			{
+				NSLog (@"JJH Test Code - eMailText has text");				// Debug Assist Code
+
+				if ([self string_IsTheStringEmpty: eMailText.text])			// Check for an empty string
+					self.fFlag_eMailNameExists = NO;						// There is no text present
+				else
+					self.fFlag_eMailNameExists = YES;						// There is text present
+			}
+
+		// **************************************
+		// * Check NetID text					*
+		// **************************************
+
+		if (theTextField == netIDText)
+			{
+				NSLog (@"JJH Test Code - netIDText has text");				// Debug Assist Code
+
+				if ([self string_IsTheStringEmpty: netIDText.text])			// Check for an empty string
+					self.fFlag_NetIDNameExists = NO;						// There is no text present
+				else
+					self.fFlag_NetIDNameExists = YES;						// There is text present
+			}
+
+		// **************************************
+		// * Process the results				*
+		// **************************************
+
+		if (self.fFlag_FirstNameExists &&
+			self.fFlag_LastNameExists &&
+			self.fFlag_eMailNameExists &&
+			self.fFlag_NetIDNameExists)
+			{
+				// All of the User text fields have text
+				self.fFlag_EnableEnrollButton = YES;						// The Submit Button can be enabled
+
+				NSLog (@"JJH Test Code - All text is available");			// Debug Assist Code
+			}
+		else
+			{
+				// Some of the User text fields are missing text
+				self.fFlag_EnableEnrollButton = NO;							// The Submit Button can not be enabled
+
+				NSLog (@"JJH Test Code - Some text is missing");			// Debug Assist Code
+			}
+
+	}	// End:  textFieldDidEndEditing
+
+
+
+- (BOOL) string_IsTheStringEmpty: (NSString *) theStr
+	// Check for an empty string
+	{
+		NSString			*aWorkStr;							// A work string
+		BOOL				aFlag_StringIsEmptyResult;			// String is empty flag
+
+
+		// How this method works:
+		//
+		// An empty string can be classified in a number of ways.  This method handles all of them.
+		//
+		// The checking includes the string being null, nil, empty and only containing whitespace
+		// characters (space, tab, newline).  These conditions define an empty string.
+		//
+		// Given a string, return "YES" if the string is empty or "NO" if it has a value.
+		
+		aWorkStr = theStr;															// Get a copy of the string
+		aFlag_StringIsEmptyResult = NO;												// Clear the empty state flag
+
+		if ( (NSNull *) aWorkStr == [NSNull null] )
+			{
+				// String is null
+//				NSLog (@"The string is null.");										// Debug Assist Code
+				aFlag_StringIsEmptyResult = YES;									// Set the empty state flag
+			}
+
+		if (aWorkStr == nil)
+			{
+				// String is nil
+//				NSLog (@"The string is nil.");										// Debug Assist Code
+				aFlag_StringIsEmptyResult = YES;									// Set the empty state flag
+			} 
+		else if ([aWorkStr length] == 0U)
+			{
+				// String is empty
+//				NSLog (@"The string is Empty.");									// Debug Assist Code
+				aFlag_StringIsEmptyResult = YES;									// Set the empty state flag
+			}
+		else
+			{
+				// Check for the whitespace characters; space, tab and the newline character
+				aWorkStr = [aWorkStr stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];		// Remove whitespace from around the string
+				if ([aWorkStr length] == 0U)
+					{
+//						NSLog (@"The string is Empty and whitespace removed.");		// Debug Assist Code
+						aFlag_StringIsEmptyResult = YES;							// Set the empty state flag
+					}
+			}
+
+		return aFlag_StringIsEmptyResult;											// Return the string state flag
+
+	}	// End:  string_IsTheStringEmpty
 
 @end
