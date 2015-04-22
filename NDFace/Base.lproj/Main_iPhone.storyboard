@@ -83,12 +83,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back.png" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-4e-kiS">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" image="YES" notEnabled="YES"/>
-                                </accessibility>
-                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95q-ev-gYi">
                                 <rect key="frame" x="23" y="30" width="104" height="29"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
@@ -156,7 +150,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="3eB-as-UkF"/>
+                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="jcr-aV-8MH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1PK-QJ-Ah1">
@@ -166,7 +160,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="Rv2-pr-AUB"/>
+                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="aq9-mi-BLG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Liw-Uv-A97">
@@ -176,7 +170,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="lGs-9J-Ysd"/>
+                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="dJ4-nr-XUQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afl-4A-JwJ">
@@ -186,7 +180,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="JP9-y9-smI"/>
+                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="Xn5-Om-EqE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MR0-Pj-K1H">
@@ -196,7 +190,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="8gP-cL-YBt"/>
+                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="fdI-wl-drO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HFy-I6-g13">
@@ -206,7 +200,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="ULH-6t-0g1"/>
+                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="Ai9-Cq-p9Z"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDE-Jt-JzZ">
@@ -216,7 +210,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="851-N7-Crg"/>
+                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="pxK-wC-ktB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2E-Dh-EfZ">
@@ -226,7 +220,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="n62-Ew-Aew"/>
+                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="CST-fZ-Iwr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOn-Uz-yJg">
@@ -240,7 +234,7 @@
                                     <color key="titleColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="submitButton:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="Jp2-UO-sKz"/>
+                                    <action selector="button_Enroll:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="zfc-Qr-mt1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYl-8l-G5s">
@@ -251,7 +245,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="train:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="eof-LE-3ny"/>
+                                    <action selector="button_Train:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="bNa-Qt-P4I"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aY6-1F-epc">
@@ -273,7 +267,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="clearAllButton:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="7bt-VR-GLc"/>
+                                    <action selector="button_Reset:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="6u3-TK-Z4c"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(For ND only)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Va-3H-oRS">
@@ -284,17 +278,20 @@
                                     <outlet property="delegate" destination="VT7-9n-ALJ" id="nxR-Qp-HmD"/>
                                 </connections>
                             </textField>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back.png" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-4e-kiS">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="f2c-GK-b1l"/>
                     <connections>
+                        <outlet property="button_Enroll" destination="YOn-Uz-yJg" id="QdA-iT-wse"/>
+                        <outlet property="button_Reset" destination="hcd-ua-aMy" id="aMh-24-TBL"/>
                         <outlet property="eMailText" destination="9Ky-wo-ZnJ" id="q65-FY-hDb"/>
                         <outlet property="firstNameText" destination="2xL-0l-Ccy" id="9QP-8h-kvo"/>
                         <outlet property="lastNameText" destination="Ptx-Uo-yGy" id="G3W-R5-ebs"/>
                         <outlet property="netIDText" destination="1Va-3H-oRS" id="wBE-Gb-IhU"/>
-                        <outlet property="resetButton" destination="hcd-ua-aMy" id="eXw-vW-h6Y"/>
-                        <outlet property="submitButton" destination="YOn-Uz-yJg" id="b36-lI-8sT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SVX-4B-AC7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -344,7 +341,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rs1-Im-N52" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="418" y="800"/>
+            <point key="canvasLocation" x="494" y="773"/>
         </scene>
     </scenes>
     <resources>
