@@ -33,6 +33,7 @@
 		526687BC1A2FD06600C0A115 /* IdentifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526687BB1A2FD06600C0A115 /* IdentifyViewController.m */; };
 		52DAE62519DD9B310043DE3F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DAE62419DD9B310043DE3F /* ImageIO.framework */; };
 		C846480D199145550024E27E /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = C846480C199145550024E27E /* camera.png */; };
+		C890230A1B02642600B1BCDD /* EnrollmentConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89023091B02642600B1BCDD /* EnrollmentConfirmationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,8 @@
 		526687BB1A2FD06600C0A115 /* IdentifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentifyViewController.m; sourceTree = "<group>"; };
 		52DAE62419DD9B310043DE3F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C846480C199145550024E27E /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		C89023081B02642600B1BCDD /* EnrollmentConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentConfirmationViewController.h; sourceTree = "<group>"; };
+		C89023091B02642600B1BCDD /* EnrollmentConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentConfirmationViewController.m; sourceTree = "<group>"; };
 		D90CB52C0BE3485C93CF64C1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -149,6 +152,8 @@
 				309C906918CE3DB400862D1A /* AppDelegate.h */,
 				309C906A18CE3DB400862D1A /* AppDelegate.m */,
 				309C906C18CE3DB400862D1A /* Main_iPhone.storyboard */,
+				C89023081B02642600B1BCDD /* EnrollmentConfirmationViewController.h */,
+				C89023091B02642600B1BCDD /* EnrollmentConfirmationViewController.m */,
 				309C906F18CE3DB400862D1A /* Main_iPad.storyboard */,
 				309C907218CE3DB400862D1A /* ViewController.h */,
 				309C907318CE3DB400862D1A /* ViewController.m */,
@@ -360,6 +365,7 @@
 				526687BC1A2FD06600C0A115 /* IdentifyViewController.m in Sources */,
 				309C909518CE3E0A00862D1A /* EnrollViewController.m in Sources */,
 				309C907418CE3DB400862D1A /* ViewController.m in Sources */,
+				C890230A1B02642600B1BCDD /* EnrollmentConfirmationViewController.m in Sources */,
 				309C906B18CE3DB400862D1A /* AppDelegate.m in Sources */,
 				309C906718CE3DB400862D1A /* main.m in Sources */,
 			);
