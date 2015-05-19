@@ -303,7 +303,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SVX-4B-AC7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6" y="469"/>
+            <point key="canvasLocation" x="102" y="928"/>
         </scene>
         <!--Identify View Controller-->
         <scene sceneID="Ebh-Kq-4qI">
@@ -350,10 +350,10 @@
             </objects>
             <point key="canvasLocation" x="1330" y="221"/>
         </scene>
-        <!--Enrollment Verification View Controller-->
+        <!--EnrollmentConfirmationViewController-->
         <scene sceneID="RvV-ar-dLg">
             <objects>
-                <viewController title="Enrollment Verification View Controller" id="Wca-Pe-tJx" customClass="EnrollmentConfirmationViewController" sceneMemberID="viewController">
+                <viewController title="EnrollmentConfirmationViewController" id="Wca-Pe-tJx" customClass="EnrollmentConfirmationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hEd-Dc-QX0"/>
                         <viewControllerLayoutGuide type="bottom" id="yUk-Xi-S9l"/>
@@ -366,12 +366,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBD-xN-68x">
-                                <rect key="frame" x="20" y="494" width="77" height="36"/>
+                                <rect key="frame" x="20" y="494" width="119" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Enroll">
+                                <state key="normal" title="Enroll More">
                                     <color key="titleColor" red="0.51564561490000005" green="1" blue="0.1178868121" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="VT7-9n-ALJ" kind="custom" id="92A-Q2-V91"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ke-1H-eRP">
                                 <rect key="frame" x="201" y="494" width="108" height="36"/>
@@ -380,6 +383,9 @@
                                     <color key="titleColor" red="0.51564561490000005" green="1" blue="0.1178868121" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="EXd-qv-KtJ" kind="custom" id="rUe-S4-NKS"/>
+                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enrollment Status" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="wDw-Cq-1F2">
                                 <rect key="frame" x="79" y="15" width="163" height="52"/>
@@ -405,7 +411,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOd-Q0-TrW" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="643" y="1115"/>
+            <point key="canvasLocation" x="955" y="948"/>
         </scene>
     </scenes>
     <resources>
@@ -418,6 +424,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="92A-Q2-V91"/>
         <segue reference="IrT-m3-rqs"/>
+        <segue reference="rUe-S4-NKS"/>
     </inferredMetricsTieBreakers>
 </document>
