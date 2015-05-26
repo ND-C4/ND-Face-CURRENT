@@ -7,6 +7,7 @@
 //
 
 #import "EnrollViewController.h"
+#import "EnrollmentConfirmationViewController.h"
 #import <CoreImage/CoreImage.h>
 #import <ImageIO/ImageIO.h>
 #import <QuartzCore/QuartzCore.h>
@@ -393,13 +394,20 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                  }
                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
                      NSString *e = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
-                     [[iToast makeText:e] show];
+//                     [[iToast makeText:e] show];
                      if (DEBUG) NSLog(@"fail! %@", error);
-                     OSAtomicDecrement32(&pendingrequests);
-                     if (pendingrequests == 0) {
-                         [indicator stopAnimating];
-                         [indicator removeFromSuperview];
-                     }
+//                     OSAtomicDecrement32(&pendingrequests);
+//                     if (pendingrequests == 0) {
+//                         [indicator stopAnimating];
+//                         [indicator removeFromSuperview];
+//                     }
+                     
+                // Look within the error message to determine the error and send a sanitized version to EnrollConfirmationLabel
+
+                     EnrollmentConfirmationViewController *aViewController;
+                     aViewController = [[EnrollmentConfirmationViewController alloc] init];
+
+                     [aViewController setMessageField: [error localizedDescription]];
                  }
      
      ];

@@ -13,4 +13,7 @@
 IBOutlet UILabel *EnrollmentConfirmationLabel;
 
 }
+
+-(void) setMessageField:(NSString *) theMessage;
+
 @end

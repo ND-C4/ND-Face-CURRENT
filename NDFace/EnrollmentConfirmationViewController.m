@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"ECVC: viewDidLoad");
-    [EnrollmentConfirmationLabel setText:@"Something happened."];
+ //   [EnrollmentConfirmationLabel setText:@"Something happened."];
     
     // Do any additional setup after loading the view.
 }
@@ -37,4 +37,9 @@
 }
 */
 
+-(void) setMessageField:(NSString *) theMessage
+{
+    [EnrollmentConfirmationLabel setText:theMessage];
+
+}
 @end
