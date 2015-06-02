@@ -258,10 +258,11 @@
 						//[images removeObjectForKey: key];
 					}
 
-
+        // Training will be triggered after each image upload; do not need
+        // to call this manaully any longer
+        // [self button_Train:nil];
+        
 	} // End:  button_Enroll
-
-
 
 #pragma mark - orientation configuration
 

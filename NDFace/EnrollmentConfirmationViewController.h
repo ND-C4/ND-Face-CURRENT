@@ -3,7 +3,7 @@
 //  NDFace
 //
 //  Created by Matt Willmore on 5/12/15.
-//  Copyright (c) 2015 Architecture Information Technology Team. All rights reserved.
+//  Copyright (c) 2015 C[4]. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
