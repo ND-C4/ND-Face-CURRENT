@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EnrollmentConfirmationViewController.h"
 
 @interface EnrollViewController : UIViewController <UIImagePickerControllerDelegate,
                                                      UINavigationControllerDelegate,

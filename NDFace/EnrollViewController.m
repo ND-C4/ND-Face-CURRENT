@@ -396,7 +396,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
                      NSString *e = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
 //                     [[iToast makeText:e] show];
-                     if (DEBUG) NSLog(@"fail! %@", error);
+                     if (DEBUG) NSLog(@"sendPic fail! %@", error);
 //                     OSAtomicDecrement32(&pendingrequests);
 //                     if (pendingrequests == 0) {
 //                         [indicator stopAnimating];
@@ -407,8 +407,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 
                      EnrollmentConfirmationViewController *aViewController;
                      aViewController = [[EnrollmentConfirmationViewController alloc] init];
+                     NSLog(@"setMessageField test");
+                     [aViewController setMessageField: @"test 2"];
 
-                     [aViewController setMessageField: [error localizedDescription]];
                  }
      
      ];

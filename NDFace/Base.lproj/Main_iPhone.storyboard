@@ -406,7 +406,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="EnrollmentConfirmationLabel" destination="EDW-BX-a8V" id="Eke-5S-qcG"/>
+                        <outlet property="enrollmentConfirmationLabel" destination="EDW-BX-a8V" id="d8f-lD-9Ob"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOd-Q0-TrW" sceneMemberID="firstResponder"/>

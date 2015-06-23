@@ -39,7 +39,7 @@
 
 -(void) setMessageField:(NSString *) theMessage
 {
-    [EnrollmentConfirmationLabel setText:theMessage];
+    [self.enrollmentConfirmationLabel setText:theMessage];
 
 }
 @end

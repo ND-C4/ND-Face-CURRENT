@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EnrollmentConfirmationViewController : UIViewController {
-
-IBOutlet UILabel *EnrollmentConfirmationLabel;
-
+@interface EnrollmentConfirmationViewController : UIViewController
+{
 }
+
+@property (atomic, strong) IBOutlet UILabel *enrollmentConfirmationLabel;
 
 -(void) setMessageField:(NSString *) theMessage;
 
