@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EnrollViewController.h"
 
 @interface EnrollmentConfirmationViewController : UIViewController
 {

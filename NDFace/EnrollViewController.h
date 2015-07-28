@@ -53,6 +53,7 @@
 @property (atomic)              BOOL		fFlag_eMailNameExists;          // Flag to indicate the valid existance of E-Mail text in the TextView
 @property (atomic)              BOOL		fFlag_NetIDNameExists;          // Flag to indicate the valid existance of NetID text in the TextView
 @property (atomic)              BOOL		fFlag_RequiredPhotosExists;     // Flag to indicate the valid existance of the number of required Photos
+@property (strong, nonatomic) NSString *serverMessageReplyStr; // used to hold enrollment message from the server
 
 
 - (IBAction) ChooseExisting;

@@ -20,6 +20,9 @@
  //   [EnrollmentConfirmationLabel setText:@"Something happened."];
     
     // Do any additional setup after loading the view.
+    
+    [self setMessageField: @"this is a test"]; // writes to the label
+    // [self setMessageField: ]; TODO 7-28-15
 }
 
 - (void)didReceiveMemoryWarning {

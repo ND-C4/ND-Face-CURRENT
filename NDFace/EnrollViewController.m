@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Architecture Information Technology Team. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "EnrollViewController.h"
 #import "EnrollmentConfirmationViewController.h"
 #import <CoreImage/CoreImage.h>
@@ -73,6 +74,8 @@
 		self.fFlag_eMailNameExists = NO;		// Clear the flag
 		self.fFlag_NetIDNameExists = NO;		// Clear the flag
 		self.fFlag_RequiredPhotosExists = NO;	// Clear the flag
+        
+        self.serverMessageReplyStr = nil;
 
 		// Add notifications when text changes in a particular UITextField
 		[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector (textDidChange:) name: UITextFieldTextDidChangeNotification object: firstNameText];
@@ -89,7 +92,8 @@
 
 - (IBAction) button_Train: (id) sender
 	{
-		NSString *url = @"http://flynnuc.cse.nd.edu:5000/train";
+        /* NSString *url = @"http://10.10.138.48:5000/train"; */
+        NSString *url = @"http://flynnuc.cse.nd.edu:5000/train";
 		AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
 		requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
 		if (DEBUG) NSLog (@"requestManager: %@",requestManager);
@@ -361,6 +365,7 @@
     NSString *netid = [eMailText text];
     if ([netid length] == 0)
         netid = [self generateRandomString:10];
+/*    NSString *url = [NSString stringWithFormat:@"http://10.10.138.48:5000/enroll/%@/%@",netid,[self generateRandomString:16]]; */
     NSString *url = [NSString stringWithFormat:@"http://flynnuc.cse.nd.edu:5000/enroll/%@/%@",netid,[self generateRandomString:16]];
     if (DEBUG) NSLog(@"url: %@",url);
     
@@ -394,14 +399,15 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                      }
                  }
                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-                     NSString *e = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
-//                     [[iToast makeText:e] show];
+                     self.serverMessageReplyStr = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
+//                     [[iToast makeText:serverMessageReplyStr] show];
                      if (DEBUG) NSLog(@"sendPic fail! %@", error);
 //                     OSAtomicDecrement32(&pendingrequests);
 //                     if (pendingrequests == 0) {
 //                         [indicator stopAnimating];
 //                         [indicator removeFromSuperview];
 //                     }
+                     NSLog(@"serverMessageReplyStr is %@", self.serverMessageReplyStr);
                      
                 // Look within the error message to determine the error and send a sanitized version to EnrollConfirmationLabel
 
@@ -476,20 +482,20 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 
 
 // TODO:  What uses this?  Is it needed? --- JJH
-NSString *stringWithUIImageOrientation (UIImageOrientation input)
-	{
-		NSArray *arr = @[
-						 @"UIImageOrientationUp",            // default orientation
-						 @"UIImageOrientationDown",          // 180 deg rotation
-						 @"UIImageOrientationLeft",          // 90 deg CCW
-						 @"UIImageOrientationRight",         // 90 deg CW
-						 @"UIImageOrientationUpMirrored",    // as above but image mirrored along other axis. horizontal flip
-						 @"UIImageOrientationDownMirrored",  // horizontal flip
-						 @"UIImageOrientationLeftMirrored",  // vertical flip
-						 @"UIImageOrientationRightMirrored", // vertical flip
-						 ];
-		return (NSString *) [arr objectAtIndex: input];
-	}
+//NSString *stringWithUIImageOrientation (UIImageOrientation input)
+//	{
+//		NSArray *arr = @[
+//						 @"UIImageOrientationUp",            // default orientation
+//						 @"UIImageOrientationDown",          // 180 deg rotation
+//						 @"UIImageOrientationLeft",          // 90 deg CCW
+//						 @"UIImageOrientationRight",         // 90 deg CW
+//						 @"UIImageOrientationUpMirrored",    // as above but image mirrored along other axis. horizontal flip
+//						 @"UIImageOrientationDownMirrored",  // horizontal flip
+//						 @"UIImageOrientationLeftMirrored",  // vertical flip
+//						 @"UIImageOrientationRightMirrored", // vertical flip
+//						 ];
+//		return (NSString *) [arr objectAtIndex: input];
+//	}
 
 
 
@@ -793,8 +799,6 @@ NSString *stringWithUIImageOrientation (UIImageOrientation input)
 
 	}	// End:  textFieldDidEndEditing
 
-
-
 - (void) check_EnableDisable_EnrollButton
 	// Enable or Disable the Enroll button
 	{
@@ -836,7 +840,7 @@ NSString *stringWithUIImageOrientation (UIImageOrientation input)
 				// Some of the User text fields are missing text
 				[button_Enroll setEnabled: NO];									// Disable the Enroll button
 
-				if (DEBUG) NSLog (@"DISABLE Enroll button, Some data is missing");		// Debug Assist Code
+				// if (DEBUG) NSLog (@"DISABLE Enroll button, Some data is missing");		// Debug Assist Code
 			}
 
 	}	// End:  check_EnableDisable_EnrollButton
@@ -885,11 +889,11 @@ NSString *stringWithUIImageOrientation (UIImageOrientation input)
 				if ([aWorkStr length] == 0U)
 					{
 						aFlag_StringIsEmptyResult = YES;							// Set the empty state flag
+                        
 					}
 			}
-
+        
 		return aFlag_StringIsEmptyResult;											// Return the string state flag
 
 	}	// End:  string_IsTheStringEmpty
-
 @end
