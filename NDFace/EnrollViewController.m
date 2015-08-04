@@ -85,7 +85,19 @@
 
 	}	// End: viewDidLoad
 
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    EnrollmentConfirmationViewController * destination = [segue destinationViewController];
+    
+    // Pass message to setMessageField in destination view controller
+    [destination setMessageField:self.serverMessageReplyStr];
+    
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
 
 #pragma mark - Buttons
 
@@ -407,15 +419,15 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 //                         [indicator stopAnimating];
 //                         [indicator removeFromSuperview];
 //                     }
-                     NSLog(@"serverMessageReplyStr is %@", self.serverMessageReplyStr);
+        
                      
                 // Look within the error message to determine the error and send a sanitized version to EnrollConfirmationLabel
 
-                     EnrollmentConfirmationViewController *aViewController;
+/*                     EnrollmentConfirmationViewController *aViewController;
                      aViewController = [[EnrollmentConfirmationViewController alloc] init];
                      NSLog(@"setMessageField test");
                      [aViewController setMessageField: @"test 2"];
-
+*/
                  }
      
      ];
