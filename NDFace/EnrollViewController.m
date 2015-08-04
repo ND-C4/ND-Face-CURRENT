@@ -409,11 +409,22 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                          [indicator stopAnimating];
                          [indicator removeFromSuperview];
                      }
+                     AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                     if (ad.ecvc != nil) {
+                         EnrollmentConfirmationViewController *ecvc = ad.ecvc;
+                         [ecvc setMessageField:@"Successful enrollment."];
+                     }
+                     
                  }
                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
                      self.serverMessageReplyStr = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
 //                     [[iToast makeText:serverMessageReplyStr] show];
                      if (DEBUG) NSLog(@"sendPic fail! %@", error);
+                     AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                     if (ad.ecvc != nil) {
+                         EnrollmentConfirmationViewController *ecvc = ad.ecvc;
+                         [ecvc setMessageField:self.serverMessageReplyStr];
+                     }
 //                     OSAtomicDecrement32(&pendingrequests);
 //                     if (pendingrequests == 0) {
 //                         [indicator stopAnimating];

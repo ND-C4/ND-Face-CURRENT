@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EnrollmentConfirmationViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+@property (strong, nonatomic) EnrollmentConfirmationViewController *ecvc;
 @property (strong, nonatomic) UIWindow *window;
 
 @end
