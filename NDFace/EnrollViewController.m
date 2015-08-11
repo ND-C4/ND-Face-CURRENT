@@ -91,7 +91,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     EnrollmentConfirmationViewController * destination = [segue destinationViewController];
-    
+    NSLog (@"Entering prepareForSegue in EnrollViewController...");
+    if ([self.serverMessageReplyStr isEqualToString: @""] || self.serverMessageReplyStr == nil) {
+        NSLog (@"serverMessageReplyStr is empty");
+    }
+    else {
+        NSLog(@"serverMessageReplyStr is %@", self.serverMessageReplyStr);
+    }
+        
     // Pass message to setMessageField in destination view controller
     [destination setMessageField:self.serverMessageReplyStr];
     
