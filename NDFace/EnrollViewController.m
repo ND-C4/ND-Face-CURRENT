@@ -90,6 +90,7 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSLog(@"****** prepareForSegue was called ******");
     EnrollmentConfirmationViewController * destination = [segue destinationViewController];
     NSLog (@"Entering prepareForSegue in EnrollViewController...");
     if ([self.serverMessageReplyStr isEqualToString: @""] || self.serverMessageReplyStr == nil) {
@@ -101,7 +102,7 @@
         
     // Pass message to setMessageField in destination view controller
     [destination setMessageField:self.serverMessageReplyStr];
-    
+
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
@@ -378,6 +379,7 @@
 
 
 - (void)sendPic:(UIImage *)facePicture {
+    NSLog(@"****** sendPic was called ******");
     NSData *facePictureData = UIImagePNGRepresentation(facePicture);
     // very verbose.
     //if (DEBUG) NSLog(@"facePictureData %@",facePictureData);
@@ -424,7 +426,11 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                      
                  }
                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-                     self.serverMessageReplyStr = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
+                     NSString    *aLocalStr;
+                     aLocalStr = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
+                     NSLog(@"aLocalStr contains: %@", aLocalStr);
+                     self.serverMessageReplyStr = [NSString stringWithString:aLocalStr];
+                     NSLog(@"serverMessageReplyStr contains: %@", self.serverMessageReplyStr);
 //                     [[iToast makeText:serverMessageReplyStr] show];
                      if (DEBUG) NSLog(@"sendPic fail! %@", error);
                      AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
