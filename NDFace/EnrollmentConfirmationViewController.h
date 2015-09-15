@@ -14,6 +14,7 @@
 }
 
 @property (atomic, strong) IBOutlet UILabel *enrollmentConfirmationLabel;
+@property (atomic,strong) NSString *storedMessage;
 
 -(void) setMessageField:(NSString *) theMessage;
 

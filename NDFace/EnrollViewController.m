@@ -18,6 +18,7 @@
 #import <libkern/OSAtomic.h>   // Ride 'em, cowboy!
 
 @interface EnrollViewController ()
+@property (strong,atomic) EnrollmentConfirmationViewController *ecvc;
 
 @end
 
@@ -51,6 +52,7 @@
 	{
 		if (DEBUG) NSLog (@"viewDidLoad");
 		[super viewDidLoad];
+        self.ecvc=nil;
 
 		if (indicator == nil)
 			{
@@ -97,6 +99,7 @@
 		NSLog (@"****** prepareForSegue was called ******");
 
 		EnrollmentConfirmationViewController *destination = [segue destinationViewController];
+        self.ecvc = destination; // save for use inside enrollment completion blocks
 
 		NSLog (@"Entering prepareForSegue in EnrollViewController...");
 
@@ -444,12 +447,15 @@
 									 [indicator removeFromSuperview];
 								 }
 
-							 AppDelegate *ad = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-							 if (ad.ecvc != nil)
-								 {
-									 EnrollmentConfirmationViewController *ecvc = ad.ecvc;
-									 [ecvc setMessageField:@"Successful enrollment."];
-								 }
+                             if (self.ecvc != nil)
+                             {
+                                 [self.ecvc setMessageField:@"Successful enrollment."];
+                             }
+//                             AppDelegate *ad = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+//                             if (ad.ecvc != nil)
+//                             {
+//                                 [ad.ecvc setMessageField:@"Successful enrollment."];
+//                             }
 						 }
 
 					 failure: ^(AFHTTPRequestOperation *operation, NSError *error)
@@ -459,6 +465,7 @@
 
 							 aLocalStr = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
 
+                             // parse error code into useful info here.
 							 NSLog (@" ");
 							 NSLog (@"aLocalStr contains: %@", aLocalStr);
 							 NSLog (@" ");
@@ -469,6 +476,7 @@
 							 NSLog (@"serverMessageReplyStr contains: %@", self.serverMessageReplyStr);
 							 NSLog (@" ");
 
+                             // this may no longer be needed. Jeff
 							[[NSNotificationCenter defaultCenter] postNotificationName: @"notificationMessage_ShowServerReplyMessage" object: self];		// Send the notification
 
 
@@ -477,12 +485,18 @@
 
 							 if (DEBUG) NSLog (@"sendPic fail! %@", error);
 
-							 AppDelegate *ad = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-							 if (ad.ecvc != nil)
-								 {
-									 EnrollmentConfirmationViewController *ecvc = ad.ecvc;
-									 [ecvc setMessageField: self.serverMessageReplyStr];
-								 }
+//							 AppDelegate *ad = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+                             if (self.ecvc != nil)
+                             {
+                                 [self.ecvc setMessageField: self.serverMessageReplyStr];
+                             }
+
+//							 AppDelegate *ad = (AppDelegate *) [[UIApplication sharedApplication] delegate]
+//                             if (ad.ecvc != nil)
+//                             {
+//                                 EnrollmentConfirmationViewController *ecvc = ad.ecvc;
+//                                 [ecvc setMessageField: self.serverMessageReplyStr];
+//                             }
 
 //							OSAtomicDecrement32(&pendingrequests);
 //							if (pendingrequests == 0)

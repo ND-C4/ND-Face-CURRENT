@@ -55,6 +55,8 @@
 @property (atomic)              BOOL		fFlag_RequiredPhotosExists;     // Flag to indicate the valid existance of the number of required Photos
 @property (strong, atomic) NSString *serverMessageReplyStr; // used to hold enrollment message from the server
 
+//@property (strong,nonatomic) EnrollmentConfirmationViewController *my_ecvc;
+
 
 //- (IBAction) ChooseExisting;
 

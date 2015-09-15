@@ -23,6 +23,10 @@
 		NSLog (@" ");
 		NSLog (@"ECVC: viewDidLoad");
 		NSLog (@" ");
+            NSLog(@"messageField is %@",self.enrollmentConfirmationLabel);
+        if ((self.enrollmentConfirmationLabel != nil) && (self.storedMessage != nil)) {
+            [self.enrollmentConfirmationLabel setText:self.storedMessage];
+        }
 
 //		[EnrollmentConfirmationLabel setText:@"Something happened."];
 		
@@ -51,6 +55,7 @@
 		NSLog (@" ");
 		NSLog (@"entering prepareForSegue");
 		NSLog (@" ");
+        NSLog(@"messageField is %@",self.enrollmentConfirmationLabel);
 
 		// Get the new view controller using [segue destinationViewController].
 		// Pass the selected object to the new view controller.
@@ -63,8 +68,12 @@
 		NSLog (@" ");
 		NSLog (@"*** setMessageField Called *** with text of:  >%@<", theMessage);
 		NSLog (@" ");
+        NSLog(@"messageField is %@",self.enrollmentConfirmationLabel);
 
-		[self.enrollmentConfirmationLabel setText: theMessage];
+		if (self.enrollmentConfirmationLabel != nil)
+            [self.enrollmentConfirmationLabel setText: theMessage];
+        else
+            self.storedMessage = [theMessage copy];
 
 	}	// End:  prepareForSegue
 
