@@ -56,8 +56,10 @@
 @property (strong, atomic) NSString *serverMessageReplyStr; // used to hold enrollment message from the server
 
 
-- (IBAction) ChooseExisting;
+//- (IBAction) ChooseExisting;
+
 - (IBAction) dismissView:(id) sender;
+
 - (BOOL) isEmailAddressValid: (NSString *) candidate;
 
 - (IBAction) button_TakePhoto: (id) sender;
@@ -74,5 +76,8 @@
 
 - (BOOL) string_IsTheStringEmpty: (NSString *) theStr;
 	// Check for an empty string
+
+- (void) notification_ShowMessage: (NSNotification *) theNotification;
+	// Notification:  Show Message to the User
 
 @end

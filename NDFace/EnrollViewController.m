@@ -83,29 +83,46 @@
 		[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector (textDidChange:) name: UITextFieldTextDidChangeNotification object: eMailText];
 		[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector (textDidChange:) name: UITextFieldTextDidChangeNotification object: netIDText];
 
+		[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector (notification_ShowMessage:) name: @"notificationMessage_ShowServerReplyMessage" object: nil];
+
 	}	// End: viewDidLoad
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSLog(@"****** prepareForSegue was called ******");
-    EnrollmentConfirmationViewController * destination = [segue destinationViewController];
-    NSLog (@"Entering prepareForSegue in EnrollViewController...");
-    if ([self.serverMessageReplyStr isEqualToString: @""] || self.serverMessageReplyStr == nil) {
-        NSLog (@"serverMessageReplyStr is empty");
-    }
-    else {
-        NSLog(@"serverMessageReplyStr is %@", self.serverMessageReplyStr);
-    }
-        
-    // Pass message to setMessageField in destination view controller
-    [destination setMessageField:self.serverMessageReplyStr];
+- (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
+	{
+		NSLog (@" ");
+		NSLog (@"****** prepareForSegue was called ******");
 
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+		EnrollmentConfirmationViewController *destination = [segue destinationViewController];
+
+		NSLog (@"Entering prepareForSegue in EnrollViewController...");
+
+		if ([self.serverMessageReplyStr isEqualToString: @""] || self.serverMessageReplyStr == nil)
+			{
+				// There were no errors
+				NSLog (@"serverMessageReplyStr is empty (or no errors)");
+				self.serverMessageReplyStr = @"Data Transferred to server.";
+
+			}
+		else
+			{
+				// There was an error, show it to the user
+				self.serverMessageReplyStr = @"Hello???";
+
+				NSLog (@"serverMessageReplyStr is %@", self.serverMessageReplyStr);
+			}
+
+		// Pass message to setMessageField in destination view controller
+		[destination setMessageField: self.serverMessageReplyStr];
+
+		// Get the new view controller using [segue destinationViewController].
+		// Pass the selected object to the new view controller.
 }
+
+
 
 #pragma mark - Buttons
 
@@ -378,87 +395,128 @@
 
 
 
-- (void)sendPic:(UIImage *)facePicture {
-    NSLog(@"****** sendPic was called ******");
-    NSData *facePictureData = UIImagePNGRepresentation(facePicture);
-    // very verbose.
-    //if (DEBUG) NSLog(@"facePictureData %@",facePictureData);
-    NSString *netid = [eMailText text];
-    if ([netid length] == 0)
-        netid = [self generateRandomString:10];
-/*    NSString *url = [NSString stringWithFormat:@"http://10.10.138.48:5000/enroll/%@/%@",netid,[self generateRandomString:16]]; */
-    NSString *url = [NSString stringWithFormat:@"http://flynnuc.cse.nd.edu:5000/enroll/%@/%@",netid,[self generateRandomString:16]];
-    if (DEBUG) NSLog(@"url: %@",url);
-    
-    //NSString *url = @"http://flynnuc.cse.nd.edu:5000/enroll/666/1";
-    // Argument 2 ("666" for testing) is user ID
-    // Argument 3 ("1" for testing) is picture's ID for that user ID
-    
-    //NSDictionary *parameters = @{@"image": facePictureData};
-    
-    AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
-    requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    if (DEBUG) NSLog(@"requestManager: %@",requestManager);
+- (void) sendPic: (UIImage *) facePicture
+	{
+		NSLog (@" ");
+		NSLog (@"****** sendPic was called ******");
 
-    [indicator startAnimating];
-    OSAtomicIncrement32(&pendingrequests);
-    [requestManager POST:url
-              parameters:@{@"firstName":firstNameText.text,
-                           @"lastName":lastNameText.text,
-                           @"emailAddress":eMailText.text,
-                           @"NetID":netIDText.text}
-constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    [formData appendPartWithFileData:facePictureData name:@"image" fileName:@"test.png" mimeType:@"application/octet-stream"];
-}
-                 success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-                     [[iToast makeText:@"Face image enrolled."] show];
-                     if (DEBUG) NSLog(@"success! %@",responseObject );
-                     OSAtomicDecrement32(&pendingrequests);
-                     if (pendingrequests == 0) {
-                         [indicator stopAnimating];
-                         [indicator removeFromSuperview];
-                     }
-                     AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                     if (ad.ecvc != nil) {
-                         EnrollmentConfirmationViewController *ecvc = ad.ecvc;
-                         [ecvc setMessageField:@"Successful enrollment."];
-                     }
-                     
-                 }
-                 failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-                     NSString    *aLocalStr;
-                     aLocalStr = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
-                     NSLog(@"aLocalStr contains: %@", aLocalStr);
-                     self.serverMessageReplyStr = [NSString stringWithString:aLocalStr];
-                     NSLog(@"serverMessageReplyStr contains: %@", self.serverMessageReplyStr);
-//                     [[iToast makeText:serverMessageReplyStr] show];
-                     if (DEBUG) NSLog(@"sendPic fail! %@", error);
-                     AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                     if (ad.ecvc != nil) {
-                         EnrollmentConfirmationViewController *ecvc = ad.ecvc;
-                         [ecvc setMessageField:self.serverMessageReplyStr];
-                     }
-//                     OSAtomicDecrement32(&pendingrequests);
-//                     if (pendingrequests == 0) {
-//                         [indicator stopAnimating];
-//                         [indicator removeFromSuperview];
-//                     }
-        
-                     
-                // Look within the error message to determine the error and send a sanitized version to EnrollConfirmationLabel
+		NSData *facePictureData = UIImagePNGRepresentation(facePicture);
+		// very verbose.
+		//if (DEBUG) NSLog(@"facePictureData %@",facePictureData);
+		NSString *netid = [eMailText text];
+		if ([netid length] == 0)
+			netid = [self generateRandomString:10];
 
-/*                     EnrollmentConfirmationViewController *aViewController;
-                     aViewController = [[EnrollmentConfirmationViewController alloc] init];
-                     NSLog(@"setMessageField test");
-                     [aViewController setMessageField: @"test 2"];
+/*		NSString *url = [NSString stringWithFormat:@"http://10.10.138.48:5000/enroll/%@/%@",netid,[self generateRandomString:16]]; */
+		NSString *url = [NSString stringWithFormat:@"http://flynnuc.cse.nd.edu:5000/enroll/%@/%@",netid,[self generateRandomString:16]];
+		if (DEBUG) NSLog(@"url: %@",url);
+		
+		//NSString *url = @"http://flynnuc.cse.nd.edu:5000/enroll/666/1";
+		// Argument 2 ("666" for testing) is user ID
+		// Argument 3 ("1" for testing) is picture's ID for that user ID
+		
+		//NSDictionary *parameters = @{@"image": facePictureData};
+		
+		AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
+		requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+		if (DEBUG) NSLog(@"requestManager: %@",requestManager);
+
+		[indicator startAnimating];
+		OSAtomicIncrement32 (&pendingrequests);
+		[requestManager POST:url
+				  parameters:@{@"firstName":firstNameText.text,
+							   @"lastName":lastNameText.text,
+							   @"emailAddress":eMailText.text,
+							   @"NetID":netIDText.text}
+	constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+	{
+		[formData appendPartWithFileData:facePictureData name:@"image" fileName:@"test.png" mimeType:@"application/octet-stream"];
+	}
+
+					 success: ^(AFHTTPRequestOperation *operation, id responseObject)
+						 {
+							 [[iToast makeText: @"Face image enrolled."] show];
+							 if (DEBUG) NSLog (@"success! %@",responseObject );
+							 OSAtomicDecrement32 (&pendingrequests);
+							 if (pendingrequests == 0)
+								 {
+									 [indicator stopAnimating];
+									 [indicator removeFromSuperview];
+								 }
+
+							 AppDelegate *ad = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+							 if (ad.ecvc != nil)
+								 {
+									 EnrollmentConfirmationViewController *ecvc = ad.ecvc;
+									 [ecvc setMessageField:@"Successful enrollment."];
+								 }
+						 }
+
+					 failure: ^(AFHTTPRequestOperation *operation, NSError *error)
+						 {
+							 NSString    *aLocalStr;
+
+
+							 aLocalStr = [NSString stringWithFormat:@"Face image not enrolled: %@",error];
+
+							 NSLog (@" ");
+							 NSLog (@"aLocalStr contains: %@", aLocalStr);
+							 NSLog (@" ");
+
+							 self.serverMessageReplyStr = [NSString stringWithString:aLocalStr];
+
+							 NSLog (@" ");
+							 NSLog (@"serverMessageReplyStr contains: %@", self.serverMessageReplyStr);
+							 NSLog (@" ");
+
+							[[NSNotificationCenter defaultCenter] postNotificationName: @"notificationMessage_ShowServerReplyMessage" object: self];		// Send the notification
+
+
+
+//							[[iToast makeText: serverMessageReplyStr] show];
+
+							 if (DEBUG) NSLog (@"sendPic fail! %@", error);
+
+							 AppDelegate *ad = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+							 if (ad.ecvc != nil)
+								 {
+									 EnrollmentConfirmationViewController *ecvc = ad.ecvc;
+									 [ecvc setMessageField: self.serverMessageReplyStr];
+								 }
+
+//							OSAtomicDecrement32(&pendingrequests);
+//							if (pendingrequests == 0)
+//								{
+//									[indicator stopAnimating];
+//									[indicator removeFromSuperview];
+//								}
+				
+							 
+							// Look within the error message to determine the error and send a sanitized version to EnrollConfirmationLabel
+
+/*
+							EnrollmentConfirmationViewController *aViewController;
+							aViewController = [[EnrollmentConfirmationViewController alloc] init];
+							NSLog(@"setMessageField test");
+							[aViewController setMessageField: @"test 2"];
 */
-                 }
-     
-     ];
-    
-    
-}
+						 }
 
+		 ];
+		
+		
+	}
+
+- (void) notification_ShowMessage: (NSNotification *) theNotification
+	// Notification:  Show Message to the User
+	{
+		NSLog (@" ");
+		NSLog (@"*** notification_ShowMessage has been sent ***");
+		NSLog (@" ");
+
+		EnrollmentConfirmationViewController	*anEnrollmentConfirmationViewController;
+		[anEnrollmentConfirmationViewController setMessageField: self.serverMessageReplyStr];	// Send the message to the text field
+	}
 
 
 - (IBAction) dismissView: (id) sender
