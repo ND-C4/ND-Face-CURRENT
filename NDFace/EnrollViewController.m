@@ -511,7 +511,7 @@
 	// Notification:  Show Message to the User
 	{
 		NSLog (@" ");
-		NSLog (@"*** notification_ShowMessage has been sent ***");
+		NSLog (@"*** notification_ShowMessage has been sent *** with message:  >%@<", self.serverMessageReplyStr);
 		NSLog (@" ");
 
 		EnrollmentConfirmationViewController	*anEnrollmentConfirmationViewController;
