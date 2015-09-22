@@ -318,7 +318,7 @@
 
 
 
-- (NSUInteger) supportedInterfaceOrientations		// Override
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations		// Override
 	{
 		return UIInterfaceOrientationMaskPortrait;
 
