@@ -101,7 +101,12 @@
 		EnrollmentConfirmationViewController *destination = [segue destinationViewController];
         self.ecvc = destination; // save for use inside enrollment completion blocks
 
-		NSLog (@"Entering prepareForSegue in EnrollViewController...");
+		BOOL test = [destination isKindOfClass:[EnrollmentConfirmationViewController class]];
+        if (test == NO) {
+            return;
+        }
+        
+        NSLog (@"Entering prepareForSegue in EnrollViewController...");
 
 		if ([self.serverMessageReplyStr isEqualToString: @""] || self.serverMessageReplyStr == nil)
 			{
@@ -133,7 +138,7 @@
 - (IBAction) button_Train: (id) sender
 	{
         /* NSString *url = @"http://10.10.138.48:5000/train"; */
-        NSString *url = @"http://flynnuc.cse.nd.edu:5000/train";
+        NSString *url = @"http://flynnuc.cse.nd.edu:8776/train";
 		AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
 		requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
 		if (DEBUG) NSLog (@"requestManager: %@",requestManager);
@@ -411,7 +416,7 @@
 			netid = [self generateRandomString:10];
 
 /*		NSString *url = [NSString stringWithFormat:@"http://10.10.138.48:5000/enroll/%@/%@",netid,[self generateRandomString:16]]; */
-		NSString *url = [NSString stringWithFormat:@"http://flynnuc.cse.nd.edu:5000/enroll/%@/%@",netid,[self generateRandomString:16]];
+		NSString *url = [NSString stringWithFormat:@"http://flynnuc.cse.nd.edu:8776/enroll/%@/%@",netid,[self generateRandomString:16]];
 		if (DEBUG) NSLog(@"url: %@",url);
 		
 		//NSString *url = @"http://flynnuc.cse.nd.edu:5000/enroll/666/1";

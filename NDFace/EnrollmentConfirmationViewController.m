@@ -53,7 +53,7 @@
 - (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
 	{
 		NSLog (@" ");
-		NSLog (@"entering prepareForSegue");
+		NSLog (@"entering prepareForSegue in ECVC");
 		NSLog (@" ");
         NSLog(@"messageField is %@",self.enrollmentConfirmationLabel);
 

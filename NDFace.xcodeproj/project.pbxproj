@@ -34,6 +34,8 @@
 		52DAE62519DD9B310043DE3F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DAE62419DD9B310043DE3F /* ImageIO.framework */; };
 		C846480D199145550024E27E /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = C846480C199145550024E27E /* camera.png */; };
 		C890230A1B02642600B1BCDD /* EnrollmentConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89023091B02642600B1BCDD /* EnrollmentConfirmationViewController.m */; };
+		C8B9D4B91BBAF74B008809B7 /* IdentifyCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B9D4B71BBAF74B008809B7 /* IdentifyCameraViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C8B9D4BC1BBAF7BE008809B7 /* IdentifyPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B9D4BB1BBAF7BE008809B7 /* IdentifyPreviewView.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,10 @@
 		C846480C199145550024E27E /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		C89023081B02642600B1BCDD /* EnrollmentConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentConfirmationViewController.h; sourceTree = "<group>"; };
 		C89023091B02642600B1BCDD /* EnrollmentConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentConfirmationViewController.m; sourceTree = "<group>"; };
+		C8B9D4B71BBAF74B008809B7 /* IdentifyCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentifyCameraViewController.m; sourceTree = "<group>"; };
+		C8B9D4B81BBAF74B008809B7 /* IdentifyCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentifyCameraViewController.h; sourceTree = "<group>"; };
+		C8B9D4BA1BBAF7BE008809B7 /* IdentifyPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentifyPreviewView.h; sourceTree = "<group>"; };
+		C8B9D4BB1BBAF7BE008809B7 /* IdentifyPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentifyPreviewView.m; sourceTree = "<group>"; };
 		D90CB52C0BE3485C93CF64C1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -149,6 +155,10 @@
 		309C906018CE3DB400862D1A /* NDFace */ = {
 			isa = PBXGroup;
 			children = (
+				C8B9D4B71BBAF74B008809B7 /* IdentifyCameraViewController.m */,
+				C8B9D4BA1BBAF7BE008809B7 /* IdentifyPreviewView.h */,
+				C8B9D4BB1BBAF7BE008809B7 /* IdentifyPreviewView.m */,
+				C8B9D4B81BBAF74B008809B7 /* IdentifyCameraViewController.h */,
 				309C906918CE3DB400862D1A /* AppDelegate.h */,
 				309C906A18CE3DB400862D1A /* AppDelegate.m */,
 				309C906C18CE3DB400862D1A /* Main_iPhone.storyboard */,
@@ -368,6 +378,8 @@
 				C890230A1B02642600B1BCDD /* EnrollmentConfirmationViewController.m in Sources */,
 				309C906B18CE3DB400862D1A /* AppDelegate.m in Sources */,
 				309C906718CE3DB400862D1A /* main.m in Sources */,
+				C8B9D4B91BBAF74B008809B7 /* IdentifyCameraViewController.m in Sources */,
+				C8B9D4BC1BBAF7BE008809B7 /* IdentifyPreviewView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
