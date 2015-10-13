@@ -45,7 +45,7 @@
 
 - (void)sendPic:(UIImage *)facePicture {
     NSData *facePictureData = UIImagePNGRepresentation(facePicture);
-    NSString *url = [NSString stringWithFormat:@"http://flynnuc.cse.nd.edu:5000/match"];
+    NSString *url = [NSString stringWithFormat:@"http://flynnuc.cse.nd.edu:8776/match"];
     if (DEBUG) NSLog(@"url: %@",url);
     
     AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];

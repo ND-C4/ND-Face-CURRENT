@@ -321,7 +321,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="326" height="568"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVx-76-6iQ">
-                                <rect key="frame" x="187" y="370" width="109" height="41"/>
+                                <rect key="frame" x="187" y="505" width="109" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Home">
                                     <color key="titleColor" red="1" green="0.91352094780000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -329,7 +329,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9P-tn-cZc">
-                                <rect key="frame" x="20" y="373" width="72" height="36"/>
+                                <rect key="frame" x="20" y="508" width="72" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Start">
                                     <color key="titleColor" red="0.027592065879999999" green="1" blue="0.3476973176" alpha="1" colorSpace="calibratedRGB"/>
@@ -337,13 +337,12 @@
                                 </state>
                                 <connections>
                                     <action selector="startButton:" destination="EXd-qv-KtJ" eventType="touchUpInside" id="AUl-5T-qts"/>
-                                    <segue destination="vXZ-lx-hvc" kind="modal" id="nms-sl-tgu"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Identify View Controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZy-HE-pSr">
                                 <rect key="frame" x="73" y="112" width="199" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -447,7 +446,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="DrG-gb-iaK"/>
-        <segue reference="nms-sl-tgu"/>
         <segue reference="M5W-82-Q70"/>
     </inferredMetricsTieBreakers>
 </document>
