@@ -225,93 +225,27 @@
 
 
 - (IBAction) button_Enroll: (id) sender;
-    // Enroll Button (Button on Second View)
-	{
-
-		if (DEBUG) NSLog(@"button_Enroll.");
-
-// No longer needed since we check in real time instead of when a button is pressed
-/*
-		aFlag_CanContinue = NO;  // setting flag to NO, meaning do not enable Enroll button
-
-		if ([images count] < (NSUInteger) kPhotos_MinimumAmountNeeded)			// The minimum number of Photos required (images starts counting at 0)
-			{
-				
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Image"
-																message:@"Please supply at least four pictures before continuing."
-															   delegate:nil
-													  cancelButtonTitle:@"OK"
-													  otherButtonTitles:nil];
-				[alert show];
-				
-				aFlag_CanContinue = NO; // not enough images, so Enroll button should not be enabled
-
-			}
-
-
-
-		if ([firstNameText.text isEqualToString:@""] && aFlag_CanContinue == YES)
-			{
-
-
-
-
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing First Name"
-																message:@"Please supply your first (given) name before continuing."
-															   delegate:nil
-													  cancelButtonTitle:@"OK"
-													  otherButtonTitles:nil];
-				[alert show];
-				
-				aFlag_CanContinue = NO; // missing first name, so Enroll button should not be enabled
-			}
-
-		if ([lastNameText.text isEqualToString:@""] && aFlag_CanContinue == YES)
-			{
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Last Name"
-																message:@"Please supply your last (family) name before continuing."
-															   delegate:nil
-													  cancelButtonTitle:@"OK"
-													  otherButtonTitles:nil];
-				[alert show];
-				
-				aFlag_CanContinue = NO; // missing last name, so Enroll button should not be enabled
-
-			}
-		
-		if (([eMailText.text isEqualToString:@""] || ![self isEmailAddressValid:eMailText.text]) && aFlag_CanContinue == YES)
-			{
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing or Invalid Email Address"
-																message:@"Please supply a valid email address before continuing."
-															   delegate:nil
-													  cancelButtonTitle:@"OK"
-													  otherButtonTitles:nil];
-				[alert show];
-				
-				aFlag_CanContinue = NO; // invalid email address, so Enroll button should not be enabled
-			}
-
-*/
-
-				if (DEBUG) NSLog (@"good! %ld images to send",[images count]);
-				
+// Enroll Button (Button on Second View)
+{
+    
+    if (DEBUG) NSLog(@"button_Enroll.");
+    if (DEBUG) NSLog (@"good! %ld images to send",[images count]);
 				// We are good, go ahead and run everything
 				pendingrequests = 0;
 				indicator.center = [self view].center;
 				[[self view] addSubview: indicator];
 				for (NSString *key in [images allKeys])
-					{
-						UIImage* imageToEnroll = [images objectForKey: key];
-						NSLog (@"iterating: key %@",key);
-						[self sendPic: imageToEnroll];
-						//[images removeObjectForKey: key];
-					}
-
-        // Training will be triggered after each image upload; do not need
-        // to call this manaully any longer
-        // [self button_Train:nil];
-        
-	} // End:  button_Enroll
+                {
+                    UIImage* imageToEnroll = [images objectForKey: key];
+                    NSLog (@"iterating: key %@",key);
+                    [self sendPic: imageToEnroll];
+                }
+    
+    // Training will be triggered after each image upload; do not need
+    // to call this manaully any longer
+    // [self button_Train:nil];
+    
+} // End:  button_Enroll
 
 #pragma mark - orientation configuration
 
@@ -657,6 +591,8 @@
         return nil;
     }
     
+    // we got a single face. Assume it is the right face, and transmit it to the
+    // server.
     CIFaceFeature *faceFeature = [features objectAtIndex:0];
     if (DEBUG) NSLog(@"markFaces: faceFeature bounds %@",NSStringFromCGRect(faceFeature.bounds));
     
@@ -692,112 +628,11 @@
     
     
     if (DEBUG) NSLog(@"Smile: %@",faceFeature.hasSmile ? @"yes" : @"no");
+
+    // In this new version, we assume the server can do its own detection and
+    // cropping as it builds a template, so we will just send the entire image.
     
-    // set up the transform. We are going to map the face to a 150 row x 130 column
-    // image, with subject's right eye going to (x=30, y=45) and the subject's left eye
-    // going to (x=100,y=45). This is in keeping with the good old csuPreprocessNormalize
-    // code from the CSUFaceIdEval package.
-    
-    // just a side rant. Why the (*#&$ does Apple make you specify transforms
-    // the hard way?
-    
-    // some geometric quantities needed to normalize the detected face.
-    
-    float dy = pRight.y - pLeft.y;
-    float dx = pRight.x - pLeft.x;
-    float angle     = atan2(dy,dx);
-    float modulus = sqrt(dx*dx+dy*dy);
-    
-    if (DEBUG) NSLog(@"hand-calculated face angle: %f (%f degrees)",angle,angle*180.0/M_PI);
-    
-    
-    // first step: left eye translate to origin
-    CGAffineTransform trx = CGAffineTransformMakeTranslation(-pLeft.x, -pLeft.y);
-    if (DEBUG) NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
-    CGPoint tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
-    if (DEBUG) NSLog(@"left after trx: %@",NSStringFromCGPoint(tmpLeft));
-    
-    // second step: rotate right eye to y=0
-    trx = CGAffineTransformConcat(trx,CGAffineTransformMakeRotation(-angle));
-    if (DEBUG) NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
-    tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
-    if (DEBUG) NSLog(@"left after trx+rot: %@",NSStringFromCGPoint(tmpLeft));
-    
-    // third step: scale x to place eyes at (0,0) and (70,0)
-    trx = CGAffineTransformConcat(trx,CGAffineTransformMakeScale(70.0/modulus,70.0/modulus));
-    if (DEBUG) NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
-    tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
-    if (DEBUG) NSLog(@"left after trx+rot+scale: %@",NSStringFromCGPoint(tmpLeft));
-    
-    // fourth step: translate by (30,150-45).
-    // 150-45 arises from the flipped vertical coordinates for one of the two
-    // image coordinate systems.
-    trx = CGAffineTransformConcat(trx,CGAffineTransformMakeTranslation(30,150-45));
-    if (DEBUG) NSLog(@"trx\n%f %f 0\n%f %f 0\n%f %f 1",trx.a,trx.b,trx.c,trx.d,trx.tx,trx.ty);
-    tmpLeft = CGPointApplyAffineTransform(pLeft,trx);
-    if (DEBUG) NSLog(@"left after trx+rot+scale+trx: %@",NSStringFromCGPoint(tmpLeft));
-    
-    CGPoint trxLeft = CGPointApplyAffineTransform(pLeft,trx);
-    CGPoint trxRight = CGPointApplyAffineTransform(pRight,trx);
-    if (DEBUG) NSLog(@"transformed left: %@  right: %@",NSStringFromCGPoint(trxLeft),NSStringFromCGPoint(trxRight));
-    
-    // woohoo, make a CIAffineTransform from the CGAffineTransform
-    CIFilter *warper = [CIFilter filterWithName:@"CIAffineTransform"];
-    if (DEBUG) NSLog(@"warper %@",warper);
-    //    CIImage *im = facePicture.CIImage;
-    //    NSLog(@"im %@",im);
-    //facepicture.C
-    [warper setValue:[CIImage imageWithCGImage:facePicture.CGImage] forKey:@"inputImage"];
-    [warper setValue:[NSValue valueWithBytes:&trx objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
-    CIImage *result = [warper valueForKey:@"outputImage"];
-    if (DEBUG) NSLog(@"result %@",result);
-    
-    CGImageRef cgImage = [[CIContext contextWithOptions:nil]
-                          createCGImage:result
-                          fromRect:CGRectMake(0.0,0.0,130.0,150.0)/*result.extent*/];
-    if (DEBUG) NSLog(@"cgImage is %@",cgImage);
-    
-    UIImage *theImage = [UIImage imageWithCGImage:cgImage];
-    
-    UIGraphicsBeginImageContext(facePicture.size);
-    [facePicture drawAtPoint:CGPointZero];
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
-    //left eye is white with red border
-    [[UIColor redColor] setStroke];
-    [[UIColor whiteColor] setFill];
-    CGRect circleRect = CGRectMake(pLeft.x-2,facePicture.size.height-pLeft.y-2,5,5);
-    CGContextFillEllipseInRect(ctx,circleRect);
-    CGContextStrokeEllipseInRect(ctx,circleRect);
-    
-    //right eye is green with black border
-    [[UIColor blackColor] setStroke];
-    [[UIColor greenColor] setFill];
-    CGRect circleRectRight = CGRectMake(pRight.x-2,facePicture.size.height-pRight.y-2,5,5);
-    CGContextFillEllipseInRect(ctx,circleRectRight);
-    CGContextStrokeEllipseInRect(ctx,circleRectRight);
-    
-    if (faceFeature.hasMouthPosition) {
-        // mouth is yellow with blue border
-        [[UIColor blueColor] setStroke];
-        [[UIColor yellowColor] setFill];
-        CGRect circleRectMouth = CGRectMake(pMouth.x-2,facePicture.size.height-pMouth.y-2,5,5);
-        CGContextFillEllipseInRect(ctx,circleRectMouth);
-        CGContextStrokeEllipseInRect(ctx,circleRectMouth);
-    }
-    
-    UIImage *theImage2 = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    if (DEBUG) NSLog(@"markFaces: theImage = %@ size %@",theImage2,NSStringFromCGSize(theImage.size));
-    
-    //        CGRect newBounds = CGRectMake(faceFeature.bounds.origin.x, ciimage.extent.size.height - faceFeature.bounds.origin.y, faceFeature.bounds.size.width, faceFeature.bounds.size.height);
-    //        theImage = [self imageByCropping:facePicture toRect:newBounds];
-    UIImageWriteToSavedPhotosAlbum(theImage2, nil, nil, nil);
-    UIImageWriteToSavedPhotosAlbum(theImage, nil, nil, nil);
-    //    [self sendPic:[self imageByCropping:facePicture toRect:newBounds]];
-    if (DEBUG) NSLog(@"out of for loop");
-    return theImage;
+    return facePicture;
 }
 
 

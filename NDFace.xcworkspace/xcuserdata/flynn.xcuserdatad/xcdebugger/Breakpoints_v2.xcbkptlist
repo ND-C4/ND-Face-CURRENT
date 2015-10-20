@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NDFace/EnrollViewController.m"
-            timestampString = "464029410.98239"
+            timestampString = "467051552.978229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "426"
-            endingLineNumber = "426"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
             landmarkName = "-sendPic:"
             landmarkType = "5">
          </BreakpointContent>
