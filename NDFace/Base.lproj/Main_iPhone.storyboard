@@ -127,208 +127,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="back.png" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-4e-kiS">
-                                <rect key="frame" x="0.0" y="0.0" width="365" height="600"/>
+                                <rect key="frame" x="117" y="0.0" width="365" height="600"/>
                                 <animations/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95q-ev-gYi">
-                                <rect key="frame" x="23" y="19" width="104" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="NetID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koL-FC-tJc">
-                                <rect key="frame" x="23" y="214" width="59" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Photos:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Raw-w4-1sb">
-                                <rect key="frame" x="23" y="281" width="59" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap on each thumbnail to take a picture." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfY-IS-1xD">
-                                <rect key="frame" x="12" y="409" width="297" height="29"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="(Minimum of 4 pictures are required.)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lw8-VY-6IH">
-                                <rect key="frame" x="11" y="426" width="297" height="29"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="E-Mail:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2QJ-qS-a0y">
-                                <rect key="frame" x="20" y="147" width="64" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Required)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2xL-0l-Ccy">
-                                <rect key="frame" x="20" y="44" width="280" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                <connections>
-                                    <outlet property="delegate" destination="VT7-9n-ALJ" id="gw9-QQ-bE0"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Required)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ptx-Uo-yGy">
-                                <rect key="frame" x="20" y="106" width="280" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                <connections>
-                                    <outlet property="delegate" destination="VT7-9n-ALJ" id="txY-8K-BB0"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Required)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Ky-wo-ZnJ">
-                                <rect key="frame" x="20" y="173" width="280" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
-                                <connections>
-                                    <outlet property="delegate" destination="VT7-9n-ALJ" id="IzA-g0-wTb"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bnv-hh-phi">
-                                <rect key="frame" x="50" y="307" width="45" height="45"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Button" image="man-silhouette.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="jcr-aV-8MH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1PK-QJ-Ah1">
-                                <rect key="frame" x="103" y="307" width="45" height="45"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Button" image="man-silhouette.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="aq9-mi-BLG"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Liw-Uv-A97">
-                                <rect key="frame" x="156" y="307" width="45" height="45"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Button" image="man-silhouette.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="dJ4-nr-XUQ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afl-4A-JwJ">
-                                <rect key="frame" x="209" y="307" width="45" height="45"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Button" image="man-silhouette.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="Xn5-Om-EqE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MR0-Pj-K1H">
-                                <rect key="frame" x="50" y="360" width="45" height="45"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Button" image="man-silhouette.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="fdI-wl-drO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HFy-I6-g13">
-                                <rect key="frame" x="103" y="360" width="45" height="45"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Button" image="man-silhouette.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="Ai9-Cq-p9Z"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDE-Jt-JzZ">
-                                <rect key="frame" x="156" y="360" width="45" height="45"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Button" image="man-silhouette.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="pxK-wC-ktB"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2E-Dh-EfZ">
-                                <rect key="frame" x="209" y="360" width="45" height="45"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Button" image="man-silhouette.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="CST-fZ-Iwr"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcd-ua-aMy">
-                                <rect key="frame" x="103" y="455" width="77" height="36"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Reset">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_Reset:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="6u3-TK-Z4c"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(For ND only)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Va-3H-oRS">
-                                <rect key="frame" x="20" y="240" width="280" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="VT7-9n-ALJ" id="nxR-Qp-HmD"/>
-                                </connections>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Last Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gh6-Cm-h9P">
-                                <rect key="frame" x="20" y="81" width="101" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYl-8l-G5s">
-                                <rect key="frame" x="255" y="365" width="65" height="36"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Train">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_Train:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="bNa-Qt-P4I"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aY6-1F-epc">
-                                <rect key="frame" x="188" y="452" width="109" height="41"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aY6-1F-epc">
+                                <rect key="frame" x="280" y="544" width="77" height="36"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Home">
@@ -365,33 +168,246 @@
                                     <segue destination="Wca-Pe-tJx" kind="presentation" id="LS7-Ur-kT3"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcd-ua-aMy">
+                                <rect key="frame" x="144" y="544" width="77" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="button_Reset:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="6u3-TK-Z4c"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYl-8l-G5s">
+                                <rect key="frame" x="150" y="500" width="65" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Train">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="button_Train:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="bNa-Qt-P4I"/>
+                                </connections>
+                            </button>
+                            <view alpha="0.5" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DeN-Lr-pFS">
+                                <rect key="frame" x="153" y="11" width="293" height="476"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95q-ev-gYi">
+                                        <rect key="frame" x="20" y="20" width="104" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Required)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2xL-0l-Ccy">
+                                        <rect key="frame" x="17" y="45" width="256" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="VT7-9n-ALJ" id="gw9-QQ-bE0"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gh6-Cm-h9P">
+                                        <rect key="frame" x="17" y="82" width="101" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Required)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ptx-Uo-yGy">
+                                        <rect key="frame" x="17" y="107" width="256" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="VT7-9n-ALJ" id="txY-8K-BB0"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="E-Mail:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2QJ-qS-a0y">
+                                        <rect key="frame" x="17" y="148" width="64" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Required)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Ky-wo-ZnJ">
+                                        <rect key="frame" x="17" y="174" width="256" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="VT7-9n-ALJ" id="IzA-g0-wTb"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="NetID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koL-FC-tJc">
+                                        <rect key="frame" x="20" y="215" width="59" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(For ND only)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Va-3H-oRS">
+                                        <rect key="frame" x="17" y="241" width="256" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="VT7-9n-ALJ" id="nxR-Qp-HmD"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Photos:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Raw-w4-1sb">
+                                        <rect key="frame" x="20" y="282" width="59" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bnv-hh-phi">
+                                        <rect key="frame" x="44" y="308" width="45" height="45"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Button" image="man-silhouette.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="jcr-aV-8MH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1PK-QJ-Ah1">
+                                        <rect key="frame" x="97" y="308" width="45" height="45"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Button" image="man-silhouette.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="aq9-mi-BLG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Liw-Uv-A97">
+                                        <rect key="frame" x="150" y="308" width="45" height="45"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Button" image="man-silhouette.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="dJ4-nr-XUQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afl-4A-JwJ">
+                                        <rect key="frame" x="203" y="308" width="45" height="45"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Button" image="man-silhouette.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="Xn5-Om-EqE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2E-Dh-EfZ">
+                                        <rect key="frame" x="203" y="361" width="45" height="45"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Button" image="man-silhouette.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="CST-fZ-Iwr"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDE-Jt-JzZ">
+                                        <rect key="frame" x="150" y="361" width="45" height="45"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Button" image="man-silhouette.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="pxK-wC-ktB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HFy-I6-g13">
+                                        <rect key="frame" x="97" y="361" width="45" height="45"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Button" image="man-silhouette.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="Ai9-Cq-p9Z"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MR0-Pj-K1H">
+                                        <rect key="frame" x="44" y="361" width="45" height="45"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Button" image="man-silhouette.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="button_TakePhoto:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="fdI-wl-drO"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(Minimum of 4 pictures are required.)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lw8-VY-6IH">
+                                        <rect key="frame" x="-2" y="427" width="297" height="29"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap on each thumbnail to take a picture." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfY-IS-1xD">
+                                        <rect key="frame" x="-1" y="410" width="297" height="29"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="476" id="4w4-ZS-vNH"/>
+                                    <constraint firstAttribute="width" constant="293" id="dtH-Ia-fJn"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ePQ-gx-KOl" firstAttribute="top" secondItem="hcd-ua-aMy" secondAttribute="bottom" constant="20" id="0cN-7k-wU6"/>
                             <constraint firstAttribute="trailing" secondItem="DIs-4e-kiS" secondAttribute="trailing" id="2Fh-lz-OK0"/>
-                            <constraint firstItem="YOn-Uz-yJg" firstAttribute="leading" secondItem="2QJ-qS-a0y" secondAttribute="leading" id="2ge-GC-SZ1"/>
-                            <constraint firstItem="YOn-Uz-yJg" firstAttribute="leading" secondItem="9Ky-wo-ZnJ" secondAttribute="leading" id="4ac-O3-VIF"/>
+                            <constraint firstItem="DeN-Lr-pFS" firstAttribute="centerX" secondItem="3Z3-6o-UgR" secondAttribute="centerX" id="2q2-ff-K7e"/>
                             <constraint firstItem="DIs-4e-kiS" firstAttribute="leading" secondItem="WYl-8l-G5s" secondAttribute="trailing" id="5I3-eL-CeK"/>
                             <constraint firstItem="DIs-4e-kiS" firstAttribute="top" secondItem="3Z3-6o-UgR" secondAttribute="top" id="7FL-Z2-AnJ"/>
+                            <constraint firstItem="DeN-Lr-pFS" firstAttribute="centerX" secondItem="3Z3-6o-UgR" secondAttribute="centerX" id="Aix-LP-olI"/>
                             <constraint firstItem="ePQ-gx-KOl" firstAttribute="top" secondItem="DIs-4e-kiS" secondAttribute="bottom" id="BpO-x2-Djk"/>
-                            <constraint firstItem="YOn-Uz-yJg" firstAttribute="leading" secondItem="2xL-0l-Ccy" secondAttribute="leading" id="Ewy-1H-xEi"/>
-                            <constraint firstItem="YOn-Uz-yJg" firstAttribute="leading" secondItem="1Va-3H-oRS" secondAttribute="leading" id="F59-ah-56S"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hcd-ua-aMy" secondAttribute="trailing" constant="359" id="Img-AN-MHh"/>
+                            <constraint firstItem="WYl-8l-G5s" firstAttribute="top" secondItem="DeN-Lr-pFS" secondAttribute="bottom" constant="13" id="Iqd-Zn-Kvh"/>
                             <constraint firstAttribute="trailing" secondItem="DIs-4e-kiS" secondAttribute="trailing" id="JVC-bx-cPv"/>
-                            <constraint firstAttribute="bottom" secondItem="YOn-Uz-yJg" secondAttribute="bottom" constant="20" symbolic="YES" id="Ny8-dF-bbb"/>
                             <constraint firstItem="ePQ-gx-KOl" firstAttribute="top" secondItem="DIs-4e-kiS" secondAttribute="bottom" id="WAT-8H-6AC"/>
                             <constraint firstItem="DIs-4e-kiS" firstAttribute="leading" secondItem="WYl-8l-G5s" secondAttribute="trailing" id="Z2B-4d-FI9"/>
+                            <constraint firstItem="DeN-Lr-pFS" firstAttribute="top" secondItem="3Z3-6o-UgR" secondAttribute="topMargin" constant="11" id="Zeq-Se-phi"/>
+                            <constraint firstItem="YOn-Uz-yJg" firstAttribute="leading" secondItem="3Z3-6o-UgR" secondAttribute="leadingMargin" id="aIF-nt-p8R"/>
+                            <constraint firstItem="ePQ-gx-KOl" firstAttribute="top" secondItem="YOn-Uz-yJg" secondAttribute="bottom" constant="20" id="aVH-OJ-mjj"/>
                             <constraint firstItem="ePQ-gx-KOl" firstAttribute="top" secondItem="YOn-Uz-yJg" secondAttribute="bottom" constant="109" id="ata-jh-6UD"/>
                             <constraint firstItem="DIs-4e-kiS" firstAttribute="leading" secondItem="3Z3-6o-UgR" secondAttribute="leading" id="bFi-HB-0rO"/>
+                            <constraint firstItem="hcd-ua-aMy" firstAttribute="centerX" secondItem="3Z3-6o-UgR" secondAttribute="centerX" id="bgn-4s-87i"/>
                             <constraint firstItem="DIs-4e-kiS" firstAttribute="top" secondItem="3Z3-6o-UgR" secondAttribute="top" id="cVx-Gv-4xk"/>
+                            <constraint firstAttribute="bottom" secondItem="DeN-Lr-pFS" secondAttribute="bottom" constant="113" id="efR-tB-glH"/>
                             <constraint firstItem="DIs-4e-kiS" firstAttribute="top" secondItem="3Z3-6o-UgR" secondAttribute="top" id="fJA-2A-rtg"/>
-                            <constraint firstItem="YOn-Uz-yJg" firstAttribute="leading" secondItem="3Z3-6o-UgR" secondAttribute="leadingMargin" id="l8K-dP-bsi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aY6-1F-epc" secondAttribute="trailing" id="k2i-8S-rzq"/>
+                            <constraint firstItem="hcd-ua-aMy" firstAttribute="leading" secondItem="3Z3-6o-UgR" secondAttribute="leadingMargin" constant="124" id="lGj-oK-ZhW"/>
+                            <constraint firstItem="DeN-Lr-pFS" firstAttribute="top" secondItem="3Z3-6o-UgR" secondAttribute="topMargin" constant="30" id="mUh-zw-63h"/>
+                            <constraint firstItem="DeN-Lr-pFS" firstAttribute="leading" secondItem="3Z3-6o-UgR" secondAttribute="leading" constant="153" id="mXZ-6K-Jac"/>
                             <constraint firstAttribute="trailing" secondItem="DIs-4e-kiS" secondAttribute="trailing" id="obl-Ha-zS8"/>
-                            <constraint firstItem="YOn-Uz-yJg" firstAttribute="leading" secondItem="Ptx-Uo-yGy" secondAttribute="leading" id="oml-TZ-aRb"/>
-                            <constraint firstItem="YOn-Uz-yJg" firstAttribute="top" secondItem="lw8-VY-6IH" secondAttribute="bottom" constant="89" id="pM5-Ez-hJA"/>
                             <constraint firstItem="ePQ-gx-KOl" firstAttribute="top" secondItem="DIs-4e-kiS" secondAttribute="bottom" id="pt5-n6-KjC"/>
                             <constraint firstItem="YOn-Uz-yJg" firstAttribute="leading" secondItem="3Z3-6o-UgR" secondAttribute="leadingMargin" constant="-13" id="txB-yj-UBH"/>
-                            <constraint firstItem="YOn-Uz-yJg" firstAttribute="leading" secondItem="Gh6-Cm-h9P" secondAttribute="leading" id="zUf-La-0eJ"/>
+                            <constraint firstItem="ePQ-gx-KOl" firstAttribute="top" secondItem="aY6-1F-epc" secondAttribute="bottom" constant="20" id="uwP-kH-H1R"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -401,14 +417,14 @@
                                 <exclude reference="cVx-Gv-4xk"/>
                                 <exclude reference="fJA-2A-rtg"/>
                                 <exclude reference="obl-Ha-zS8"/>
-                                <exclude reference="2ge-GC-SZ1"/>
-                                <exclude reference="4ac-O3-VIF"/>
-                                <exclude reference="Ewy-1H-xEi"/>
-                                <exclude reference="F59-ah-56S"/>
-                                <exclude reference="oml-TZ-aRb"/>
-                                <exclude reference="pM5-Ez-hJA"/>
+                                <exclude reference="Aix-LP-olI"/>
+                                <exclude reference="Zeq-Se-phi"/>
+                                <exclude reference="efR-tB-glH"/>
+                                <exclude reference="mXZ-6K-Jac"/>
+                                <exclude reference="Iqd-Zn-Kvh"/>
                                 <exclude reference="txB-yj-UBH"/>
-                                <exclude reference="zUf-La-0eJ"/>
+                                <exclude reference="Img-AN-MHh"/>
+                                <exclude reference="lGj-oK-ZhW"/>
                                 <exclude reference="BpO-x2-Djk"/>
                                 <exclude reference="ata-jh-6UD"/>
                                 <exclude reference="pt5-n6-KjC"/>
