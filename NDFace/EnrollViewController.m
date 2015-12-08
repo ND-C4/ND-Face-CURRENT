@@ -629,10 +629,34 @@
     
     if (DEBUG) NSLog(@"Smile: %@",faceFeature.hasSmile ? @"yes" : @"no");
 
-    // In this new version, we assume the server can do its own detection and
-    // cropping as it builds a template, so we will just send the entire image.
+    // In this version, we send a cropped face, expanded 25% on each side from the face detector used
+    // in this method, to give OpenBR some room for its own detector. We also conditionally rescale the image so that
+    // the largest side length of the 25%-expanded rectangle is no more than 512 pixels. We do not need to
+    // scale the faces to all be the same size or anything like that.
     
-    return facePicture;
+    CGRect b = faceFeature.bounds;
+    CGFloat sx = b.size.width, sy = b.size.height;
+    CGRect newb = CGRectInset(b, -0.25*sx, -0.25*sy);
+    NSLog(@"UIImage extent %@, ciimage extent %@", NSStringFromCGSize(facePicture.size), NSStringFromCGRect(ciimage.extent));
+    CGRect clipnewb = CGRectIntersection(newb,ciimage.extent);
+    NSLog(@"old Rect %@, new rect %@, new cropped rect %@",NSStringFromCGRect(b), NSStringFromCGRect(newb), NSStringFromCGRect(clipnewb));
+    
+    CGImageRef imref = CGImageCreateWithImageInRect([facePicture   CGImage], clipnewb);
+    UIImage *croppedFace = [UIImage imageWithCGImage:imref];
+    UIImage *resizedCroppedFace;
+    CGSize s;
+    if (clipnewb.size.width > clipnewb.size.height) { // scale along x
+        s = CGSizeMake(512, 512*clipnewb.size.height/clipnewb.size.width);
+    } else { //scale along y
+        s = CGSizeMake(512*clipnewb.size.width/clipnewb.size.height, 512);
+    }
+    UIGraphicsBeginImageContext(s);
+    [croppedFace drawInRect:CGRectMake(0,0,s.width,s.height)];
+    resizedCroppedFace = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    //return facePicture;
+    return resizedCroppedFace;
 }
 
 
