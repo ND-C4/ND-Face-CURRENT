@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -127,72 +127,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="back.png" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-4e-kiS">
-                                <rect key="frame" x="117" y="0.0" width="365" height="600"/>
+                                <rect key="frame" x="118" y="0.0" width="365" height="600"/>
                                 <animations/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aY6-1F-epc">
-                                <rect key="frame" x="280" y="544" width="77" height="36"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Home">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="vXZ-lx-hvc" kind="presentation" id="oEt-m3-wJf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOn-Uz-yJg">
-                                <rect key="frame" x="20" y="544" width="77" height="36"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="77" id="Pg6-yl-sDB"/>
-                                    <constraint firstAttribute="height" constant="36" id="eDJ-O8-BSK"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Enroll">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Pg6-yl-sDB"/>
-                                        <exclude reference="eDJ-O8-BSK"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="button_Enroll:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="zfc-Qr-mt1"/>
-                                    <segue destination="Wca-Pe-tJx" kind="presentation" id="LS7-Ur-kT3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcd-ua-aMy">
-                                <rect key="frame" x="144" y="544" width="77" height="36"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Reset">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_Reset:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="6u3-TK-Z4c"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYl-8l-G5s">
-                                <rect key="frame" x="150" y="500" width="65" height="36"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Train">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_Train:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="bNa-Qt-P4I"/>
-                                </connections>
-                            </button>
-                            <view alpha="0.5" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hnG-Ol-Rhc">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hnG-Ol-Rhc">
                                 <rect key="frame" x="144" y="62" width="312" height="476"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsZ-Kx-gud">
@@ -380,6 +318,68 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYl-8l-G5s">
+                                <rect key="frame" x="150" y="500" width="65" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Train">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="button_Train:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="bNa-Qt-P4I"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcd-ua-aMy">
+                                <rect key="frame" x="144" y="544" width="77" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="button_Reset:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="ep5-bU-Xw0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOn-Uz-yJg">
+                                <rect key="frame" x="20" y="544" width="77" height="36"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="77" id="Pg6-yl-sDB"/>
+                                    <constraint firstAttribute="height" constant="36" id="eDJ-O8-BSK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Enroll">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Pg6-yl-sDB"/>
+                                        <exclude reference="eDJ-O8-BSK"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="button_Enroll:" destination="VT7-9n-ALJ" eventType="touchUpInside" id="BTl-FJ-eih"/>
+                                    <segue destination="Wca-Pe-tJx" kind="presentation" id="LS7-Ur-kT3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aY6-1F-epc">
+                                <rect key="frame" x="280" y="544" width="77" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Home">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="vXZ-lx-hvc" kind="presentation" id="oEt-m3-wJf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -436,8 +436,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="f2c-GK-b1l"/>
                     <connections>
-                        <outlet property="button_Enroll" destination="YOn-Uz-yJg" id="QdA-iT-wse"/>
-                        <outlet property="button_Reset" destination="hcd-ua-aMy" id="aMh-24-TBL"/>
+                        <outlet property="button_Enroll" destination="YOn-Uz-yJg" id="VWX-UD-6B1"/>
+                        <outlet property="eMailText" destination="H3G-7t-pLJ" id="hVz-93-q87"/>
+                        <outlet property="firstNameText" destination="rOn-wL-uen" id="Nnp-jG-O8I"/>
+                        <outlet property="lastNameText" destination="v3e-oa-ZFp" id="LnC-58-SMJ"/>
+                        <outlet property="netIDText" destination="r4A-5s-doG" id="v0J-Vh-hX7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SVX-4B-AC7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -547,9 +550,13 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Field" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDW-BX-a8V">
-                                <rect key="frame" x="140" y="88" width="320" height="29"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Field" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDW-BX-a8V">
+                                <rect key="frame" x="158" y="88" width="279" height="29"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="279" id="PXs-h3-hm0"/>
+                                    <constraint firstAttribute="height" constant="29" id="aJo-fy-JBg"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -560,16 +567,17 @@
                         <constraints>
                             <constraint firstItem="kBD-xN-68x" firstAttribute="leading" secondItem="KQe-aq-L3G" secondAttribute="leadingMargin" id="2mr-hO-Zj5"/>
                             <constraint firstItem="wDw-Cq-1F2" firstAttribute="top" secondItem="hEd-Dc-QX0" secondAttribute="bottom" constant="35" id="5mE-dW-ndb"/>
+                            <constraint firstItem="yUk-Xi-S9l" firstAttribute="top" secondItem="EDW-BX-a8V" secondAttribute="bottom" constant="483" id="6c2-cU-CtV"/>
                             <constraint firstItem="yUk-Xi-S9l" firstAttribute="top" secondItem="6Ke-1H-eRP" secondAttribute="bottom" constant="20" id="8eV-Ck-AgQ"/>
                             <constraint firstItem="KYW-aY-3An" firstAttribute="leading" secondItem="KQe-aq-L3G" secondAttribute="leading" id="EoK-FG-qck"/>
                             <constraint firstItem="yUk-Xi-S9l" firstAttribute="top" secondItem="KYW-aY-3An" secondAttribute="bottom" id="Lza-Uh-Yt6"/>
                             <constraint firstAttribute="trailing" secondItem="KYW-aY-3An" secondAttribute="trailing" id="Odw-XQ-p53"/>
                             <constraint firstItem="wDw-Cq-1F2" firstAttribute="centerX" secondItem="KQe-aq-L3G" secondAttribute="centerX" id="YWM-MR-S1w"/>
                             <constraint firstItem="yUk-Xi-S9l" firstAttribute="top" secondItem="kBD-xN-68x" secondAttribute="bottom" constant="20" id="Yx0-Gt-MgV"/>
+                            <constraint firstItem="EDW-BX-a8V" firstAttribute="leading" secondItem="KQe-aq-L3G" secondAttribute="leading" constant="158" id="a68-7Z-n0x"/>
                             <constraint firstItem="6Ke-1H-eRP" firstAttribute="trailing" secondItem="KQe-aq-L3G" secondAttribute="trailingMargin" id="ftH-J5-44d"/>
-                            <constraint firstItem="EDW-BX-a8V" firstAttribute="top" secondItem="wDw-Cq-1F2" secondAttribute="bottom" constant="20" id="gAQ-qi-ywy"/>
                             <constraint firstItem="KYW-aY-3An" firstAttribute="top" secondItem="KQe-aq-L3G" secondAttribute="top" id="hjs-R8-K8K"/>
-                            <constraint firstItem="EDW-BX-a8V" firstAttribute="centerX" secondItem="KQe-aq-L3G" secondAttribute="centerX" id="oOC-eA-faf"/>
+                            <constraint firstItem="EDW-BX-a8V" firstAttribute="top" secondItem="wDw-Cq-1F2" secondAttribute="bottom" constant="8" symbolic="YES" id="n4n-z1-gEv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GgL-bF-CMy"/>
@@ -614,8 +622,8 @@
         <image name="man-silhouette.png" width="300" height="284"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eI0-9p-a4A"/>
         <segue reference="M0k-8S-RbT"/>
+        <segue reference="eI0-9p-a4A"/>
         <segue reference="oEt-m3-wJf"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -201,6 +201,7 @@
 - (IBAction) button_Reset: (id) sender;
     // Reset and Clear all of the User input fields and Photographs
 	{
+    //    NSLog(@"button_Reset has been called");
 		firstNameText.text = @"";
 		lastNameText.text = @"";
 		eMailText.text = @"";
@@ -495,6 +496,7 @@
 			{
 				[theButton setImage: image forState: UIControlStateNormal];
 				[images setValue: image forKey: [theButton description]];
+                NSLog (@"images is %@", images);
 			}
 
 		[self dismissViewControllerAnimated: YES completion: Nil];
@@ -792,7 +794,7 @@
 		else
 			{
 				// The minimum number of Photos is met
-				self.fFlag_RequiredPhotosExists = YES;							// Set flag to condition is met
+				self.fFlag_RequiredPhotosExists = YES;                          // Set flag to condition is met
 			}
 
 		// Enable or Disable the Enroll button based on all criteria being met
@@ -812,7 +814,11 @@
 				// Some of the User text fields are missing text
 				[button_Enroll setEnabled: NO];									// Disable the Enroll button
 
-				// if (DEBUG) NSLog (@"DISABLE Enroll button, Some data is missing");		// Debug Assist Code
+				if (DEBUG) NSLog (@"DISABLE Enroll button, Some data is missing; image count is %d", [images count]);		// Debug Assist Code
+                NSLog(@"first name flag is %d", self.fFlag_FirstNameExists);
+                NSLog(@"last name flag is %d", self.fFlag_LastNameExists);
+                NSLog(@"email flag is %d", self.fFlag_eMailNameExists);
+                NSLog(@"netid flag is %d", self.fFlag_NetIDNameExists);
 			}
 
 	}	// End:  check_EnableDisable_EnrollButton
