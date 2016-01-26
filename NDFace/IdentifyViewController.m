@@ -191,7 +191,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     
     NSArray* features = [detector featuresInImage:ciimage options:fOptions];
     
-    if (DEBUG) NSLog(@"feature detector found %ld features",features.count);
+    if (DEBUG) NSLog(@"feature detector found %ld features",(unsigned long)features.count);
     
     if (features.count != 1) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Face detection failed"

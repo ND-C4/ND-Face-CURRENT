@@ -42,7 +42,7 @@
     // Constants
     enum
         {
-            kPhotos_MinimumAmountNeeded = (4 - 1)						// The minimum number of Photos needed (Currently 4), index starts at 0 so we subtract 1
+            kPhotos_MinimumAmountNeeded = (5 - 1)						// The minimum number of Photos needed (Currently 4), index starts at 1
         };
 
 }

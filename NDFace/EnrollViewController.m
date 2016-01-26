@@ -134,44 +134,6 @@
 
 #pragma mark - Buttons
 
-
-- (IBAction) button_Train: (id) sender
-	{
-        /* NSString *url = @"http://10.10.138.48:5000/train"; */
-        NSString *url = @"http://flynnuc.cse.nd.edu:8776/train";
-		AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
-		requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-		if (DEBUG) NSLog (@"requestManager: %@",requestManager);
-		
-		indicator.center = [self view].center;
-		[[self view] addSubview:indicator];
-		[indicator startAnimating];
-		
-		[requestManager POST: url
-				  parameters: @{}
-   constructingBodyWithBlock: nil
-					 success: ^(AFHTTPRequestOperation *operation, id responseObject)
-						 {
-							 [[iToast makeText:@"Training completed."] show];
-							 [indicator stopAnimating];
-							 [indicator removeFromSuperview];
-							 if (DEBUG) NSLog(@"training success! %@", responseObject );
-						 }
-					 failure: ^(AFHTTPRequestOperation *operation, NSError *error)
-						 {
-							 NSString *e = [NSString stringWithFormat:@"training request failed: %@", error];
-							 [indicator stopAnimating];
-							 [indicator removeFromSuperview];
-							 [[iToast makeText:e] show];
-							 if (DEBUG) NSLog(@"training fail! %@", error);
-						 }
-
-		 ];	// End Block
-
-	}	// End:  button_Train
-
-
-
 - (IBAction) button_TakePhoto: (id) sender
     // Take a Photograph
 	{
@@ -230,7 +192,7 @@
 {
     
     if (DEBUG) NSLog(@"button_Enroll.");
-    if (DEBUG) NSLog (@"good! %ld images to send",[images count]);
+    if (DEBUG) NSLog (@"good! %ld images to send",(unsigned long)[images count]);
 				// We are good, go ahead and run everything
 				pendingrequests = 0;
 				indicator.center = [self view].center;
@@ -241,11 +203,7 @@
                     NSLog (@"iterating: key %@",key);
                     [self sendPic: imageToEnroll];
                 }
-    
-    // Training will be triggered after each image upload; do not need
-    // to call this manaully any longer
-    // [self button_Train:nil];
-    
+        
 } // End:  button_Enroll
 
 #pragma mark - orientation configuration
@@ -581,11 +539,11 @@
     
     NSArray* features = [detector featuresInImage:ciimage options:fOptions];
     
-    if (DEBUG) NSLog(@"feature detector found %ld features",features.count);
+    if (DEBUG) NSLog(@"feature detector found %ld features",(unsigned long)features.count);
     
     if (features.count != 1) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Face detection failed"
-                                                        message:[NSString stringWithFormat:@"One face was expected, %ld were detected.",features.count]
+                                                        message:[NSString stringWithFormat:@"One face was expected, %ld were detected.",(unsigned long)features.count]
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
@@ -814,11 +772,11 @@
 				// Some of the User text fields are missing text
 				[button_Enroll setEnabled: NO];									// Disable the Enroll button
 
-				if (DEBUG) NSLog (@"DISABLE Enroll button, Some data is missing; image count is %d", [images count]);		// Debug Assist Code
-                NSLog(@"first name flag is %d", self.fFlag_FirstNameExists);
-                NSLog(@"last name flag is %d", self.fFlag_LastNameExists);
-                NSLog(@"email flag is %d", self.fFlag_eMailNameExists);
-                NSLog(@"netid flag is %d", self.fFlag_NetIDNameExists);
+//				if (DEBUG) NSLog (@"DISABLE Enroll button, Some data is missing; image count is %d", [images count]);		// Debug Assist Code
+//                NSLog(@"first name flag is %d", self.fFlag_FirstNameExists);
+//                NSLog(@"last name flag is %d", self.fFlag_LastNameExists);
+//                NSLog(@"email flag is %d", self.fFlag_eMailNameExists);
+//                NSLog(@"netid flag is %d", self.fFlag_NetIDNameExists);
 			}
 
 	}	// End:  check_EnableDisable_EnrollButton
