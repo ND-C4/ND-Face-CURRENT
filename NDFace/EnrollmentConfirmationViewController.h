@@ -14,8 +14,12 @@
 }
 
 @property (atomic, strong) IBOutlet UILabel *enrollmentConfirmationLabel;
-@property (atomic,strong) NSString *storedMessage;
+@property (atomic, strong) NSString *storedMessage;
 
--(void) setMessageField:(NSString *) theMessage;
+- (void) setMessageField: (NSString *) theMessage;
+	// Send message to the Display Field
+
+- (BOOL) string_DoesThisString_ContainThisSubString: (NSString *) theStringToSearchStr selSubStr: (NSString *) theSubStr;
+	// Determine if a string contains a specified subString
 
 @end
